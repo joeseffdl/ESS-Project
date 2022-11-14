@@ -28,7 +28,7 @@ function Login({ user = {} }) {
     // Functions
     const onSubmit = formValues => {
         console.log(formValues)
-        
+        router.push("/home/welcome")
     }
 
     return (

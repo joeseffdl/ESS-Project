@@ -39,7 +39,7 @@ export default function Home() {
                 }
               ].map((landing) => {
                 return (
-                  <div className="flex justify-center relative drop-shadow-xl p-5 rounded-xl my-10 bg-neutral-focus" key={landing}>
+                  <div className="flex justify-center relative drop-shadow-xl p-5 rounded-xl my-10 bg-neutral-focus" key={landing.name}>
                     <Image src={`/${landing.image}.jpg`} width={500} height={500} alt={`${landing.name} image`} className="object-cover rounded-lg" />        
                   </div>
                 )
@@ -62,7 +62,7 @@ export default function Home() {
               },
             ].map((features) => {
               return (
-                <div className="flex flex-col items-center drop-shadow-xl p-10 rounded-xl lg:my-5 my-10 bg-neutral-focus" key={features}>
+                <div className="flex flex-col items-center drop-shadow-xl p-10 rounded-xl lg:my-5 my-10 bg-neutral-focus" key={features.name}>
                     <div className="flex-1 relative h-full w-full ">
                         <Image src={`/${features.image}.jpg`} alt={`${features.name} image`} fill className="object-cover rounded-lg" />
                     </div>
@@ -118,7 +118,7 @@ export default function Home() {
                   },
               ].map((team) => {
                   return (
-                      <div className="text-center drop-shadow-xl p-10 rounded-xl my-10 bg-neutral-focus" key={team}>
+                      <div className="text-center drop-shadow-xl p-10 rounded-xl my-10 bg-neutral-focus" key={team.name}>
                           <div className="grid place-content-center">
                               <Image src={`/${team.image}.jpg`} width={100} height={100} alt={`${team.name} image`} className="object-cover rounded-full" />
                           </div>
