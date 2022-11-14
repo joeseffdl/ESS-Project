@@ -30,21 +30,21 @@ export default function Home() {
               </div>
             </div>  
             <div className="md:w-1/2 md:block hidden">
-            <div>
-            {[
-              {
-                image: 'Sample',
-                name: 'Landing Page',
-                desc: 'Image',
-              }
-            ].map((landing) => {
-              return (
-                <div className="grid place-content-center drop-shadow-xl p-5 rounded-xl my-10 bg-neutral-focus" key={landing}>
-                  <Image src={`/${landing.image}.jpg`} width={500} height={500} alt={`${landing.name} image`} />        
-                </div>
-              )
-            })}
-          </div>
+              <div>
+              {[
+                {
+                  image: 'Sample',
+                  name: 'Landing Page',
+                  desc: 'Image',
+                }
+              ].map((landing) => {
+                return (
+                  <div className="flex justify-center relative drop-shadow-xl p-5 rounded-xl my-10 bg-neutral-focus" key={landing}>
+                    <Image src={`/${landing.image}.jpg`} width={500} height={500} alt={`${landing.name} image`} className="object-cover rounded-lg" />        
+                  </div>
+                )
+              })}
+            </div>
           </div>
         </section>
         <section className="my-10 lg:h-screen lg:flex-row flex flex-col-reverse">
@@ -62,14 +62,14 @@ export default function Home() {
               },
             ].map((features) => {
               return (
-                <div className="text-center drop-shadow-xl p-10 rounded-xl lg:my-5 my-10 bg-neutral-focus" key={features}>
-                    <div className="grid place-content-center">
-                        <Image src={`/${features.image}.jpg`} width={100} height={100} alt={`${features.name} image`} />
+                <div className="flex flex-col items-center drop-shadow-xl p-10 rounded-xl lg:my-5 my-10 bg-neutral-focus" key={features}>
+                    <div className="flex-1 relative h-full w-full ">
+                        <Image src={`/${features.image}.jpg`} alt={`${features.name} image`} fill className="object-cover rounded-lg" />
                     </div>
-                    <p className="text-accent text-lg font-medium pt-8 pb-2">
+                    <p className="text-accent text-lg font-medium pt-8">
                         { features.name }
                     </p>
-                    <p className="py-2">
+                    <p className="">
                         { features.desc }
                     </p>
                 </div>
@@ -120,7 +120,7 @@ export default function Home() {
                   return (
                       <div className="text-center drop-shadow-xl p-10 rounded-xl my-10 bg-neutral-focus" key={team}>
                           <div className="grid place-content-center">
-                              <Image src={`/${team.image}.jpg`} width={100} height={100} alt={`${team.name} image`} />
+                              <Image src={`/${team.image}.jpg`} width={100} height={100} alt={`${team.name} image`} className="object-cover rounded-full" />
                           </div>
                           <p className="text-lg font-medium pt-8 pb-2">
                               { team.name }
