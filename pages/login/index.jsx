@@ -1,6 +1,6 @@
-import Footer from "../../components/Footer"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter }  from "next/router"
 import loginImage from "../../public/Sample.jpg"
 import { useState } from "react"
 import { useForm } from "react-hook-form"
@@ -9,6 +9,9 @@ import { string, z } from "zod"
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 
 function Login({ user = {} }) {
+    // Router
+    const router = useRouter()
+
     // NavBar State
     let [open, setOpen] = useState(false)
 
@@ -25,10 +28,11 @@ function Login({ user = {} }) {
     // Functions
     const onSubmit = formValues => {
         console.log(formValues)
+        router.push("/home/welcome")
     }
 
     return (
-        <main className="w-screen text-primary-focus">
+        <main className="w-screen h-screen text-primary-focus">
             <nav className="py-8 font-bold">
                     <div onClick={ () => setOpen(!open)} className="text-3xl absolute right-10 top-4 cursor-pointer md:hidden" >
                         <span>
@@ -49,32 +53,30 @@ function Login({ user = {} }) {
                         </li>
                     </ul>
             </nav>
-            <section className="w-screen h-screen flex justify-center">
-                <div className="container hidden lg:block ">
-                    <div className="h-full flex justify-center items-center">
-                        <Image src={loginImage} alt="Login Image" />
-                    </div>
+            <section className="w-full h-4/5 flex justify-center">
+                <div className="w-full h-full lg:flex hidden items-center justify-center">
+                    <Image src={loginImage} alt="Login Image" className="object-cover rounded-lg" />
                 </div>
                 <div className="container w-full">
                     <div className="h-full flex justify-center items-center p-10">
                         <form className="form-control w-full max-w-md" onSubmit={handleSubmit(onSubmit)}>
                             
                             <h2 className="text-3xl font-bold text-center pb-5">Login to your account</h2>
-                            <div className="pb-3">
+                            <div className="pb-2">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
                                 <input {...register("email")} type="text" placeholder="Email" className="input input-secondary input-bordered w-full max-w-md" />
                                 <div className="text-red-500 p-2">{errors.email?.message}</div>
                             </div>  
-                            <div className="pb-3">
+                            <div className="pb-2">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
                                 <input {...register("password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-md" />
                                 <div className="text-red-500 p-2">{errors.password?.message}</div>
                             </div>
-                            <p className="pb-5 text-center"><span className="font-semibold">Not yet a member?</span> <Link href="/signup">Sign up now</Link></p>
+                            <p className="pb-4 text-center"><span className="font-semibold">Not yet a member?</span> <Link href="/signup">Sign up now</Link></p>
                             <button className="btn btn-outline btn-accent">Sign In</button>
                         </form>
                     </div>
@@ -90,7 +92,6 @@ Login.getLayout = function PageLayout(page) {
     return (
         <>
             {page}
-            <Footer />
         </>
     )
 }

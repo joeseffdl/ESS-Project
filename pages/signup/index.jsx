@@ -1,11 +1,14 @@
-import Footer from "../../components/Footer"
 import Link from "next/link"
+import { useRouter }  from "next/router"
 import { useState } from "react"
 import { useForm, useController } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { string, z } from "zod"
+import { string, boolean, z } from "zod"
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 function SignUp({ user = {} }) {
+    // Router
+    const router = useRouter()
+
     // NavBar State
     let [open, setOpen] = useState(false)
 
@@ -28,13 +31,13 @@ function SignUp({ user = {} }) {
     // Form Validation
     const schema = z.object({
         name: string().min(1, { message: "Please enter your name"}),
-        surname: string().min(1, { message: "Please enter your Surname"}),
-        education: string(),
-        institution: string(),
+        surname: string().min(1, { message: "Please enter your surname"}),
+        education: string().min(1, { message: "Please select your educational attainment"}),
+        institution: string().min(1, { message: "Please select your institution"}),
         email: string().email(),
         password: string().min(1, { message: "Password is required"}),
         confirm_password: string().min(1, { message: "Confirm your password"}),
-        agreed_to_terms: string(),
+        terms: boolean(),
     })
 
     // React Form Hook
@@ -52,7 +55,7 @@ function SignUp({ user = {} }) {
     }
 
     return (
-        <main className="w-screen text-primary-focus">
+        <main className="w-screen h-screen flex flex-col text-primary-focus">
             <nav className="py-8 font-bold">
                 <div onClick={ () => setOpen(!open)} className="text-3xl absolute right-10 top-4 cursor-pointer md:hidden" >
                     <span>
@@ -73,25 +76,31 @@ function SignUp({ user = {} }) {
                     </li>
                 </ul>
             </nav>
-            <section className="w-screen h-screen flex justify-center">
-                <div className="container">
-                    <div className="flex justify-center items-center p-10">
+            
+            <section className="w-full h-full flex items-center justify-center">
+                <div className="">
+                    <div className="flex justify-center items-center p-5">
                         <form className="form-control w-full max-w-md" onSubmit={handleSubmit(onSubmit)}>
                             
                             <h2 className="text-3xl font-bold text-center pb-5">Sign Up to Oregen</h2>
-                            <div className="flex pb-3">
-                                <label className="label">
-                                    <span className="label-text">Given Name</span>
-                                </label>
-                                <input {...register("name")} type="text" placeholder="Given Name" className="input input-secondary input-bordered w-full max-w-md" />
-                                <div className="text-red-500 p-2">{errors.name?.message}</div>
+                            <div className="flex justify-between w-full gap-x-2">
+                                <div>
+                                    <label className="label">
+                                        <span className="label-text">Given Name</span>
+                                    </label>
+                                    <input {...register("name")} type="text" placeholder="Given Name" className="input input-secondary input-bordered w-full max-w-md" />
+                                    <div className="text-sm text-red-500 pt-2">{errors.name?.message}</div>
+                                </div>
+                                <div>
+                                    <label className="label">
+                                        <span className="label-text">Surname</span>
+                                    </label>
+                                    <input {...register("surname")} type="text" placeholder="Surname" className="input input-secondary input-bordered w-full max-w-md" />
+                                    <div className="text-sm text-red-500 pt-2">{ errors.surname?.message}</div>
+                                </div>
+                            </div>
                             
-                                <label className="label">
-                                    <span className="label-text">Surname</span>
-                                </label>
-                                <input {...register("surname")} type="text" placeholder="Surname" className="input input-secondary input-bordered w-full max-w-md" />
-                                <div className="text-red-500 p-2">{ errors.surname?.message}</div>
-                            </div> 
+                            
                             <div>
                                 <label className="label">
                                     <span className="label-text">Educational Attainment</span>
@@ -110,8 +119,10 @@ function SignUp({ user = {} }) {
                                         )
                                     })}
                                 </select>
-                                <div className="text-red-500">{ errors.education?.message}</div>
+                                <div className="text-sm text-red-500 pt-2">{ errors.education?.message}</div>
                             </div>
+
+
                             <div>
                                 <label className="label">
                                     <span className="label-text">Institution</span>
@@ -130,34 +141,41 @@ function SignUp({ user = {} }) {
                                         )
                                     })}
                                 </select>
-                                <div className="text-red-500">{ errors.institution?.message}</div>
+                                <div className="text-sm text-red-500 pt-2">{ errors.institution?.message}</div>
                             </div>
-                            <div className="pb-3">
+
+
+                            <div className="">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
                                 <input {...register("email")} type="text" placeholder="Email" className="input input-secondary input-bordered w-full max-w-md" />
-                                <div className="text-red-500 p-2">{errors.email?.message}</div>
-                            </div>  
-                            <div className="flex pb-3">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <input {...register("password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-md" />
-                                <div className="text-red-500 p-2">{errors.password?.message}</div>
-                            
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <input {...register("confirm_password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-md" />
-                                <div className="text-red-500 p-2">{errors.confirm_password?.message}</div>
+                                <div className="text-sm text-red-500 pt-2">{errors.email?.message}</div>
+                            </div>
+
+
+                            <div className="flex justify-between w-full gap-x-2">
+                                <div>
+                                    <label className="label">
+                                        <span className="label-text">Password</span>
+                                    </label>
+                                    <input {...register("password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-md" />
+                                    <div className="text-sm text-red-500 pt-2">{errors.password?.message}</div>
+                                </div>
+                                <div>
+                                    <label className="label">
+                                        <span className="label-text">Confirm Password</span>
+                                    </label>
+                                    <input {...register("confirm_password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-md" />
+                                    <div className="text-sm text-red-500 pt-2">{errors.confirm_password?.message}</div>
+                                </div>
                             </div>
                             <div className="pb-3">
                                 <label className="cursor-pointer label">
-                                    <input {...register("agreed_to_terms")} type="checkbox" className="checkbox checkbox-secondary" />
+                                    <input {...register("terms")} type="checkbox" className="checkbox checkbox-secondary" />
                                     <span className="label-text ml-2">By signing up, you agree to the Terms of Service and Privacy Policy.</span>
                                 </label>
-                                <div className="text-red-500 p-2">{errors.agreed_to_terms?.message}</div>
+                                <div className="text-sm text-red-500 pt-2">{errors.terms?.message}</div>
                             </div>
                             <button className="btn btn-outline btn-accent">Sign In</button>
                         </form>
@@ -174,7 +192,6 @@ SignUp.getLayout = function PageLayout(page) {
     return (
         <>
             {page}
-            <Footer />
         </>
     )
 }
