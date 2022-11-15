@@ -28,7 +28,7 @@ function Login({ user = {} }) {
     // Functions
     const onSubmit = formValues => {
         console.log(formValues)
-        router.push("/home/welcome")
+        router.push("/dashboard/welcome")
     }
 
     return (
@@ -59,21 +59,21 @@ function Login({ user = {} }) {
                 </div>
                 <div className="container w-full">
                     <div className="h-full flex justify-center items-center p-10">
-                        <form className="form-control w-full max-w-md" onSubmit={handleSubmit(onSubmit)}>
+                        <form className="form-control w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
                             
                             <h2 className="text-3xl font-bold text-center pb-5">Login to your account</h2>
                             <div className="pb-2">
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input {...register("email")} type="text" placeholder="Email" className="input input-secondary input-bordered w-full max-w-md" />
+                                <input {...register("email")} type="text" placeholder="Email" className="input input-secondary input-bordered w-full max-w-lg" />
                                 <div className="text-red-500 p-2">{errors.email?.message}</div>
                             </div>  
                             <div className="pb-2">
                                 <label className="label">
                                     <span className="label-text">Password</span>
                                 </label>
-                                <input {...register("password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-md" />
+                                <input {...register("password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-lg" />
                                 <div className="text-red-500 p-2">{errors.password?.message}</div>
                             </div>
                             <p className="pb-4 text-center"><span className="font-semibold">Not yet a member?</span> <Link href="/signup">Sign up now</Link></p>

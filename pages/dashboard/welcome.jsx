@@ -1,7 +1,28 @@
 import AppNavigation from "../../components/AppNavigation"
 import Link from "next/link"
-
+import {useRouter} from "next/router"
+import { useState, useEffect } from "react"
+import Confetti from "react-confetti"
 function Welcome() {
+    // Router
+    const router = useRouter()
+
+    // Confetti
+    const [pieces, setPieces] = useState(200)
+ 
+    const stopConfetti = () => {
+        setTimeout(() => {
+            setPieces(0)
+        }, 3000)
+    }
+    
+    useEffect(() => {
+        // if (true) {
+        //     router.push("/home")
+        // }
+        stopConfetti()
+    }, [])
+
     return (
         <section className="w-screen h-screen flex items-center">
             <div className="w-full h-4/5 flex justify-center items-center">
@@ -21,6 +42,10 @@ function Welcome() {
                     </div>
                 </div>
             </div>
+            <Confetti
+                gravity={0.2}
+                numberOfPieces={pieces}
+            />
         </section>
     )
 }
