@@ -62,7 +62,7 @@ function SignUp({ user = {} }) {
                         { open ? <AiOutlineClose /> : <AiOutlineMenu /> }
                     </span>
                 </div>
-                <ul className={`px-10 md:flex md:items-center md:justify-between md:px-20 ${ open ? "absolute mt-10 md:mt-0" : "hidden"}`}>
+                <ul className={`px-10 md:flex md:items-center md:justify-between md:px-20 ${ open ? "absolute md:mt-0" : "hidden"}`}>
                     <li className="hover:translate-x-2 md:hover:-translate-x-2 ease-in-out duration-300">
                         <Link href="/">
                             <p className="md:text-4xl text-3xl">Oregen</p>
@@ -78,25 +78,25 @@ function SignUp({ user = {} }) {
             </nav>
             
             <section className="w-full h-full flex items-center justify-center">
-                <div className="">
+                <div className="mb-10">
                     <div className="flex justify-center items-center p-5">
-                        <form className="form-control w-full max-w-md" onSubmit={handleSubmit(onSubmit)}>
+                        <form className="form-control w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
                             
-                            <h2 className="text-3xl font-bold text-center pb-5">Sign Up to Oregen</h2>
+                            <h2 className="md:text-4xl text-3xl font-bold text-center pb-5">Sign Up to Oregen</h2>
                             <div className="flex justify-between w-full gap-x-2">
                                 <div>
                                     <label className="label">
                                         <span className="label-text">Given Name</span>
                                     </label>
-                                    <input {...register("name")} type="text" placeholder="Given Name" className="input input-secondary input-bordered w-full max-w-md" />
+                                    <input {...register("name")} type="text" placeholder="Given Name" className="input input-secondary input-bordered w-full max-w-lg" />
                                     <div className="text-sm text-red-500 pt-2">{errors.name?.message}</div>
                                 </div>
                                 <div>
                                     <label className="label">
                                         <span className="label-text">Surname</span>
                                     </label>
-                                    <input {...register("surname")} type="text" placeholder="Surname" className="input input-secondary input-bordered w-full max-w-md" />
-                                    <div className="text-sm text-red-500 pt-2">{ errors.surname?.message}</div>
+                                    <input {...register("surname")} type="text" placeholder="Surname" className="input input-secondary input-bordered w-full max-w-lg" />
+                                    <div className="text-sm text-red-500 pt-2 ml-1">{ errors.surname?.message}</div>
                                 </div>
                             </div>
                             
@@ -106,7 +106,7 @@ function SignUp({ user = {} }) {
                                     <span className="label-text">Educational Attainment</span>
                                 </label>
                                 <select
-                                    className="select select-secondary w-full max-w-md"
+                                    className="select select-secondary w-full max-w-lg"
                                     value={educationOptions.find((value) => value == field.value)}
                                     onChange={handleSelectChange}
                                 >
@@ -128,7 +128,7 @@ function SignUp({ user = {} }) {
                                     <span className="label-text">Institution</span>
                                 </label>
                                 <select
-                                    className="select select-secondary w-full max-w-md"
+                                    className="select select-secondary w-full max-w-lg"
                                     value={institutionOptions.find((value) => value == field.value)}
                                     onChange={handleSelectChange}
                                 >
@@ -149,7 +149,7 @@ function SignUp({ user = {} }) {
                                 <label className="label">
                                     <span className="label-text">Email</span>
                                 </label>
-                                <input {...register("email")} type="text" placeholder="Email" className="input input-secondary input-bordered w-full max-w-md" />
+                                <input {...register("email")} type="text" placeholder="Email" className="input input-secondary input-bordered w-full max-w-lg" />
                                 <div className="text-sm text-red-500 pt-2">{errors.email?.message}</div>
                             </div>
 
@@ -159,15 +159,15 @@ function SignUp({ user = {} }) {
                                     <label className="label">
                                         <span className="label-text">Password</span>
                                     </label>
-                                    <input {...register("password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-md" />
+                                    <input {...register("password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-lg" />
                                     <div className="text-sm text-red-500 pt-2">{errors.password?.message}</div>
                                 </div>
                                 <div>
                                     <label className="label">
                                         <span className="label-text">Confirm Password</span>
                                     </label>
-                                    <input {...register("confirm_password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-md" />
-                                    <div className="text-sm text-red-500 pt-2">{errors.confirm_password?.message}</div>
+                                    <input {...register("confirm_password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-lg" />
+                                    <div className="text-sm text-red-500 pt-2 ml-1">{errors.confirm_password?.message}</div>
                                 </div>
                             </div>
                             <div className="pb-3">

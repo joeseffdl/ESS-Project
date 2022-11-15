@@ -8,8 +8,8 @@ function AppNavigation() {
 
     // Links
     let Links =[
-      {name:"Projects",link:"/home/projects"},
-      {name:"Account",link:"/home/account"},
+      {name:"Projects",link:"/dashboard/projects"},
+      {name:"Account",link:"/dashboard/account"},
     ];
 
     return (
