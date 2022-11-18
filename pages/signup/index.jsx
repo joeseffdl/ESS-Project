@@ -177,7 +177,7 @@ function SignUp({ user = {} }) {
                                 </label>
                                 <div className="text-sm text-red-500 pt-2">{errors.terms?.message}</div>
                             </div>
-                            <button className="btn btn-outline btn-accent">Sign In</button>
+                            <button className="btn btn-outline btn-accent">Sign Up</button>
                         </form>
                     </div>
                 </div>

@@ -2,15 +2,19 @@ import Image from "next/image"
 import Link from "next/link"
 import { useRouter }  from "next/router"
 import loginImage from "../../public/Sample.jpg"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { string, z } from "zod"
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
-
-function Login({ user = {} }) {
+import { FcGoogle } from "react-icons/fc"
+import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+import { auth } from "../../utils/firebase"
+import { useAuthState } from "react-firebase-hooks/auth"
+function Login({ defaultUser = {} }) {
     // Router
     const router = useRouter()
+    const [user, loading] = useAuthState(auth)
 
     // NavBar State
     let [open, setOpen] = useState(false)
@@ -22,7 +26,7 @@ function Login({ user = {} }) {
     })
 
     // React Form Hook
-    const { register, handleSubmit, formState } = useForm({ defaultValues: user, resolver: zodResolver(schema) })
+    const { register, handleSubmit, formState } = useForm({ defaultValues: defaultUser, resolver: zodResolver(schema) })
     const { errors } = formState
 
     // Functions
@@ -30,6 +34,26 @@ function Login({ user = {} }) {
         console.log(formValues)
         router.push("/dashboard/welcome")
     }
+
+    // Sign in with Google
+    const googleProvider = new GoogleAuthProvider()
+    const GoogleLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, googleProvider)
+            router.push("/dashboard/welcome")
+        }
+        catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => {
+        {
+            user
+                ? router.push("../dashboard")
+                : console.log("No user logged in")
+        }
+    }, [user])
 
     return (
         <main className="w-screen h-screen text-primary-focus">
@@ -58,7 +82,7 @@ function Login({ user = {} }) {
                     <Image src={loginImage} alt="Login Image" className="object-cover rounded-lg" />
                 </div>
                 <div className="container w-full">
-                    <div className="h-full flex justify-center items-center p-10">
+                    <div className="h-full flex flex-col justify-center items-center p-10">
                         <form className="form-control w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
                             
                             <h2 className="text-3xl font-bold text-center pb-5">Login to your account</h2>
@@ -77,9 +101,16 @@ function Login({ user = {} }) {
                                 <div className="text-red-500 p-2">{errors.password?.message}</div>
                             </div>
                             <p className="pb-4 text-center"><span className="font-semibold">Not yet a member?</span> <Link href="/signup">Sign up now</Link></p>
-                            <button className="btn btn-outline btn-accent">Sign In</button>
+                            <button className="btn btn-outline btn-accent mb-3">Sign In</button>
                         </form>
+                        <div className="flex justify-center items-center w-full max-w-lg" >
+                            <button onClick={GoogleLogin} className="btn btn-neutral w-full">
+                                <FcGoogle className="text-2xl mr-2" />
+                                Sign In with Google
+                            </button>
+                        </div> 
                     </div>
+                            
                 </div>
             </section>
         </main>

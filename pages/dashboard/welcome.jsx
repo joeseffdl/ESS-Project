@@ -1,11 +1,22 @@
 import AppNavigation from "../../components/AppNavigation"
 import Link from "next/link"
-import {useRouter} from "next/router"
+import { useRouter } from "next/router"
+import { auth } from "../../utils/firebase"
+import { useAuthState } from "react-firebase-hooks/auth"
 import { useState, useEffect } from "react"
 import Confetti from "react-confetti"
 function Welcome() {
     // Router
     const router = useRouter()
+
+    // Handle user
+    const [user, loading] = useAuthState(auth)
+    
+    // Logged in?
+    const getData = async () => {
+        if (loading) return;
+        if (!user) return router.push("/login")
+    }
 
     // Confetti
     const [pieces, setPieces] = useState(200)
@@ -17,11 +28,9 @@ function Welcome() {
     }
     
     useEffect(() => {
-        // if (true) {
-        //     router.push("/home")
-        // }
+        getData()
         stopConfetti()
-    }, [])
+    }, [user, loading])
 
     return (
         <section className="w-screen h-screen flex items-center">

@@ -1,9 +1,13 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
-
+import { auth } from "../utils/firebase"
+import { useAuthState } from "react-firebase-hooks/auth"
 
 function Navigation() {
+    // Handle user
+    const [user, loading] = useAuthState(auth)
+
     const [showNav, setShowNav] = useState(false)
     const [scrollPosition, setScrollPosition] = useState(0)
     let [open, setOpen] = useState(false)
@@ -36,12 +40,24 @@ function Navigation() {
                             <p className="md:text-4xl text-3xl">Oregen</p>
                         </Link>
                     </li> 
+                    {!user
+                        ? (
+                            <li className="hover:translate-x-2 ease-in-out duration-300">
+                                <Link href="/login">
+                                    <p className="md:text-2xl text-xl">Login</p>
+                                </Link>
+                            </li>
+                        )
+                        :
+                        (
+                        <li className="hover:translate-x-2 ease-in-out duration-300">
+                            <Link href="/dashboard/templates">
+                                <p className="md:text-2xl text-xl">Generate</p>
+                            </Link>
+                        </li>
+                        )
+                    }
                     
-                    <li className="hover:translate-x-2 ease-in-out duration-300">
-                        <Link href="/login">
-                            <p className="md:text-2xl text-xl">Login</p>
-                        </Link>
-                    </li>
                 </ul>
             </nav>
         </main>
