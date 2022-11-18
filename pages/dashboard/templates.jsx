@@ -1,8 +1,29 @@
 import AppNavigation from "../../components/AppNavigation"
 import Image from "next/image"
 import Link from "next/link"
+import { useRouter } from "next/router"
+import { auth } from "../../utils/firebase"
+import { useAuthState } from "react-firebase-hooks/auth"
+import { useState, useEffect } from "react"
 
 function Templates() {
+    // Router
+    const router = useRouter()
+
+    // Handle user
+    const [user, loading] = useAuthState(auth)
+    
+    // Logged in?
+    const getData = async () => {
+        if (loading) return;
+        if (!user) return router.push("/login")
+    }
+
+    // Get users data
+    useEffect(() => {
+        getData()
+    }, [user,loading])
+
     const templates = [
         {name: "Template 1", image: "Sample"},
         {name: "Template 2", image: "Sample"},
@@ -24,7 +45,7 @@ function Templates() {
                 <div className="h-32 flex items-center justify-center font-bold">
                     <h2 className="lg:text-4xl sm:text-3xl text-2xl text-secondary">Gallery - Academic Journal</h2>
                 </div>
-                <div className="grid place-items-center border-4 border-primary bg-neutral mx-10 mb-20 py-10 drop-shadow-md rounded-xl
+                <div className="-z-10 grid place-items-center border-4 border-primary bg-neutral mx-10 mb-20 py-10 drop-shadow-md rounded-xl
                 md:mx-20 lg:py-20">
                     <div className="
                         grid gap-10   
