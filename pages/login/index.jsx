@@ -6,11 +6,12 @@ import { useState, useEffect } from "react"
 import { useForm } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
 import { string, z } from "zod"
-import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineMenu, AiOutlineGithub } from 'react-icons/ai'
 import { FcGoogle } from "react-icons/fc"
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth"
+import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth"
 import { auth } from "../../utils/firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
+import {toast} from "react-toastify"
 function Login({ defaultUser = {} }) {
     // Router
     const router = useRouter()
@@ -43,6 +44,20 @@ function Login({ defaultUser = {} }) {
             router.push("/dashboard/welcome")
         }
         catch (err) {
+            toast.error("Unauthenticated ☹️")
+            console.log(err)
+        }
+    }
+
+    // Sign in with Google
+    const githubProvider = new GithubAuthProvider()
+    const GitHubLogin = async () => {
+        try {
+            const result = await signInWithPopup(auth, githubProvider)
+            router.push("/dashboard/welcome")
+        }
+        catch (err) {
+            toast.error("Unauthenticated ☹️")
             console.log(err)
         }
     }
@@ -70,11 +85,11 @@ function Login({ defaultUser = {} }) {
                             </Link>
                         </li> 
                         
-                        <li className="hover:translate-x-2 ease-in-out duration-300">
+                        {/* <li className="hover:translate-x-2 ease-in-out duration-300">
                             <Link href="/signup">
                                 <p className="md:text-2xl text-xl">Sign Up</p>
                             </Link>
-                        </li>
+                        </li> */}
                     </ul>
             </nav>
             <section className="w-full h-4/5 flex justify-center">
@@ -82,10 +97,10 @@ function Login({ defaultUser = {} }) {
                     <Image src={loginImage} alt="Login Image" className="object-cover rounded-lg" />
                 </div>
                 <div className="container w-full">
-                    <div className="h-full flex flex-col justify-center items-center p-10">
-                        <form className="form-control w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
+                    <div className="h-full flex flex-col gap-3 justify-center items-center p-10">
+                        <h2 className="text-3xl font-bold text-center pb-5">Login to your account</h2>
+                        {/* <form className="form-control w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
                             
-                            <h2 className="text-3xl font-bold text-center pb-5">Login to your account</h2>
                             <div className="pb-2">
                                 <label className="label">
                                     <span className="label-text">Email</span>
@@ -101,12 +116,18 @@ function Login({ defaultUser = {} }) {
                                 <div className="text-red-500 p-2">{errors.password?.message}</div>
                             </div>
                             <p className="pb-4 text-center"><span className="font-semibold">Not yet a member?</span> <Link href="/signup">Sign up now</Link></p>
-                            <button className="btn btn-outline btn-accent mb-3">Sign In</button>
-                        </form>
+                            <button className="btn btn-outline btn-accent">Sign In</button>
+                        </form> */}
                         <div className="flex justify-center items-center w-full max-w-lg" >
                             <button onClick={GoogleLogin} className="btn btn-neutral w-full">
                                 <FcGoogle className="text-2xl mr-2" />
                                 Sign In with Google
+                            </button>
+                        </div> 
+                        <div className="flex justify-center items-center w-full max-w-lg" >
+                            <button onClick={GitHubLogin} className="btn btn-neutral w-full">
+                                <AiOutlineGithub className="text-2xl mr-3" />
+                                Sign In with GitHub
                             </button>
                         </div> 
                     </div>
