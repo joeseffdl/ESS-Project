@@ -1,4 +1,3 @@
-import Head from 'next/head'
 import Link from 'next/link'
 import Image from 'next/image'
 import { auth } from "../utils/firebase"
@@ -10,12 +9,6 @@ export default function Home() {
 
   return (
     <>
-      <Head>
-        <title>OREGEN</title>
-        <meta name="description" content="Research journal template generator" />
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
       <main className="w-screen bg-neutral text-primary-focus p-20">
         <section className="lg:my-12 md:my-24 my-36 md:flex md:flex-cols-2 font-bold">
           <div className="md:w-1/2 flex flex-col justify-center"> 

@@ -98,7 +98,7 @@ function Login({ defaultUser = {} }) {
                 </div>
                 <div className="container w-full">
                     <div className="h-full flex flex-col gap-3 justify-center items-center p-10">
-                        <h2 className="text-3xl font-bold text-center pb-5">Login to your account</h2>
+                        <h2 className="text-3xl font-bold text-center text-secondary pb-5">Login to your account</h2>
                         {/* <form className="form-control w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
                             
                             <div className="pb-2">

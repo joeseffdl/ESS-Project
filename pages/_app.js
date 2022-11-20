@@ -1,3 +1,5 @@
+import Head from 'next/head'
+import Link from 'next/link'
 import '../styles/globals.css'
 import { DataProvider } from '../context/DataContext'
 import Layout from '../components/Layout'
@@ -8,7 +10,13 @@ function MyApp({ Component, pageProps }) {
   if (Component.getLayout) {
     return Component.getLayout(
       <DataProvider> 
-        <ToastContainer draggable={false} limit={1} />
+        <Head>
+          <title>OREGEN</title>
+          <meta name="description" content="Research journal template generator" />
+          <link rel="icon" href="/favicon.ico" />
+          <Link href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet" />
+        </Head>
+        <ToastContainer draggable={false} limit={1} autoClose={1500} />
         <Component {...pageProps} />
       </DataProvider> 
     )
@@ -16,8 +24,14 @@ function MyApp({ Component, pageProps }) {
   
   return (
     <DataProvider>
+      <Head>
+        <title>OREGEN</title>
+        <meta name="description" content="Research journal template generator" />
+        <link rel="icon" href="/favicon.ico" />
+        <Link href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet" />
+      </Head>
       <Layout>
-        <ToastContainer draggable={false} limit={1} />
+        <ToastContainer draggable={false} limit={1} autoClose={1500} />
         <Component {...pageProps} />
       </Layout>
     </DataProvider>
