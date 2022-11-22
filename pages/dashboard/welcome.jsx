@@ -39,7 +39,7 @@ function Welcome() {
                     <div className="text-center p-5 ">
                         <h2 className="font-bold xl:text-5xl md:text-4xl sm:text-3xl text-2xl pb-5">Welcome to Oregen!</h2>
                         <p className="xl:text-2xl lg:px-5 md:text-xl sm:text-lg md:my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, consectetur sequi doloribus amet ratione qui iure nobis repudiandae nisi aut, sapiente excepturi dolore! Adipisci accusamus aspernatur eum vero nobis dolorem.</p>
-                        <Link href="/dashboard/templates">
+                        <Link href="../journal-template">
                             <button
                                 className="btn btn-sm btn-outline btn-accent rounded-xl my-5
                                 xl:btn-lg sm:btn-md border-2 
