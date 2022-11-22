@@ -16,7 +16,7 @@ export default function Home() {
                 <p className="lg:text-4xl text-2xl ">Oregen <span className="md:text-2xl text-base">by GROUP 12</span></p>
                 <p className="lg:text-6xl text-4xl ">Research journal <br />template generator</p>
               
-              <Link href={!user ? "/login" : "/dashboard/templates" }>
+              <Link href={!user ? "/login" : "/journal-template" }>
                   <button
                     className="btn btn-outline btn-accent
                       lg:btn-lg
