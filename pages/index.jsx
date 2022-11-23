@@ -10,11 +10,11 @@ export default function Home() {
   return (
     <>
       <main className="w-screen bg-neutral text-primary-focus p-20">
-        <section className="lg:my-12 md:my-24 my-36 md:flex md:flex-cols-2 font-bold">
+        <section className="lg:my-12 md:my-24 my-28 md:flex md:flex-cols-2 font-bold">
           <div className="md:w-1/2 flex flex-col justify-center"> 
             <div >
-                <p className="lg:text-4xl text-2xl ">Oregen <span className="md:text-2xl text-base">by GROUP 12</span></p>
-                <p className="lg:text-6xl text-4xl ">Research journal <br />template generator</p>
+                <p className="lg:text-4xl text-3xl ">Oregen <span className="md:text-2xl text-lg">by GROUP 12</span></p>
+                <p className="lg:text-6xl text-5xl ">Research journal <br />template generator</p>
               
               <Link href={!user ? "/login" : "/journal-template" }>
                   <button
@@ -61,14 +61,15 @@ export default function Home() {
               },
             ].map((features) => {
               return (
-                <div className="flex flex-col items-center drop-shadow-xl p-10 rounded-xl lg:my-5 my-10 bg-neutral-focus" key={features.name}>
-                    <div className="flex-1 relative h-full w-full ">
+                <div className="card items-center drop-shadow-xl p-10 rounded-xl lg:my-5 my-10 bg-neutral-focus" key={features.name}>
+                    <div className="flex-1 relative w-full ">
                         <Image src={`/${features.image}.jpg`} alt={`${features.name} image`} fill className="object-cover rounded-lg" />
-                    </div>
-                    <p className="text-accent text-lg font-medium pt-8">
+                  </div>
+                  
+                    <h2 className="card-title text-accent text-lg font-medium pt-8">
                         { features.name }
-                    </p>
-                    <p className="">
+                    </h2>
+                    <p className="badge badge-secondary">
                         { features.desc }
                     </p>
                 </div>
@@ -101,36 +102,36 @@ export default function Home() {
                       image: 'Sample',
                       name: 'Lance Blas',
                       desc: 'Developer',
-                      skills: ['Project Manager',]
+                      skills: ['Project Manager','Quality Assurance',]
                   },
                   {
                       image: 'Sample',
                       name: 'Joseph De Leon',
                       desc: `Developer`,
-                      skills: ['Full Stack Web Developer',]
+                      skills: ['Front-end','Back-end',]
                   },
                   {
                       image: 'Sample',
                       name: 'Daniel Vasquez',
                       desc: 'Developer',
-                      skills: ['Fullstack Web Developer',]
+                    skills: ['Front-end', 'Back-end',]
                   },
               ].map((team) => {
                   return (
-                      <div className="text-center drop-shadow-xl p-10 rounded-xl my-10 bg-neutral-focus" key={team.name}>
+                      <div className="card glass text-center drop-shadow-xl p-10 rounded-xl my-10 bg-neutral-focus" key={team.name}>
                           <div className="grid place-content-center">
-                              <Image src={`/${team.image}.jpg`} width={100} height={100} alt={`${team.name} image`} className="object-cover rounded-full" />
+                              <Image src={`/${team.image}.jpg`} width={100} height={100} alt={`${team.name} image`} className="object-cover rounded-full border-2 border-neutral/50" />
                           </div>
-                          <p className="text-lg font-medium pt-8 pb-2">
+                          <p className="text-neutral text-lg font-medium pt-8 pb-2">
                               { team.name }
                           </p>
-                          <p className="py-2">
+                          <p className="text-slate-300 font-semibold py-2">
                               { team.desc }
                           </p>
                           <ul>
                               {team.skills.map((skill) => {
                                   return (
-                                      <li className="text-accent font-semibold py-1" key={skill}>
+                                      <li className="badge badge-neutral text-accent font-semibold p-2 mx-1" key={skill}>
                                           {skill}
                                       </li>
                                   )

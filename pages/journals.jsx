@@ -106,13 +106,13 @@ function Journals() {
                     Journals Overview
                 </h2>
                 <div className="bg-white p-5 rounded-2xl divide-y-2">
-                    <div className="grid grid-cols-3 items-center font-bold text-sm text-neutral-focus
+                    <div className="flex justify-between md:grid md:grid-cols-3 items-center font-bold text-sm text-neutral-focus
                         sm:text-base md:text-lg lg:text-xl">
-                        <div className="pl-2 truncate">Journal Title</div>
-                        <div className="col-span-2">
-                            <ul className="grid grid-cols-3 justify-items-center items-center">
-                                <li className="">Owner</li>
-                                <li className="">Created</li>
+                        <div className="pl-2 ">Journal Title</div>
+                        <div className="col-span-2 w-1/2 md:w-full">
+                            <ul className="flex justify-center items-center md:grid md:grid-cols-3 md:justify-items-center ">
+                                <li className="hidden md:block">Owner</li>
+                                <li className="hidden md:block">Created</li>
                                 <li className="pr-2">Actions</li>
                             </ul>
                         </div>

@@ -54,16 +54,19 @@ function Templates() {
                             return (
                                 <>
                                     <Link href={`${template.route}`} >
-                                        <div className="
-                                            mx-10  rounded-xl drop-shadow-xl bg-secondary
+                                        <div className="card image-full hover:border-secondary hover:border hover:scale-105 ease-in-out duration-150
+                                            mx-10 rounded-xl drop-shadow-xl
                                             w-60 h-60 sm:w-68 sm:h-68 md:w-72 md:h-72 xl:w-80 xl:h-80"
                                         key={template.name}>
                                             <Image
-                                                className="object-cover rounded-xl drop-shadow-xl border-2 border-secondary hover:border-secondary-focus hover:scale-105 hover:border-4 ease-in-out duration-150" 
+                                                className="object-cover rounded-xl border-2 border-secondary " 
                                                 src={`/${template.image}.jpg`}
                                                 alt={`${template.name} image`}
                                                 fill
                                             />
+                                            <div className="card-body">
+                                                <h2 className="card-title justify-center">{template.name}</h2>
+                                            </div>
                                         </div>
                                     </Link>
                                 </>
