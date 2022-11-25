@@ -21,7 +21,6 @@
     "react-firebase-hooks": "^5.1.1",
     "react-hook-form": "^7.39.3",
     "react-icons": "^4.6.0",
-    "react-latex": "^2.0.0",
     "react-toastify": "^9.1.1",
     "validator": "^13.7.0",
     "zod": "^3.19.1"

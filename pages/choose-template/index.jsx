@@ -25,15 +25,15 @@ function Templates() {
     }, [user,loading])
 
     const templates = [
-        {name: "IEEE", image: "Sample", route:"/journal-template/IEEE"},
-        {name: "MDPI", image: "Sample", route:"/journal-template/MDPI"},
-        {name: "Template 3", image: "Sample"},
-        {name: "Template 4", image: "Sample"},
-        {name: "Template 5", image: "Sample"},
-        {name: "Template 6", image: "Sample"},
-        {name: "Template 7", image: "Sample"},
-        {name: "Template 8", image: "Sample"},
-        {name: "Template 9", image: "Sample"},
+        { name: "RESUME", image: "Sample", route:"/choose-template/Resume" },
+        { name: "Template 2", image: "Sample", route:"/choose-template" },
+        { name: "Template 3", image: "Sample", route: "/choose-template" },
+        { name: "Template 4", image: "Sample", route: "/choose-template" },
+        { name: "Template 5", image: "Sample", route: "/choose-template" },
+        { name: "Template 6", image: "Sample", route: "/choose-template" },
+        { name: "Template 7", image: "Sample", route: "/choose-template" },
+        { name: "Template 8", image: "Sample", route: "/choose-template" },
+        { name: "Template 9", image: "Sample", route: "/choose-template" },
     ]
 
     return (
