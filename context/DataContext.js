@@ -3,11 +3,30 @@ import { createContext, useState } from 'react'
 const DataContext = createContext({})
 
 export const DataProvider = ({ children }) => {
-    const [journalValues, setJournalValues] = useState({
+    const [resumeValues, setResumeValues] = useState({
         // User Data 
-        title: "",
-        description: "",
-
+        firstname: "",
+        surname: "",
+        city: "",
+        country: "",
+        postalCode: "",
+        phoneNumber: "",
+        emailAddress: "",
+        workExpTitle: "",
+        workExpEmployer: "",
+        workExpCity: "",
+        workExpCountry: "",
+        workExpStart: "",
+        workExpEnd: "",
+        workExpCurrently: false,
+        institutionName: "",
+        institutionLocation: "",
+        degreeType: "",
+        otherDegree: false,
+        fieldOfStudy: "",
+        graduationMonth: "",
+        graduationYear: "",
+        currentlyStudying: false,
     })
 
     const [completedSteps, setCompletedSteps] = useState({
@@ -17,7 +36,7 @@ export const DataProvider = ({ children }) => {
 
     return (
         <DataContext.Provider value={{
-            journalValues, setJournalValues,
+            resumeValues, setResumeValues,
             completedSteps, setCompletedSteps,
         }}>
         {children}

@@ -13,7 +13,7 @@ function AppNavigation() {
 
     // Links
     let Links =[
-      {name:"Journals",link:"/journals"},
+      {name:"Resumes",link:"/resumes"},
       {name:"Account",link:"/dashboard/account"},
     ];
 

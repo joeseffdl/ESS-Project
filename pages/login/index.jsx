@@ -33,7 +33,7 @@ function Login({ defaultUser = {} }) {
     // Functions
     const onSubmit = formValues => {
         console.log(formValues)
-        router.push("/dashboard/welcome")
+        router.push("/dashboard")
     }
 
     // Sign in with Google
@@ -41,7 +41,7 @@ function Login({ defaultUser = {} }) {
     const GoogleLogin = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider)
-            router.push("/dashboard/welcome")
+            router.push("/dashboard")
         }
         catch (err) {
             toast.error("Unauthenticated ☹️")
@@ -54,7 +54,7 @@ function Login({ defaultUser = {} }) {
     const GitHubLogin = async () => {
         try {
             const result = await signInWithPopup(auth, githubProvider)
-            router.push("/dashboard/welcome")
+            router.push("/dashboard")
         }
         catch (err) {
             toast.error("Unauthenticated ☹️")

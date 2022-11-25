@@ -16,7 +16,6 @@ specifiers:
   react-firebase-hooks: ^5.1.1
   react-hook-form: ^7.39.3
   react-icons: ^4.6.0
-  react-latex: ^2.0.0
   react-toastify: ^9.1.1
   tailwindcss: ^3.2.4
   validator: ^13.7.0
@@ -35,7 +34,6 @@ dependencies:
   react-firebase-hooks: 5.1.1_wrfwn6aonbl2nd2sool3chtjyy
   react-hook-form: 7.39.3_react@18.2.0
   react-icons: 4.6.0_react@18.2.0
-  react-latex: 2.0.0
   react-toastify: 9.1.1_biqbaboplfbrettd7655fr4n2y
   validator: 13.7.0
   zod: 3.19.1
@@ -1142,10 +1140,6 @@ packages:
       color-string: 1.9.1
     dev: false
 
-  /commander/2.20.3:
-    resolution: {integrity: sha512-GpVkmM8vF2vQUkj2LvZmD35JxeJOLCwJ9cUkugyk2nuhbv3+mJvpLYYt+0+USMxE+oj+ey/lJEnhZw75x/OMcQ==}
-    dev: false
-
   /concat-map/0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
     dev: false
@@ -2087,13 +2081,6 @@ packages:
       setimmediate: 1.0.5
     dev: false
 
-  /katex/0.10.2:
-    resolution: {integrity: sha512-cQOmyIRoMloCoSIOZ1+gEwsksdJZ1EW4SWm3QzxSza/QsnZr6D4U1V9S4q+B/OLm2OQ8TCBecQ8MaIfnScI7cw==}
-    hasBin: true
-    dependencies:
-      commander: 2.20.3
-    dev: false
-
   /language-subtag-registry/0.3.22:
     resolution: {integrity: sha512-tN0MCzyWnoz/4nHS6uxdlFWoUZT7ABptwKPQ52Ea7URk6vll88bWBVhodtnlfEuCcKWNGoc+uGbw1cwa9IKh/w==}
     dev: false
@@ -2603,12 +2590,6 @@ packages:
 
   /react-is/16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
-    dev: false
-
-  /react-latex/2.0.0:
-    resolution: {integrity: sha512-x17uDCfqBgR+5ZF/zplRCuHdEbX22CJlVipOqMUinRMoiOwh5fr3jbjD4zqVQ8pIs4AnF0BWPDR2S7Fyd8Snxw==}
-    dependencies:
-      katex: 0.10.2
     dev: false
 
   /react-toastify/9.1.1_biqbaboplfbrettd7655fr4n2y:

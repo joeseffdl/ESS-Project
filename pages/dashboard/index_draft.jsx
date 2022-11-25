@@ -1,12 +1,10 @@
 import AppNavigation from "../../components/AppNavigation"
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { auth } from "../../utils/firebase"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useState, useEffect } from "react"
-
-function IEEE() {
+function Home() {
     // Router
     const router = useRouter()
 
@@ -26,14 +24,13 @@ function IEEE() {
 
     return (
         <>
-            IEEE Template
         </>
     )
 }
 
-export default IEEE
+export default Home;
 
-IEEE.getLayout = function PageLayout(page) {
+Home.getLayout = function PageLayout(page) {
     return (
         <>
             <AppNavigation />

@@ -1,5 +1,5 @@
 import AppNavigation from "../components/AppNavigation"
-import UserJournals from "../components/UserJournals"
+import UserResumes from "../components/UserResumes"
 import Link from 'next/link'
 import { useRouter } from "next/router"
 import { auth, db } from "../utils/firebase"
@@ -9,27 +9,36 @@ import { useState, useEffect } from "react"
 import { AiFillEdit, AiFillDelete, AiFillEye } from 'react-icons/ai'
 import { toast } from "react-toastify"
 
-function YourJournals() {
+function YourResumes() {
     // Router
     const router = useRouter()
 
     // Handle user
     const [user, loading] = useAuthState(auth)
 
+    // Links
+    const Links = [
+        {
+            template: "/choose-template",
+            resumes: "/resumes",
+            yourResumes: "/your-resumes",
+        }
+    ]
+    
     // Logged in?
     const getData = async () => {
         if (loading) return;
         if (!user) return router.push("/login")
     }
 
-    // User Projects
-    const [userJournals, setUserJournals] = useState([])
+    // User Resumes
+    const [userResumes, setUserResumes] = useState([])
 
-    const getUserJournals = async () => {
-        const collectionRef = collection(db, 'journals')
+    const getUserResumes = async () => {
+        const collectionRef = collection(db, 'resumes')
         const q = query(collectionRef, where("user", "==", user.uid), orderBy('createdOn', 'desc'))
         const unsubscribe = onSnapshot(q, (snapshot) => {
-            setUserJournals(snapshot.docs.map((doc) => ({
+            setUserResumes(snapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
             })))
@@ -37,17 +46,17 @@ function YourJournals() {
         return unsubscribe
     }
 
-    // Delete Journal
-    const deleteJournal = async (id) => {
-        const docRef = doc(db, 'journals', id)
+    // Delete Resume
+    const deleteResume = async (id) => {
+        const docRef = doc(db, 'resumes', id)
         await deleteDoc(docRef)
-        toast.success("Journal deleted successfully")
+        toast.success("Resume deleted successfully")
     }
 
     useEffect(() => {
         getData()
         if (!loading) {
-            getUserJournals()
+            getUserResumes()
         }
     }, [user, loading])
 
@@ -59,20 +68,20 @@ function YourJournals() {
                 lg:w-1/5"
             >
                 <div className="btn btn-secondary btn-outline my-3 w-full">
-                    <Link href="/journal-template">
-                        New Journal
+                    <Link href={`${Links[0].template}`}>
+                        New Resume
                     </Link>
                 </div>
                 <div className="btn btn-secondary btn-outline my-1 w-full">
-                    <Link href="/journals">
-                        All Journals
+                    <Link href={`${Links[0].resumes}`}>
+                        All Resumes
                     </Link>
                 </div>
                 <div
-                    disabled={userJournals.length == 0}
-                    className="btn btn-secondary my-1 w-full">
-                    <Link href="/your-journals">
-                        Your Journals {userJournals.length >= 1 ? (`(${userJournals.length})`) : null}
+                    disabled={userResumes.length == 0}
+                    className="btn btn-secondary  my-1 w-full">
+                    <Link href={`${Links[0].yourResumes}`}>
+                        Your Resumes {userResumes.length >= 1 ? (`(${userResumes.length})`) : null}
                     </Link>
                 </div>
             </section>
@@ -86,36 +95,36 @@ function YourJournals() {
                     md:text-3xl md:mb-5
                     lg:text-4xl"
                 >
-                    Your Projects
+                    Your Resumes
                 </h2>
                 <div className="bg-white p-5 rounded-2xl divide-y-2">
-                    <div className="grid grid-cols-3 items-center font-bold text-sm text-neutral-focus
+                    <div className="flex justify-between md:grid md:grid-cols-3 items-center font-bold text-sm text-neutral-focus
                         sm:text-base md:text-lg lg:text-xl">
-                        <div className="pl-2 truncate">Project Title</div>
-                        <div className="col-span-2">
-                            <ul className="grid grid-cols-3 justify-items-center items-center">
-                                <li className="">Owner</li>
-                                <li className="">Created</li>
-                                <li className="pr-2">Actions</li>
-                            </ul>
+                        <div className="pl-2 ">Resume Title</div>
+                        <div className="col-span-2 w-1/2 md:w-full">
+                            <div className="flex justify-center items-center md:grid md:grid-cols-3 md:justify-items-center ">
+                                <div className="hidden md:block">Owner</div>
+                                <div className="hidden md:block">Created</div>
+                                <div className="pr-2">Actions</div>
+                            </div>
                         </div>
                     </div>
                     <div>
-                        {userJournals.map((journal) => (
+                        {userResumes.map((resume) => (
                             <>
-                                <UserJournals {...journal} key={journal.id}>
+                                <UserResumes {...resume} key={resume.id}>
                                     <div className="flex gap-1">
-                                        <Link href={{ pathname: `/${journal.id}`, query: { ...journal } }}>
+                                        <Link href={{ pathname: `/${resume.id}`, query: { ...resume } }}>
                                             <button className="hover:scale-110 hover:text-sky-600" onClick={() => console.log("View")}><AiFillEye /></button>
                                         </Link>
-                                        <Link href={{ pathname: `/journal-template/${journal.template}`, query: journal }}>
+                                        <Link href={{ pathname: `/journal-template/${resume.type}`, query: resume }}>
                                             <button className="hover:scale-110 hover:text-amber-600" onClick={() => console.log("Edit")}><AiFillEdit /></button>
                                         </Link>
                                         <Link href={`/your-journals`}>
-                                            <button className="hover:scale-110 hover:text-red-600" onClick={() => deleteJournal(journal.id)}><AiFillDelete /></button>
+                                            <button className="hover:scale-110 hover:text-red-600" onClick={() => deleteResume(resume.id)}><AiFillDelete /></button>
                                         </Link>
                                         </div>
-                                </UserJournals>
+                                </UserResumes>
                             </>
                         ))}
                     </div>
@@ -125,9 +134,9 @@ function YourJournals() {
     )
 }
 
-export default YourJournals;
+export default YourResumes;
 
-YourJournals.getLayout = function PageLayout(page) {
+YourResumes.getLayout = function PageLayout(page) {
     return (
         <>
             <AppNavigation />
