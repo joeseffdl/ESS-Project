@@ -21,7 +21,7 @@ function AppNavigation() {
         <main className="text-primary shadow-xl w-full top-0 left-0 border-b-2 border-secondary-focus/75">
             <nav className="flex items-center justify-between bg-neutral py-5 px-10 font-bold">
                 <div className="font-bold text-2xl cursor-pointer flex items-center">
-                    <div className="flex items-center"><Link href="/dashboard" className="text-primary hover:text-primary-focus">Oregen</Link> <span className="hidden md:block mt-2 ml-5 text-sm">Research Template Builder</span></div>
+                    <div className="flex items-center"><Link href="/dashboard" className="text-primary hover:text-primary-focus">Oregen</Link> <span className="hidden md:block mt-2 ml-5 text-sm">Resume Template Builder</span></div>
                 </div>
                 <div onClick={ () => setOpen(!open)} className="text-3xl cursor-pointer md:hidden" >
                     <span>

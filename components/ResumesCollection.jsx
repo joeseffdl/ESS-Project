@@ -1,5 +1,5 @@
 
-function JournalsCollection({ children, id, title, user: userID, username, createdOn }) {
+function ResumesCollection({ children, id, title, user: userID, username, createdOn }) {
 
     return (
         <div className="flex justify-between md:grid md:grid-cols-3 items-center font-semibold text-sm text-neutral-focus my-2 py-2 pl-2
@@ -16,4 +16,4 @@ function JournalsCollection({ children, id, title, user: userID, username, creat
     )
 }
 
-export default JournalsCollection;
+export default ResumesCollection;

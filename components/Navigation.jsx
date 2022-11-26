@@ -51,7 +51,7 @@ function Navigation() {
                         :
                         (
                         <li className="hover:translate-x-2 ease-in-out duration-300">
-                            <Link href="/journal-template">
+                            <Link href="/choose-template">
                                 <p className="md:text-2xl text-xl">Generate</p>
                             </Link>
                         </li>

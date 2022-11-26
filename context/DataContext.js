@@ -12,6 +12,7 @@ export const DataProvider = ({ children }) => {
         postalCode: "",
         phoneNumber: "",
         emailAddress: "",
+        workExperiences: [],
         workExpTitle: "",
         workExpEmployer: "",
         workExpCity: "",
@@ -19,6 +20,7 @@ export const DataProvider = ({ children }) => {
         workExpStart: "",
         workExpEnd: "",
         workExpCurrently: false,
+        educationalBackground: [],
         institutionName: "",
         institutionLocation: "",
         degreeType: "",
@@ -26,7 +28,7 @@ export const DataProvider = ({ children }) => {
         fieldOfStudy: "",
         graduationMonth: "",
         graduationYear: "",
-        currentlyStudying: false,
+        skills:[],
     })
 
     const [completedSteps, setCompletedSteps] = useState({

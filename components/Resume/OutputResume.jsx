@@ -8,51 +8,51 @@ function OutputResume() {
     // Use State
     let { step } = completedSteps
 
-    if (step == 1) {
-        return (
-            <div className="border-4 h-full">
-                <div>
-                    {resumeValues.firstname}
-                </div>
-                <div>
-                    {resumeValues.surname}
-                </div>
-            </div>
-        )
-    }
-    else if (step == 2) {
-        return (
-            <div className="h-full flex justify-center items-center">
-                Experience Page
-            </div>
-        )
-    }
-    else if (step == 3) {
-        return (
-            <div className="h-full flex justify-center items-center">
-                Education Page
-            </div>
-        )
-    }
-    else if (step == 4) {
-        return (
-            <div className="h-full flex justify-center items-center">
-                Skills Page
-            </div>
-        )
-    }
-    else if (step == 5) {
-        return (
-            <div className="h-full flex justify-center items-center">
-                More Sections Page
-            </div>
-        )
-    }
-    else {
-        return (
-            null
-        )
-    }
+    return (
+        <>
+        {
+            step >= 1 ?
+                (
+                    <div className="h-full flex flex-col justify-center items-center">
+                        <section className="w-full border-2 border-red-900">
+                            <div>
+                                Profile Section
+                            </div>
+                            {resumeValues.firstname} {resumeValues.surname} <br />
+                            {resumeValues.city} {resumeValues.country} <br />
+                            {resumeValues.postalCode} {resumeValues.phoneNumber} <br />
+                            {resumeValues.emailAddress} <br />
+                        </section>
+                        <section className="w-full border-2 border-green-900">
+                            <div>
+                                Experience Section
+                            </div>
+                            {resumeValues.workExpTitle} {resumeValues.workExpEmployer} <br />
+                            {resumeValues.workExpCity} {resumeValues.workExpCountry} <br />
+                            {resumeValues.workExpStart} {resumeValues.workExpEnd} <br />
+                            {resumeValues.workExpCurrently}    
+                        </section>
+                            <section className="w-full border-2 border-blue-900">
+                            <div>
+                                Education Section
+                            </div>
+                            {resumeValues.institutionName} {resumeValues.institutionLocation} <br />
+                            {resumeValues.degreeType} {resumeValues.fieldOfStudy} <br />
+                            {resumeValues.graduationMonth} {resumeValues.graduationYear} <br />
+                            {resumeValues.currentlyStudying} 
+                        </section>
+                            <section className="w-full border-2 border-yellow-900">
+                            <div>
+                                Skills Section
+                            </div>
+                            {resumeValues.skills}
+                        </section>
+                    </div>
+                )
+            : null
+        }
+    </>
+    )
 }
 
 export default OutputResume;
