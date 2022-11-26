@@ -15,7 +15,7 @@ import validator from "validator"
 import ResumeExperience from "../../../components/Resume/ResumeExperience"
 import ResumeEducation from "../../../components/Resume/ResumeEducation"
 import ResumeSkills from "../../../components/Resume/ResumeSkills"
-import MoreSection from "../../../components/RESUME/MoreSection"
+import MoreSection from "../../../components/Resume/MoreSection"
 import ResumeProfile from "../../../components/Resume/ResumeProfile"
 
 function Resume() {
