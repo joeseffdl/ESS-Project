@@ -25,10 +25,10 @@ function MoreSection() {
         setCompletedSteps({ step: --step })
     }
 
-    // Continue to Summary section
-    const toResumeSkills = (e) => {
+    // Continue to Submit section
+    const toSubmit = (e) => {
         e.preventDefault()
-        if (validator.isEmpty(education.institutionName)) {
+        if (validator.isEmpty(section)) {
             toast.error("Please enter an Institution 😞")
             return
         }
@@ -36,7 +36,16 @@ function MoreSection() {
         setCompletedSteps({ step: ++step })
     }
 
-    return <div>ResumeSkills</div>;
+    return (
+        <FormWindow onSubmit={toSubmit} formTitle="More Section">
+
+            
+            <div className="btn-group justify-between">
+                <button className="btn btn-sm btn-outline" onClick={toPreviousPage}>Back</button>
+                <button type="submit" className="btn btn-sm btn-outline">Continue</button>
+            </div>
+        </FormWindow>
+    )
 }
 
 export default MoreSection;

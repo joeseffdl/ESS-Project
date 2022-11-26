@@ -11,9 +11,8 @@ function MyApp({ Component, pageProps }) {
       <DataProvider> 
         <Head>
           <title>OREGEN</title>
-          <meta name="description" content="Research journal template generator" />
+          <meta name="description" content="Resume template generator" />
           <link rel="icon" href="/favicon.ico" />
-          {/* <link href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet" /> */}
         </Head>
         <ToastContainer draggable={false} limit={1} autoClose={1500} />
         <Component {...pageProps} />
@@ -25,9 +24,8 @@ function MyApp({ Component, pageProps }) {
     <DataProvider>
       <Head>
         <title>OREGEN</title>
-        <meta name="description" content="Research journal template generator" />
+        <meta name="description" content="Resume template generator" />
         <link rel="icon" href="/favicon.ico" />
-        {/* <link href="//cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0/katex.min.css" rel="stylesheet" /> */}
       </Head>
       <Layout>
         <ToastContainer draggable={false} limit={1} autoClose={1500} />

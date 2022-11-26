@@ -1,5 +1,5 @@
 
-function UserJournals({ children, title, id, user, username, createdOn }) {
+function UserResumes({ children, title, id, user, username, createdOn }) {
     return (
         <div className="flex justify-between md:grid md:grid-cols-3 items-center font-semibold text-sm text-neutral-focus my-2 py-2 pl-2
             sm:text-base md:text-lg lg:text-xl hover:bg-accent/50 rounded-lg ">
@@ -15,4 +15,4 @@ function UserJournals({ children, title, id, user, username, createdOn }) {
     )
 }
 
-export default UserJournals;
+export default UserResumes;

@@ -15,13 +15,15 @@ import validator from "validator"
 import ResumeExperience from "../../../components/Resume/ResumeExperience"
 import ResumeEducation from "../../../components/Resume/ResumeEducation"
 import ResumeSkills from "../../../components/Resume/ResumeSkills"
+import MoreSection from "../../../components/Resume/MoreSection"
+import ResumeProfile from "../../../components/Resume/ResumeProfile"
 
-function MDPI() {
+function Resume() {
     // Data Context
     const { completedSteps, setCompletedSteps, resumeValues, setResumeValues } = useContext(DataContext)
 
     // Use State
-    const [resume, setResume] = useState({
+    const [resumeData, setResumeData] = useState({
         firstname: "",
         surname: "",
         city: "",
@@ -39,15 +41,9 @@ function MDPI() {
     // Handle user
     const [user, loading] = useAuthState(auth)
 
-    // Handle change 
-    const handleChange = (e) => {
-        const { name, value } = e.target
-        setResume((prev) => {
-            return { ...prev, [name]: value }
-        })
-        setResumeValues((prev) => {
-            return { ...prev, [name]: value }
-        })
+    // Get data from Resume Profile Component
+    const getProfileData = (data) => {
+        console.log("Data from Resume Profile", data)
     }
 
     // Get data from Resume Experience Component
@@ -65,38 +61,24 @@ function MDPI() {
         console.log("Data from Resume Skills", data)
     }
 
-    // Continue to Experience section
-    const toResumeExperience = () => {
-        if (validator.isEmpty(resume.emailAddress)) {
-            toast.error("Please enter an Email Address😞")
-            return
-        }
-        setCompletedSteps({ step: ++step })
-    }
-
-
-    // Submit Journal
+    // Submit Resume
     const submitResume = async (e) => {
         e.preventDefault()
 
         try {
-            if (resume?.hasOwnProperty("id")) {
-                const docRef = doc(db, "resumes", resume.id)
+            if (resumeData?.hasOwnProperty("id")) {
+                const docRef = doc(db, "resumes", resumeData.id)
                 const updatedJournal = {
-                    ...resume,
+                    ...resumeData,
                     timestamp: serverTimestamp()
                 }
                 await updateDoc(docRef, updatedJournal)
                 setCompletedSteps({ step: ++step })
             }
-
-            else if (step == 1) {
-                toResumeExperience()
-            }
             else {
                 const collectionRef = collection(db, "resumes")
                 await addDoc(collectionRef, {
-                    ...resume,
+                    ...resumeData,
                     createdOn: serverTimestamp(),
                     user: user.uid,
                     username: user.displayName,
@@ -116,7 +98,7 @@ function MDPI() {
         if (!user) return router.push("/login")
         if (routeData.id) {
             setCompletedSteps({ step: 1 })
-            setResume((prev) => {
+            setResumeData((prev) => {
                 return {
                     ...prev,
                     id: routeData.id,
@@ -135,7 +117,7 @@ function MDPI() {
     // Get users data
     useEffect(() => {
         getData()
-        setResumeValues({ ...resume })
+        // setResumeValues({ ...profile })
     }, [user, loading])
 
     return (
@@ -146,68 +128,7 @@ function MDPI() {
                         (() => {
                             if (step == 1) {
                                 return (
-                                    <FormWindow onSubmit={submitResume} formTitle={resume.hasOwnProperty("id") ? "Editing Resume Header" : "Header"}>
-                                        <input
-                                            className="input "
-                                            type="text"
-                                            placeholder="First Name"
-                                            value={resume.firstname}
-                                            name="firstname"
-                                            onChange={handleChange}
-                                        />
-                                        <input
-                                            className="input "
-                                            type="text"
-                                            placeholder="Surname"
-                                            value={resume.surname}
-                                            name="surname"
-                                            onChange={handleChange}
-                                        />
-                                        <input
-                                            className="input "
-                                            type="text"
-                                            placeholder="City/Municipality"
-                                            value={resume.city}
-                                            name="city"
-                                            onChange={handleChange}
-                                        />
-                                        <input
-                                            className="input "
-                                            type="text"
-                                            placeholder="Country"
-                                            value={resume.country}
-                                            name="country"
-                                            onChange={handleChange}
-                                        />
-                                        <input
-                                            className="input "
-                                            type="text"
-                                            placeholder="Postal Code"
-                                            value={resume.postalCode}
-                                            name="postalCode"
-                                            onChange={handleChange}
-                                        />
-                                        <input
-                                            className="input "
-                                            type="number"
-                                            placeholder="Phone Number"
-                                            value={resume.phoneNumber}
-                                            name="phoneNumber"
-                                            onChange={handleChange}
-                                        />
-                                        <input
-                                            className="input "
-                                            type="email"
-                                            placeholder="Email Address"
-                                            value={resume.emailAddress}
-                                            name="emailAddress"
-                                            onChange={handleChange}
-                                        />
-                                        <div className="btn-group justify-between">
-                                            <button disabled className="btn btn-sm btn-outline">Back</button>
-                                            <button type="submit" className="btn btn-sm btn-outline">Continue</button>
-                                        </div>
-                                    </FormWindow>
+                                    <ResumeProfile onSubmit={getProfileData} formTitle={resumeData} />
                                 )
                             }
                             else if (step == 2) {
@@ -227,9 +148,7 @@ function MDPI() {
                             }
                             else if (step == 5) {
                                 return (
-                                    <>
-                                        More Section
-                                    </>
+                                    <MoreSection />
                                 )
                             }
                             else {
@@ -250,9 +169,9 @@ function MDPI() {
     )
 }
 
-export default MDPI
+export default Resume
 
-MDPI.getLayout = function PageLayout(page) {
+Resume.getLayout = function PageLayout(page) {
     return (
         <>
             <AppNavigation />

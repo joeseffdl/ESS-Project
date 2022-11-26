@@ -14,7 +14,7 @@ export default function Home() {
           <div className="md:w-1/2 flex flex-col justify-center"> 
             <div >
                 <p className="lg:text-4xl text-3xl ">Oregen <span className="md:text-2xl text-lg">by GROUP 12</span></p>
-                <p className="lg:text-6xl text-5xl ">Research journal <br />template generator</p>
+                <p className="lg:text-6xl text-5xl ">Resume <br />template generator</p>
               
               <Link href={!user ? "/login" : "/journal-template" }>
                   <button
