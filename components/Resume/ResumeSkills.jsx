@@ -23,7 +23,8 @@ function ResumeSkills(props) {
     }
 
     // Go back to the previous page 
-    const toPreviousPage = () => {
+    const toPreviousPage = (e) => {
+        e.preventDefault()
         setCompletedSteps({ step: --step })
     }
 
