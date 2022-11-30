@@ -28,7 +28,15 @@ function ResumeExperience(props) {
   const handleChange = (e) => {
     const { name, value } = e.target
     setWorkExperience((prev) => {
-      return { ...prev, [name]: value }
+      return { ...prev, [name]: value, }
+    })
+  }
+
+  // Handle Text Area changes
+  const handleTextAreaChange = (e) => {
+    const { name, value } = e.target
+    setWorkExperience((prev) => {
+      return { ...prev, [name]: value, details:[value.split("\n")] }
     })
   }
 
@@ -58,10 +66,10 @@ function ResumeExperience(props) {
   // Continue to Add Experience section
   const toAddExperienceSection = (e) => {
     e.preventDefault()
-    if (validator.isEmpty(workExperience.description)) {
-      toast.error("Please enter a Work Description 😞")
-      return
-    }
+    // if (validator.isEmpty(workExperience.description)) {
+    //   toast.error("Please enter a Work Description 😞")
+    //   return
+    // }
     setWorkExperienceArray(prevArray => [workExperience,...prevArray])
     setAddExperienceSection(!addExperienceSection)
     props.onSubmit(workExperienceArray)
@@ -89,7 +97,7 @@ function ResumeExperience(props) {
     e.preventDefault()
     
     setResumeValues((prev) => {
-      return { ...prev, workExperiences:workExperienceArray }
+      return { ...prev, workExperiences:[...workExperienceArray,...prev.workExperiences,] }
     })
     setAddExperienceSection(!addExperienceSection)
     setCompletedSteps({ step: ++step })
@@ -171,10 +179,10 @@ function ResumeExperience(props) {
         <textarea
           className="textarea"
           type="text"
-          placeholder="Work Description"
+          placeholder="Write down your work description"
           value={workExperience.description}
           name="description"
-          onChange={handleChange}
+          onChange={handleTextAreaChange}
         />
         <div className="btn-group justify-between">
           <button className="btn btn-sm btn-outline" onClick={toExperienceForm}>Back</button>
