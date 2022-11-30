@@ -45,7 +45,7 @@ function Resume() {
     const getProfileData = (data) => {
         console.log("Data from Resume Profile", data)
     }
-
+    
     // Get data from Resume Experience Component
     const getExperienceData = (data) => {
         console.log("Data from Resume Experience", data)
@@ -91,7 +91,7 @@ function Resume() {
             console.log(err)
         }
     }
-
+    
     // Logged in?
     const getData = async () => {
         if (loading) return;
@@ -119,7 +119,8 @@ function Resume() {
         getData()
         // setResumeValues({ ...profile })
     }, [user, loading])
-
+    
+    console.log(resumeValues)
     return (
         <div className="w-full flex">
             <InputTemplate>

@@ -8,45 +8,118 @@ function OutputResume() {
     // Use State
     let { step } = completedSteps
 
+    // Initialize Current Year
+
     return (
         <>
         {
             step >= 1 ?
                 (
-                    <div className="h-full flex flex-col justify-center items-center">
-                        <section className="w-full border-2 border-red-900">
-                            <div>
-                                Profile Section
-                            </div>
-                            {resumeValues.firstname} {resumeValues.surname} <br />
-                            {resumeValues.city} {resumeValues.country} <br />
-                            {resumeValues.postalCode} {resumeValues.phoneNumber} <br />
-                            {resumeValues.emailAddress} <br />
-                        </section>
-                        <section className="w-full border-2 border-green-900">
-                            <div>
-                                Experience Section
-                            </div>
-                            {resumeValues.workExpTitle} {resumeValues.workExpEmployer} <br />
-                            {resumeValues.workExpCity} {resumeValues.workExpCountry} <br />
-                            {resumeValues.workExpStart} {resumeValues.workExpEnd} <br />
-                            {resumeValues.workExpCurrently}    
-                        </section>
-                            <section className="w-full border-2 border-blue-900">
-                            <div>
-                                Education Section
-                            </div>
-                            {resumeValues.institutionName} {resumeValues.institutionLocation} <br />
-                            {resumeValues.degreeType} {resumeValues.fieldOfStudy} <br />
-                            {resumeValues.graduationMonth} {resumeValues.graduationYear} <br />
-                            {resumeValues.currentlyStudying} 
-                        </section>
-                            <section className="w-full border-2 border-yellow-900">
-                            <div>
-                                Skills Section
-                            </div>
-                            {resumeValues.skills}
-                        </section>
+                    <div className="h-full p-5">
+                        <div className="h-full text-xs divide-y-2 divide-blue-900">
+                            <section className="w-full ">
+                                <div className="text-center text-3xl font-semibold my-4 tracking-widest">
+                                    {resumeValues.firstname.toUpperCase()} {resumeValues.surname.toUpperCase()}
+                                </div>
+                                <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 mx-32 divide-x">
+                                    <div className="px-2">
+                                        {resumeValues.emailAddress}
+                                    </div>
+                                        <div className="px-2">
+                                        {resumeValues.phoneNumber}
+                                    </div>
+                                        <div className="px-2">
+                                        {resumeValues.city} {resumeValues.country} {resumeValues.postalCode}
+                                    </div>
+                                </div>
+                            </section>
+                            
+                            <section className="w-full px-10 pb-5">
+                                <div className="text-center font-bold">
+                                    Skills
+                                </div>
+                                <div className="grid grid-cols-2 justify-center items-center ">
+                                    {resumeValues.skills[0]?.map((skill) => {
+                                        return (
+                                            <ul className="flex list-disc list-inside" key={skill}>
+                                                <li>{skill}</li>
+                                            </ul>
+                                        )
+                                    })}
+                                </div>
+                            </section>
+                            <section className="w-full relative">
+                                <div className="text-center font-bold">
+                                    Experience
+                                </div>
+                                <div>
+                                    {resumeValues.workExperiences.map((experience) => {
+                                        return (
+                                            <div className="flex flex-col " key={experience.title}>
+                                                <div className="flex items-center justify-center">
+                                                    <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
+                                                        <div className="font-bold px-2">
+                                                            {experience.title}
+                                                        </div>
+                                                        <div className="px-2">
+                                                            {experience.employer} - { experience.city}, {experience.country}
+                                                        </div>
+                                                        <div className="px-2">
+                                                            {experience.startDate} - { !experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="px-10 mb-5">
+                                                    {experience.details[0].map((detail) => {
+                                                        return (
+                                                            <ul className="flex list-disc list-inside" key={detail}>
+                                                                <li>{detail}</li>
+                                                            </ul>
+                                                        )
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </section>
+                            <section className="w-full px-5">
+                                <div className="text-center font-bold">
+                                    Education
+                                </div>
+                                {resumeValues.educationalBackground.map((education) => {
+                                    return (
+                                        <div className="flex flex-col " key={education.institutionName}>
+                                            <div className="flex items-center justify-center">
+                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
+                                                    <div className="px-2">
+                                                        {education.institutionName}
+                                                    </div>
+                                                    <div className="px-2">
+                                                        {education.institutionLocation}
+                                                    </div>
+                                                    <div className="px-2">
+                                                        {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div className="text-center my-3">
+                                                <span className="font-bold">{education.degreeType}{education.degreeType != "High School Diploma" || education.degreeType === ("GED") ? ":" : null}</span> {education.fieldOfStudy}
+                                            </div>
+                                            <div className="px-5 mb-5">
+                                                {education.details[0].map((detail) => {
+                                                    return (
+                                                        <ul className="flex list-disc list-inside" key={detail}>
+                                                            <li>{detail}</li>
+                                                        </ul>
+                                                    )
+                                                })}
+                                            </div>
+                                        </div>
+                                    )
+                                })}
+                            </section>
+                        </div>
                     </div>
                 )
             : null

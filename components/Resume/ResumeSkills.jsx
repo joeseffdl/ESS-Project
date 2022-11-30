@@ -10,7 +10,7 @@ function ResumeSkills(props) {
 
     // Use State 
     const [skills, setSkills] = useState({
-        skills: []
+        value: ""
     })
     let { step } = completedSteps
 
@@ -20,21 +20,27 @@ function ResumeSkills(props) {
         setSkills((prev) => {
             return { ...prev, [name]: value }
         })
+
+        setResumeValues((prev) => {
+            return { ...prev, skills: [skills.value.split("\n")] }
+        })
+        console.log(skills)
     }
 
     // Go back to the previous page 
-    const toPreviousPage = () => {
+    const toPreviousPage = (e) => {
+        e.preventDefault()
         setCompletedSteps({ step: --step })
     }
 
     // Continue to More sections section
     const toMoreSections = (e) => {
         e.preventDefault()
-        if (validator.isEmpty(skills.skills)) {
+        if (validator.isEmpty(skills.value)) {
             toast.error("Please enter a skill 😞")
             return
         }
-        props.onSubmit(skills.skills)
+        props.onSubmit(skills.value)
         setCompletedSteps({ step: ++step })
     }
 
@@ -44,8 +50,8 @@ function ResumeSkills(props) {
             <textarea
                 className="textarea "
                 placeholder="Write down your skills"
-                value={skills.skills}
-                name="skills"
+                value={skills.value}
+                name="value"
                 onChange={handleChange}
             />
             <div className="btn-group justify-between">
