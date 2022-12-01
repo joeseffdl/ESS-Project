@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import FormWindow from "../FormWindow";
 import validator from "validator"
 import DataContext from "../../context/DataContext";
@@ -35,7 +35,7 @@ function ResumeEducation(props) {
     const handleChange = (e) => {
         const { name, value } = e.target
         setEducation((prev) => {
-            return { ...prev, [name]: value }
+            return { ...prev, [name]: value, details: { val: "" } }
         })
     }
 
@@ -105,87 +105,98 @@ function ResumeEducation(props) {
         setCompletedSteps({ step: ++step })
     }
 
+    console.log(resumeValues)
     if (fillingForm && !addEducationSection) {
         return (
             <FormWindow onSubmit={fillingFormState} formTitle="Education">
-                <input
-                    className="input "
-                    placeholder="Institution Name"
-                    value={education.institutionName}
-                    name="institutionName"
-                    onChange={handleChange}
-                />
-                <input
-                    className="input "
-                    placeholder="Institution Location"
-                    value={education.institutionLocation}
-                    name="institutionLocation"
-                    onChange={handleChange}
-                />
-                <select
-                    className="select "
-                    name="degreeType"
-                    onChange={handleChange}
-                >
-                    <option value="degree" disabled selected>Degree</option>
-                    <option value="High School Diploma">High School Diploma</option>
-                    <option value="GED">GED</option>
-                    <option value="Associate of Arts">Associate of Arts</option>
-                    <option value="Associate of Science">Associate of Science</option>
-                    <option value="Associate of Applied Science">Associate of Applied Science</option>
-                    <option value="Bachelor of Arts">Bachelor of Arts</option>
-                    <option value="Bachelor of Science">Bachelor of Science</option>
-                    <option value="BBA">BBA</option>
-                    <option value="Master of Arts">Master of Arts</option>
-                    <option value="Master of Science">Master of Science</option>
-                    <option value="MBA">MBA</option>
-                    <option value="J.D.">J.D.</option>
-                    <option value="M.D.">M.D.</option>
-                    <option value="Ph.D.">Ph.D.</option>
-                    <option value="Some College (No Degree)">Some College (No Degree)</option>
-                    <option value="Enter a different degree">Enter a different degree</option>
-                </select>
-                <input
-                    disabled={education.degreeType === ("Degree") || education.degreeType === ("High School Diploma") || education.degreeType === ("GED")}
-                    className="input "
-                    placeholder="Field of Study"
-                    value={education.fieldOfStudy}
-                    name="fieldOfStudy"
-                    onChange={handleChange}
-                />
-                <select
-                    className="select "
-                    name="graduationMonth"
-                    onChange={handleChange}
-                >
-                    <option disabled selected>Graduation Month</option>
-                    <option value="Jan">Jan</option>
-                    <option value="Feb">Feb</option>
-                    <option value="Mar">Mar</option>
-                    <option value="Apr">Apr</option>
-                    <option value="May">May</option>
-                    <option value="Jun">Jun</option>
-                    <option value="Jul">Jul</option>
-                    <option value="Aug">Aug</option>
-                    <option value="Sep">Sep</option>
-                    <option value="Oct">Oct</option>
-                    <option value="Nov">Nov</option>
-                    <option value="Dec">Dec</option>
-                </select>
-                <select
-                    className="select "
-                    name="graduationYear"
-                    onChange={handleChange}
-                >
-                    <option value="graduationYear" disabled selected>Graduation Year</option>
-                    <option >{yearsOptionArray[1]}</option>
-                    {
-                        yearsOptionArray.map((year) => <option value={year} key={year}>{year}</option>)
-                    }
-                </select>
-                <div className="btn-group justify-between">
-                    <button className="btn btn-sm btn-outline" onClick={toPreviousPage}>Back</button>
-                    <button type="submit" className="btn btn-sm btn-outline">Continue</button>
+                <div className="w-full flex flex-col gap-2 mb-5
+                    ">
+                    <input
+                        className="input "
+                        placeholder="Institution Name"
+                        value={education.institutionName}
+                        name="institutionName"
+                        onChange={handleChange}
+                    />
+                    <input
+                        className="input "
+                        placeholder="Institution Location"
+                        value={education.institutionLocation}
+                        name="institutionLocation"
+                        onChange={handleChange}
+                    />
+                </div>
+
+                <div className="w-full flex flex-col gap-2 mb-5
+                    ">
+                    <select
+                        className="select "
+                        name="degreeType"
+                        onChange={handleChange}
+                    >
+                        <option value="degree" disabled selected>Degree</option>
+                        <option value="High School Diploma">High School Diploma</option>
+                        <option value="GED">GED</option>
+                        <option value="Associate of Arts">Associate of Arts</option>
+                        <option value="Associate of Science">Associate of Science</option>
+                        <option value="Associate of Applied Science">Associate of Applied Science</option>
+                        <option value="Bachelor of Arts">Bachelor of Arts</option>
+                        <option value="Bachelor of Science">Bachelor of Science</option>
+                        <option value="BBA">BBA</option>
+                        <option value="Master of Arts">Master of Arts</option>
+                        <option value="Master of Science">Master of Science</option>
+                        <option value="MBA">MBA</option>
+                        <option value="J.D.">J.D.</option>
+                        <option value="M.D.">M.D.</option>
+                        <option value="Ph.D.">Ph.D.</option>
+                        <option value="Some College (No Degree)">Some College (No Degree)</option>
+                        <option value="Enter a different degree">Enter a different degree</option>
+                    </select>
+                    <input
+                        disabled={education.degreeType === ("Degree") || education.degreeType === ("High School Diploma") || education.degreeType === ("GED")}
+                        className="input "
+                        placeholder="Field of Study"
+                        value={education.fieldOfStudy}
+                        name="fieldOfStudy"
+                        onChange={handleChange}
+                    />
+                </div>
+                <div className="w-full flex flex-col gap-2 mb-5
+                    ">
+                    <select
+                        className="select "
+                        name="graduationMonth"
+                        onChange={handleChange}
+                    >
+                        <option disabled selected>Graduation Month</option>
+                        <option value="Jan">Jan</option>
+                        <option value="Feb">Feb</option>
+                        <option value="Mar">Mar</option>
+                        <option value="Apr">Apr</option>
+                        <option value="May">May</option>
+                        <option value="Jun">Jun</option>
+                        <option value="Jul">Jul</option>
+                        <option value="Aug">Aug</option>
+                        <option value="Sep">Sep</option>
+                        <option value="Oct">Oct</option>
+                        <option value="Nov">Nov</option>
+                        <option value="Dec">Dec</option>
+                    </select>
+                    <select
+                        className="select "
+                        name="graduationYear"
+                        onChange={handleChange}
+                    >
+                        <option value="graduationYear" disabled selected>Graduation Year</option>
+                        <option >{yearsOptionArray[1]}</option>
+                        {
+                            yearsOptionArray.map((year) => <option value={year} key={year}>{year}</option>)
+                        }
+                    </select>
+                </div>
+                <div className="w-full flex flex-col sm:justify-between gap-5">
+                    <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
                 </div>
             </FormWindow>
         )
@@ -194,28 +205,28 @@ function ResumeEducation(props) {
         return (
             <FormWindow onSubmit={toAddEducationSection} formTitle="Education Description">
                 <textarea
-                    className="textarea "
+                    className="textarea h-1/3 mb-5 "
                     placeholder="Education Description"
                     value={education.description}
                     name="description"
                     onChange={handleTextAreaChange}
                 />
 
-                <div className="btn-group justify-between">
-                    <button className="btn btn-sm btn-outline" onClick={toEducationForm}>Back</button>
-                    <button type="submit" className="btn btn-sm btn-outline">Continue</button>
+                <div className="w-full flex flex-col sm:justify-between gap-5">
+                    <button className="btn btn-sm sm:btn-md btn-outline" onClick={toEducationForm}>Back</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
                 </div>
             </FormWindow>
         )
     }
     else if (!fillingForm && addEducationSection) {
         return (
-            <FormWindow onSubmit={toResumeSkills} formTitle="Add More Educational Attainment" >
+            <FormWindow onSubmit={toResumeSkills} formTitle="Preview Educational Attainment" >
 
-                <div className="btn-group justify-between">
-                    <button className="btn btn-sm btn-outline" onClick={toPreviousPage}>Back</button>
-                    <button className="btn btn-sm btn-outline" onClick={addMoreEducation}>Add Education</button>
-                    <button type="submit" className="btn btn-sm btn-outline">Continue</button>
+                <div className="w-full flex flex-col sm:justify-between gap-5">
+                    <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline" onClick={addMoreEducation}>Add Education</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
                 </div>
             </FormWindow>
         )

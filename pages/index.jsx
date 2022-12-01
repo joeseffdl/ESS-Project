@@ -13,8 +13,8 @@ export default function Home() {
         <section className="lg:my-12 md:my-24 my-28 md:flex md:flex-cols-2 font-bold">
           <div className="md:w-1/2 flex flex-col justify-center"> 
             <div >
-                <p className="lg:text-4xl text-3xl ">Oregen <span className="md:text-2xl text-lg">by GROUP 12</span></p>
-                <p className="lg:text-6xl text-5xl ">Resume <br />template generator</p>
+                <p className="lg:text-4xl text-3xl ">Oregen: <span className="md:text-2xl text-lg">Resume builder</span></p>
+                <p className="lg:text-6xl text-5xl ">Where your Professional Journey <br />begins with us!</p>
               
               <Link href={!user ? "/login" : "/journal-template" }>
                   <button

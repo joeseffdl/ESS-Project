@@ -15,7 +15,7 @@ import validator from "validator"
 import ResumeExperience from "../../../components/Resume/ResumeExperience"
 import ResumeEducation from "../../../components/Resume/ResumeEducation"
 import ResumeSkills from "../../../components/Resume/ResumeSkills"
-import MoreSection from "../../../components/Resume/MoreSection"
+import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummary"
 import ResumeProfile from "../../../components/Resume/ResumeProfile"
 
 function Resume() {
@@ -43,22 +43,22 @@ function Resume() {
 
     // Get data from Resume Profile Component
     const getProfileData = (data) => {
-        console.log("Data from Resume Profile", data)
+        // console.log("Data from Resume Profile", data)
     }
     
     // Get data from Resume Experience Component
     const getExperienceData = (data) => {
-        console.log("Data from Resume Experience", data)
+        // console.log("Data from Resume Experience", data)
     }
 
     // Get data from Resume Education Component
     const getEducationData = (data) => {
-        console.log("Data from Resume Education", data)
+        // console.log("Data from Resume Education", data)
     }
 
     // Get data from Resume Skills Component
     const getSkillsData = (data) => {
-        console.log("Data from Resume Skills", data)
+        // console.log("Data from Resume Skills", data)
     }
 
     // Submit Resume
@@ -122,7 +122,7 @@ function Resume() {
     
     console.log(resumeValues)
     return (
-        <div className="w-full flex">
+        <div className="w-full flex flex-col xl:flex-row">
             <InputTemplate>
                 <InputResume>
                     {
@@ -149,13 +149,13 @@ function Resume() {
                             }
                             else if (step == 5) {
                                 return (
-                                    <MoreSection />
+                                    <ResumeProfileSummary />
                                 )
                             }
-                            else {
+                            else if (step > 5) {
                                 return (
                                     <>
-                                        <div>Failed</div>
+                                        <div>No more content</div>
                                     </>
                                 )
                             }

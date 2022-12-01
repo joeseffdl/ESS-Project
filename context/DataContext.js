@@ -12,9 +12,10 @@ export const DataProvider = ({ children }) => {
         postalCode: "",
         phoneNumber: "",
         emailAddress: "",
-        workExperiences: [],
-        educationalBackground: [],
-        skills:[],
+        workExperiences: "",
+        educationalBackground: "",
+        skills: "",
+        profileSummary: "",
     })
 
     const [completedSteps, setCompletedSteps] = useState({
