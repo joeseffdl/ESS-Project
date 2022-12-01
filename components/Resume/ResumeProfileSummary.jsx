@@ -4,25 +4,23 @@ import validator from "validator"
 import DataContext from "../../context/DataContext";
 import { toast } from "react-toastify";
 
-function ResumeSkills(props) {
+function ResumeProfileSummary() {
     // Data Context
     const { completedSteps, setCompletedSteps, resumeValues, setResumeValues } = useContext(DataContext)
 
     // Use State 
-    const [skills, setSkills] = useState({
-        value: ""
-    })
+    const [profileSummary, setProfileSummary] = useState("")
     let { step } = completedSteps
 
     // Handle change 
     const handleChange = (e) => {
         const { name, value } = e.target
-        setSkills((prev) => {
+        setProfileSummary((prev) => {
             return { ...prev, [name]: value }
         })
 
         setResumeValues((prev) => {
-            return { ...prev, skills: [skills.value.split("\n")] }
+            return { ...prev, profileSummary: profileSummary }
         })
     }
 
@@ -32,32 +30,32 @@ function ResumeSkills(props) {
         setCompletedSteps({ step: --step })
     }
 
-    // Continue to More sections section
-    const toMoreSections = (e) => {
+    // Continue to Submit section
+    const toSubmit = (e) => {
         e.preventDefault()
-        if (validator.isEmpty(skills.value)) {
-            toast.error("Please enter a skill 😞")
+        if (validator.isEmpty(profileSummary.value)) {
+            toast.error("Please enter your profile summary😞")
             return
         }
-        props.onSubmit(skills.value)
+
         setCompletedSteps({ step: ++step })
     }
 
     return (
-        <FormWindow onSubmit={toMoreSections} formTitle="Skills and Expertise">
+        <FormWindow onSubmit={toSubmit} formTitle="Resume Profile Summary">
             <textarea
                 className="textarea h-1/3 mb-5"
                 placeholder="Write down your skills"
-                value={skills.value}
+                value={profileSummary.value}
                 name="value"
                 onChange={handleChange}
             />
             <div className="w-full flex flex-col sm:justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+                <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Submit</button>
             </div>
         </FormWindow>
     )
 }
 
-export default ResumeSkills;
+export default ResumeProfileSummary;

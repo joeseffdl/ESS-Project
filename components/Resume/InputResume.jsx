@@ -16,7 +16,7 @@ function InputResume({ children }) {
                     <li className={`step ${step >= 2 ? "step-accent" : null}`}>💼</li>
                     <li className={`step ${step >= 3 ? "step-accent" : null}`}>📚</li>
                     <li className={`step ${step >= 4 ? "step-accent" : null}`}>🧰</li>
-                    <li className={`step ${step >= 5 ? "step-accent" : null}`}>➕</li>
+                    <li className={`step ${step >= 5 ? "step-accent" : null}`}>🖥️</li>
                 </ul>
             </div>
             <div className="w-full h-full flex justify-center p-5 bg-neutral-focus shadow-2xl rounded-xl">

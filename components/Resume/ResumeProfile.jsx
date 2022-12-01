@@ -1,10 +1,14 @@
 import { useState, useContext } from "react";
+import { useRouter } from "next/router"
 import FormWindow from "../FormWindow";
 import validator from "validator"
 import DataContext from "../../context/DataContext";
 import { toast } from "react-toastify";
 
 function ResumeProfile(props) {
+    // Router
+    const router = useRouter()
+
     // Data Context
     const { completedSteps, setCompletedSteps, resumeValues, setResumeValues } = useContext(DataContext)
 
@@ -31,9 +35,10 @@ function ResumeProfile(props) {
         })
     }
 
-    // Go back to the previous page 
-    const toPreviousPage = () => {
-        setCompletedSteps({ step: --step })
+    // Go back to the Resume templates page
+    const toResumeTemplates = (e) => {
+        e.preventDefault()
+        router.push("/choose-template")
     }
 
     // Continue to Experience section
@@ -49,65 +54,76 @@ function ResumeProfile(props) {
 
     return (
         <FormWindow onSubmit={toResumeExperience} formTitle={profile.hasOwnProperty("id") ? "Editing Resume Header" : "Profile Header"}>
-            <input
-                className="input "
+            <div className="w-full flex flex-col gap-2 mb-5
+                ">
+                {/* sm:flex-row sm:justify-between */}
+                <input
+                className="input w-full"
                 type="text"
                 placeholder="First Name"
                 value={profile.firstname}
                 name="firstname"
                 onChange={handleChange}
-            />
-            <input
-                className="input "
-                type="text"
-                placeholder="Surname"
-                value={profile.surname}
-                name="surname"
-                onChange={handleChange}
-            />
-            <input
-                className="input "
-                type="text"
-                placeholder="City/Municipality"
-                value={profile.city}
-                name="city"
-                onChange={handleChange}
-            />
-            <input
-                className="input "
-                type="text"
-                placeholder="Country"
-                value={profile.country}
-                name="country"
-                onChange={handleChange}
-            />
-            <input
-                className="input "
-                type="text"
-                placeholder="Postal Code"
-                value={profile.postalCode}
-                name="postalCode"
-                onChange={handleChange}
-            />
-            <input
-                className="input "
+                />
+                <input
+                    className="input w-full"
+                    type="text"
+                    placeholder="Surname"
+                    value={profile.surname}
+                    name="surname"
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="w-full flex flex-col gap-2 mb-5
+                ">
+                <input
+                    className="input w-full"
+                    type="text"
+                    placeholder="City/Municipality"
+                    value={profile.city}
+                    name="city"
+                    onChange={handleChange}
+                />
+                <input
+                    className="input w-full"
+                    type="text"
+                    placeholder="Country"
+                    value={profile.country}
+                    name="country"
+                    onChange={handleChange}
+                />
+                <input
+                    className="input w-full"
+                    type="text"
+                    placeholder="Postal Code"
+                    value={profile.postalCode}
+                    name="postalCode"
+                    onChange={handleChange}
+                />
+            </div>
+            <div className="w-full flex flex-col gap-2 mb-5
+                ">
+                <input
+                className="input w-full"
                 type="number"
                 placeholder="Phone Number"
                 value={profile.phoneNumber}
                 name="phoneNumber"
                 onChange={handleChange}
-            />
-            <input
-                className="input "
-                type="email"
-                placeholder="Email Address"
-                value={profile.emailAddress}
-                name="emailAddress"
-                onChange={handleChange}
-            />
-            <div className="btn-group justify-between">
-                <button disabled className="btn btn-sm btn-outline">Back</button>
-                <button type="submit" className="btn btn-sm btn-outline">Continue</button>
+                />
+                <input
+                    className="input w-full"
+                    type="email"
+                    placeholder="Email Address"
+                    value={profile.emailAddress}
+                    name="emailAddress"
+                    onChange={handleChange}
+                />
+            </div>
+            
+            <div className="w-full flex flex-col sm:flex-row justify-between gap-5">
+                <button className="btn btn-sm sm:btn-md btn-outline" onClick={toResumeTemplates}>Back</button>
+                <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
             </div>
         </FormWindow>
     )
