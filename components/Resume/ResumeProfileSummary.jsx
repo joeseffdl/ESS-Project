@@ -1,44 +1,35 @@
-import { useState, useContext } from "react";
 import FormWindow from "../FormWindow";
 import validator from "validator"
-import DataContext from "../../context/DataContext";
 import { toast } from "react-toastify";
+import { completedSteps, resumeProfileSummaryStore } from "../../utils/store"
 
 function ResumeProfileSummary() {
-    // Data Context
-    const { completedSteps, setCompletedSteps, resumeValues, setResumeValues } = useContext(DataContext)
-
-    // Use State 
-    const [profileSummary, setProfileSummary] = useState("")
-    let { step } = completedSteps
+    // State Management
+    const profileSummary = resumeProfileSummaryStore(state => state.profileSummary)
+    const setProfileSummary = resumeProfileSummaryStore(state => state.setProfileSummary)
+    const incrementStep = completedSteps(state => state.incrementStep)
+    const decrementStep = completedSteps(state => state.decrementStep)
 
     // Handle change 
     const handleChange = (e) => {
-        const { name, value } = e.target
-        setProfileSummary((prev) => {
-            return { ...prev, [name]: value }
-        })
-
-        setResumeValues((prev) => {
-            return { ...prev, profileSummary: profileSummary }
-        })
+        const { value } = e.target
+        setProfileSummary(value)
     }
 
     // Go back to the previous page 
     const toPreviousPage = (e) => {
         e.preventDefault()
-        setCompletedSteps({ step: --step })
+        decrementStep()
     }
 
     // Continue to Submit section
     const toSubmit = (e) => {
         e.preventDefault()
-        if (validator.isEmpty(profileSummary.value)) {
+        if (validator.isEmpty(profileSummary)) {
             toast.error("Please enter your profile summary😞")
             return
         }
-
-        setCompletedSteps({ step: ++step })
+        incrementStep()
     }
 
     return (
@@ -46,7 +37,7 @@ function ResumeProfileSummary() {
             <textarea
                 className="textarea h-1/3 mb-5"
                 placeholder="Write down your skills"
-                value={profileSummary.value}
+                value={profileSummary}
                 name="value"
                 onChange={handleChange}
             />

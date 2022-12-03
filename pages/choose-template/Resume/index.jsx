@@ -3,25 +3,20 @@ import InputTemplate from "../../../components/InputTemplate"
 import OutputTemplate from "../../../components/OutputTemplate"
 import InputResume from "../../../components/Resume/InputResume"
 import OutputResume from "../../../components/Resume/OutputResume"
-import FormWindow from "../../../components/FormWindow"
 import { useRouter } from "next/router"
+import { completedSteps } from "../../../utils/store"
 import { auth, db } from "../../../utils/firebase"
 import { collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useState, useEffect, useContext } from "react"
-import DataContext from '../../../context/DataContext'
-import { toast } from "react-toastify"
-import validator from "validator"
+import { useState, useEffect } from "react"
 import ResumeExperience from "../../../components/Resume/ResumeExperience"
 import ResumeEducation from "../../../components/Resume/ResumeEducation"
 import ResumeSkills from "../../../components/Resume/ResumeSkills"
 import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummary"
 import ResumeProfile from "../../../components/Resume/ResumeProfile"
+import { toast } from "react-toastify"
 
 function Resume() {
-    // Data Context
-    const { completedSteps, setCompletedSteps, resumeValues, setResumeValues } = useContext(DataContext)
-
     // Use State
     const [resumeData, setResumeData] = useState({
         firstname: "",
@@ -32,7 +27,9 @@ function Resume() {
         phoneNumber: "",
         emailAddress: "",
     })
-    let { step } = completedSteps
+
+    // State Management
+    let step = completedSteps(state => state.steps)
 
     // Router
     const router = useRouter()
@@ -40,26 +37,6 @@ function Resume() {
 
     // Handle user
     const [user, loading] = useAuthState(auth)
-
-    // Get data from Resume Profile Component
-    const getProfileData = (data) => {
-        // console.log("Data from Resume Profile", data)
-    }
-    
-    // Get data from Resume Experience Component
-    const getExperienceData = (data) => {
-        // console.log("Data from Resume Experience", data)
-    }
-
-    // Get data from Resume Education Component
-    const getEducationData = (data) => {
-        // console.log("Data from Resume Education", data)
-    }
-
-    // Get data from Resume Skills Component
-    const getSkillsData = (data) => {
-        // console.log("Data from Resume Skills", data)
-    }
 
     // Submit Resume
     const submitResume = async (e) => {
@@ -120,7 +97,6 @@ function Resume() {
         // setResumeValues({ ...profile })
     }, [user, loading])
     
-    console.log(resumeValues)
     return (
         <div className="w-full flex flex-col xl:flex-row">
             <InputTemplate>
@@ -129,22 +105,22 @@ function Resume() {
                         (() => {
                             if (step == 1) {
                                 return (
-                                    <ResumeProfile onSubmit={getProfileData} formTitle={resumeData} />
+                                    <ResumeProfile formTitle={resumeData} />
                                 )
                             }
                             else if (step == 2) {
                                 return (
-                                    <ResumeExperience onSubmit={getExperienceData} />
+                                    <ResumeExperience />
                                 )
                             }
                             else if (step == 3) {
                                 return (
-                                    <ResumeEducation onSubmit={getEducationData} />
+                                    <ResumeEducation />
                                 )
                             }
                             else if (step == 4) {
                                 return (
-                                    <ResumeSkills onSubmit={getSkillsData} />
+                                    <ResumeSkills />
                                 )
                             }
                             else if (step == 5) {

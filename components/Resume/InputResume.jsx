@@ -1,12 +1,8 @@
-import { useContext } from "react"
-import DataContext from '../../context/DataContext'
+import {completedSteps} from "../../utils/store"
 
 function InputResume({ children }) {
-    // Data Context
-    const { completedSteps, setCompletedSteps } = useContext(DataContext)
-
-    // Use State
-    let { step } = completedSteps
+    // State Management
+    let step = completedSteps(state => state.steps)
 
     return (
         <>

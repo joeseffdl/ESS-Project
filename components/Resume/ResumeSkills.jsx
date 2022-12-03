@@ -1,55 +1,44 @@
-import { useState, useContext } from "react";
 import FormWindow from "../FormWindow";
 import validator from "validator"
-import DataContext from "../../context/DataContext";
 import { toast } from "react-toastify";
+import { completedSteps, resumeSkillsStore } from '../../utils/store'
 
 function ResumeSkills(props) {
-    // Data Context
-    const { completedSteps, setCompletedSteps, resumeValues, setResumeValues } = useContext(DataContext)
-
-    // Use State 
-    const [skills, setSkills] = useState({
-        value: ""
-    })
-    let { step } = completedSteps
+    // State Management
+    const userSkills = resumeSkillsStore(state => state.skills)
+    const addSkills = resumeSkillsStore(state => state.addSkills)
+    const incrementStep = completedSteps(state => state.incrementStep)
+    const decrementStep = completedSteps(state => state.decrementStep)
 
     // Handle change 
     const handleChange = (e) => {
-        const { name, value } = e.target
-        setSkills((prev) => {
-            return { ...prev, [name]: value }
-        })
-
-        setResumeValues((prev) => {
-            return { ...prev, skills: [skills.value.split("\n")] }
-        })
+        const { value } = e.target
+        addSkills(value.split("\n"))
     }
 
     // Go back to the previous page 
     const toPreviousPage = (e) => {
         e.preventDefault()
-        setCompletedSteps({ step: --step })
+        decrementStep()
     }
 
-    // Continue to More sections section
-    const toMoreSections = (e) => {
+    // Continue to Profile Summary section
+    const toProfileSummarySection = (e) => {
         e.preventDefault()
-        if (validator.isEmpty(skills.value)) {
+        if (userSkills.length == 0) {
             toast.error("Please enter a skill 😞")
             return
         }
-        props.onSubmit(skills.value)
-        setCompletedSteps({ step: ++step })
+        incrementStep()
     }
 
     return (
-        <FormWindow onSubmit={toMoreSections} formTitle="Skills and Expertise">
+        <FormWindow onSubmit={toProfileSummarySection} formTitle="Skills and Expertise">
             <textarea
                 className="textarea h-1/3 mb-5"
                 placeholder="Write down your skills"
-                value={skills.value}
-                name="value"
+                // value={skills.value}
+                // name="value"
                 onChange={handleChange}
             />
             <div className="w-full flex flex-col sm:justify-between gap-5">

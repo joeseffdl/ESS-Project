@@ -1,29 +1,29 @@
-import { useState, useEffect, useContext } from "react";
 import FormWindow from "../FormWindow";
 import validator from "validator"
-import DataContext from "../../context/DataContext";
 import { toast } from "react-toastify";
+import { resumeEducationStore, fillingForm, modalSection, addingDetails, completedSteps, } from '../../utils/store'
+
 
 function ResumeEducation(props) {
-    // Data Context
-    const { completedSteps, setCompletedSteps, resumeValues, setResumeValues } = useContext(DataContext)
+    // State Management
+    const educationalBackground = resumeEducationStore(state => state.educationalBackground)
+    const educationField = resumeEducationStore(state => state.educationField)
+    const description = resumeEducationStore(state => state.description)
+    const fillingFormValue = fillingForm(state => state.value)
+    const modalSectionValue = modalSection(state => state.value)
 
-    // Use State
-    const [education, setEducation] = useState({
-        institutionName: "",
-        institutionLocation: "",
-        degreeType: "",
-        otherDegree: false,
-        fieldOfStudy: "",
-        graduationMonth: "",
-        graduationYear: "",
-        description: "",
-    })
-    const [fillingForm, setFillingForm] = useState(true)
-    const [addEducationSection, setAddEducationSection] = useState(false)
-    const [educationArray, setEducationArray] = useState([])
-    let { step } = completedSteps
-    
+    // State Functions
+    const addEducation = resumeEducationStore(state => state.addEducation)
+    const addEducationDetailsArray = resumeEducationStore(state => state.addEducationDetailsArray)
+    const updateEducationField = resumeEducationStore(state => state.updateEducationField)
+    const addEducationalBackgroundArray = resumeEducationStore(state => state.addEducationalBackgroundArray)
+    const clearEducationField = resumeEducationStore(state => state.clearEducationField)
+    const incrementStep = completedSteps(state => state.incrementStep)
+    const decrementStep = completedSteps(state => state.decrementStep)
+    const setFillingForm = fillingForm(state => state.setFillingForm)
+    const setModalSection = modalSection(state => state.setModalSection)
+    const setAddingDetails = addingDetails(state => state.setAddingDetails)
+
     // Year Option
     const currentYear = new Date().getFullYear()
     const yearsOptionArray = []
@@ -34,94 +34,87 @@ function ResumeEducation(props) {
     // Handle change
     const handleChange = (e) => {
         const { name, value } = e.target
-        setEducation((prev) => {
-            return { ...prev, [name]: value, details: { val: "" } }
-        })
+        addEducation({[name]: value})
     }
 
     // Handle Text Area changes
     const handleTextAreaChange = (e) => {
-        const { name, value } = e.target
-        setEducation((prev) => {
-            return { ...prev, [name]: value, details: [value.split("\n")] }
-        })
+        const { value } = e.target
+        addEducationDetailsArray(value.split("\n"))
+        updateEducationField()
     }
 
     // Go back to the previous page 
     const toPreviousPage = (e) => {
         e.preventDefault()
-        setCompletedSteps({ step: --step })
+        decrementStep()
     }
 
     // Go back to the previous form
     const toEducationForm = (e) => {
         e.preventDefault()
-        setFillingForm(!fillingForm)
+        setFillingForm()
     }
 
     // Change state of fillingForm to false
     const fillingFormState = (e) => {
         e.preventDefault()
-        // if (validator.isEmpty(education.institutionName)) {
-        //     toast.error("Please enter an Institution Name 😞")
-        //     return
-        // }
-        props.onSubmit(education)
-        setFillingForm(!fillingForm)
+        if (validator.isEmpty(educationField.institutionName && educationField.degreeType)) {
+            toast.error("Please enter all required fields 😞")
+            return
+        }
+        setFillingForm()
     }
 
     // Continue to Add Education section 
     const toAddEducationSection = (e) => {
         e.preventDefault()
-        setEducationArray(prevArray => [education, ...prevArray])
-        setAddEducationSection(!addEducationSection)
-        props.onSubmit(education)
+        addEducationalBackgroundArray()
+        setModalSection()
+        setAddingDetails(false)
     }
 
     // Add More Education 
     const addMoreEducation = (e) => {
         e.preventDefault()
-        setEducation({
-            institutionName: "",
-            institutionLocation: "",
-            degreeType: "",
-            otherDegree: false,
-            fieldOfStudy: "",
-            graduationMonth: "",
-            graduationYear: "",
-            description: "",
-        })
-        setFillingForm(!fillingForm)
-        setAddEducationSection(!addEducationSection)
+        clearEducationField()
+        setFillingForm()
+        setModalSection()
+        setAddingDetails(true)
     }
 
     // Continue to Skills section
     const toResumeSkills = (e) => {
         e.preventDefault()
-
-        setResumeValues((prev) => {
-            return { ...prev, educationalBackground: [...educationArray,...prev.educationalBackground,] }
-        })
-        setCompletedSteps({ step: ++step })
+        incrementStep()
+        setFillingForm()
+        setModalSection()
+        setAddingDetails(false)
     }
 
-    console.log(resumeValues)
-    if (fillingForm && !addEducationSection) {
+    // To Skills Section
+    const toSkillsSection = (e) => {
+        e.preventDefault()
+        incrementStep()
+        setAddingDetails(false)
+    }
+
+    if (fillingFormValue && !modalSectionValue) {
         return (
             <FormWindow onSubmit={fillingFormState} formTitle="Education">
                 <div className="w-full flex flex-col gap-2 mb-5
                     ">
                     <input
-                        className="input "
+                        className={`input ${educationField.institutionName == "" ? "input-warning" : "input-success"}`}
                         placeholder="Institution Name"
-                        value={education.institutionName}
+                        value={educationField.institutionName}
                         name="institutionName"
                         onChange={handleChange}
                     />
                     <input
                         className="input "
                         placeholder="Institution Location"
-                        value={education.institutionLocation}
+                        value={educationField.institutionLocation}
                         name="institutionLocation"
                         onChange={handleChange}
                     />
@@ -130,11 +123,11 @@ function ResumeEducation(props) {
                 <div className="w-full flex flex-col gap-2 mb-5
                     ">
                     <select
-                        className="select "
+                        className={`select ${educationField.degreeType == "" ? "select-warning" : "select-success"}`}
                         name="degreeType"
                         onChange={handleChange}
                     >
-                        <option value="degree" disabled selected>Degree</option>
+                        <option value="" disabled selected>Degree Type</option>
                         <option value="High School Diploma">High School Diploma</option>
                         <option value="GED">GED</option>
                         <option value="Associate of Arts">Associate of Arts</option>
@@ -149,14 +142,14 @@ function ResumeEducation(props) {
                         <option value="J.D.">J.D.</option>
                         <option value="M.D.">M.D.</option>
                         <option value="Ph.D.">Ph.D.</option>
-                        <option value="Some College (No Degree)">Some College (No Degree)</option>
-                        <option value="Enter a different degree">Enter a different degree</option>
+                        <option value="No Degree">Some College (No Degree)</option>
+                        <option value="Degree">Enter a different degree</option>
                     </select>
                     <input
-                        disabled={education.degreeType === ("Degree") || education.degreeType === ("High School Diploma") || education.degreeType === ("GED")}
+                        disabled={educationField.degreeType === ("") || educationField.degreeType === ("High School Diploma") || educationField.degreeType === ("GED")}
                         className="input "
                         placeholder="Field of Study"
-                        value={education.fieldOfStudy}
+                        value={educationField.fieldOfStudy}
                         name="fieldOfStudy"
                         onChange={handleChange}
                     />
@@ -168,7 +161,8 @@ function ResumeEducation(props) {
                         name="graduationMonth"
                         onChange={handleChange}
                     >
-                        <option disabled selected>Graduation Month</option>
+                        <option value="" disabled selected>Graduation Month</option>
+                        <option value="">I don&apos;t know the month</option>
                         <option value="Jan">Jan</option>
                         <option value="Feb">Feb</option>
                         <option value="Mar">Mar</option>
@@ -197,17 +191,18 @@ function ResumeEducation(props) {
                 <div className="w-full flex flex-col sm:justify-between gap-5">
                     <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
                     <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+                    <button className=" btn btn-sm sm:btn-md btn-outline" onClick={toSkillsSection}>Skip to Skills Section</button>
                 </div>
             </FormWindow>
         )
     } 
-    else if (!fillingForm && !addEducationSection) {
+    else if (!fillingFormValue && !modalSectionValue) {
         return (
             <FormWindow onSubmit={toAddEducationSection} formTitle="Education Description">
                 <textarea
                     className="textarea h-1/3 mb-5 "
                     placeholder="Education Description"
-                    value={education.description}
+                    value={description.value}
                     name="description"
                     onChange={handleTextAreaChange}
                 />
@@ -219,7 +214,7 @@ function ResumeEducation(props) {
             </FormWindow>
         )
     }
-    else if (!fillingForm && addEducationSection) {
+    else if (!fillingFormValue && modalSection) {
         return (
             <FormWindow onSubmit={toResumeSkills} formTitle="Preview Educational Attainment" >
 
