@@ -1,131 +1,121 @@
-import { useState, useContext } from "react";
 import FormWindow from "../FormWindow";
 import validator from "validator"
-import DataContext from "../../context/DataContext";
 import { toast } from "react-toastify";
+import { resumeExperienceStore, fillingForm, modalSection, addingDetails, completedSteps,  } from '../../utils/store'
 
 function ResumeExperience(props) {
-  // Data Context
-  const { completedSteps, setCompletedSteps, resumeValues, setResumeValues } = useContext(DataContext)
-  
-  // Use State
-  const [workExperience, setWorkExperience] = useState({
-    title: "",
-    employer: "",
-    city: "",
-    country: "",
-    startDate: "",
-    endDate: "",
-    currentlyWorking: false,
-    description: "",
-  })
-  const [fillingForm, setFillingForm] = useState(true)
-  const [addExperienceSection, setAddExperienceSection] = useState(false)
-  const [workExperienceArray, setWorkExperienceArray] = useState([])
-  let { step } = completedSteps
+  // State Management
+  const workExperiences = resumeExperienceStore(state => state.workExperiences)
+  const workExp = resumeExperienceStore(state => state.workExp)
+  const description = resumeExperienceStore(state => state.description)
+  const fillingFormValue = fillingForm(state => state.value)
+  const modalSectionValue = modalSection(state => state.value)
+
+
+  // State Functions
+  const addWorkExp = resumeExperienceStore(state => state.addWorkExp)
+  const addWorkDetailsArray = resumeExperienceStore(state => state.addWorkDetailsArray)
+  const updateWorkExpField = resumeExperienceStore(state => state.updateWorkExpField)
+  const addWorkExperiencesArray = resumeExperienceStore(state => state.addWorkExperiencesArray)
+  const clearWorkExpField = resumeExperienceStore(state => state.clearWorkExpField)
+  const incrementStep = completedSteps(state => state.incrementStep)
+  const decrementStep = completedSteps(state => state.decrementStep)
+  const setFillingForm = fillingForm(state => state.setFillingForm)
+  const setModalSection = modalSection(state => state.setModalSection)
+  const setAddingDetails = addingDetails(state => state.setAddingDetails)
+
 
   // Handle change 
   const handleChange = (e) => {
     const { name, value } = e.target
-      setWorkExperience((prev) => {
-        return { ...prev, [name]: value, details: { val: "" } }
-      })
+    addWorkExp({[name]: value})
   }
 
   // Handle Text Area changes
   const handleTextAreaChange = (e) => {
-    const { name, value } = e.target
-    setWorkExperience((prev) => {
-      return { ...prev, [name]: value, details:[value.split("\n")] }
-    })
+    const { value } = e.target
+    addWorkDetailsArray(value.split("\n"))
+    updateWorkExpField()
   }
 
   // Go back to the previous page 
   const toPreviousPage = (e) => {
     e.preventDefault()
-    setCompletedSteps({ step: --step })
+    decrementStep()
   }
 
   // Go back to the previous form
   const toExperienceForm = (e) => {
     e.preventDefault()
-    setFillingForm(!fillingForm)
+    setFillingForm()
   }
   
   // Change state of fillingForm to false
   const fillingFormState = (e) => {
     e.preventDefault()
-    if (validator.isEmpty(workExperience.title && workExperience.employer)) {
+    if (validator.isEmpty(workExp.title && workExp.employer)) {
       toast.error(`Please enter all required fields 😞`)
       return
     }
-    props.onSubmit(workExperience)
-    setFillingForm(!fillingForm)
+    setFillingForm()
   }
 
   // Continue to Add Experience section
   const toAddExperienceSection = (e) => {
     e.preventDefault()
-    if (validator.isEmpty(workExperience.description)) {
-      toast.error("Please enter a Work Description 😞")
-      return
-    }
-    setWorkExperienceArray(prevArray => [workExperience,...prevArray])
-    setAddExperienceSection(!addExperienceSection)
-    props.onSubmit(workExperienceArray)
+    // if (validator.isEmpty(workExperience.description)) {
+    //   toast.error("Please enter a Work Description 😞")
+    //   return
+    // }
+    // setWorkExperienceArray(prevArray => [workExperience,...prevArray])
+    addWorkExperiencesArray()
+    setModalSection()
+    setAddingDetails(false)
   }
 
   // Add More Experience
   const addMoreExperience = (e) => {
     e.preventDefault()
-    setWorkExperience({
-      title: "",
-      employer: "",
-      city: "",
-      country: "",
-      startDate: "",
-      endDate: "",
-      currentlyWorking: false,
-      description: "",
-    })
-    setFillingForm(!fillingForm)
-    setAddExperienceSection(!addExperienceSection)
+    clearWorkExpField()
+    setFillingForm()
+    setModalSection()
+    setAddingDetails(true)
   }
 
   // Continue to Education section
   const toResumeEducation = (e) => {
     e.preventDefault()
-    setResumeValues((prev) => {
-      return { ...prev, workExperiences: [...workExperienceArray, ...prev.workExperiences,] }
-    })
-    
-    setCompletedSteps({ step: ++step })
+    incrementStep()
+    setFillingForm()
+    setModalSection()
+    setAddingDetails(false)
   }
 
   // To Education Section
   const toEducationSection = (e) => {
     e.preventDefault()
-    setCompletedSteps({ step: ++step })
+    incrementStep()
+    setAddingDetails(false)
   }
 
-  if (fillingForm && !addExperienceSection) {
+  if (fillingFormValue && !modalSectionValue) {
     return (
       <FormWindow onSubmit={fillingFormState} formTitle="Work Experience" >
         <div className="w-full flex flex-col gap-2 mb-5
           ">
           <input
-            className={`input ${workExperience.title == "" ? "input-error" : "input-success"}`}
+            className={`input ${workExp.title == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Work Title"
-            value={workExperience.title}
+            value={workExp.title}
             name="title"
             onChange={handleChange}
           />
           <input
-            className={`input ${workExperience.employer == "" ? "input-error" : "input-success"}`}
+            className={`input ${workExp.employer == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Employer"
-            value={workExperience.employer}
+            value={workExp.employer}
             name="employer"
             onChange={handleChange}
           />
@@ -136,7 +126,7 @@ function ResumeExperience(props) {
             className="input "
             type="text"
             placeholder="City/Municipality"
-            value={workExperience.city}
+            value={workExp.city}
             name="city"
             onChange={handleChange}
           />
@@ -144,7 +134,7 @@ function ResumeExperience(props) {
             className="input "
             type="text"
             placeholder="Country"
-            value={workExperience.country}
+            value={workExp.country}
             name="country"
             onChange={handleChange}
           />
@@ -155,7 +145,7 @@ function ResumeExperience(props) {
             className="input w-full"
             type="text"
             placeholder="Start Date"
-            value={workExperience.startDate}
+            value={workExp.startDate}
             name="startDate"
             onChange={handleChange}
             onFocus={(e) => (e.target.type = "date")}
@@ -163,11 +153,11 @@ function ResumeExperience(props) {
           />
           <div className="w-full flex flex-col ">
             <input
-              disabled={workExperience.currentlyWorking}
+              disabled={workExp.currentlyWorking}
               className="input w-full"
               type="text"
               placeholder="End Date"
-              value={workExperience.endDate}
+              value={workExp.endDate}
               name="endDate"
               onChange={handleChange}
               onFocus={(e) => (e.target.type = "date")}
@@ -178,7 +168,7 @@ function ResumeExperience(props) {
               <input
                 className="checkbox "
                 type="checkbox"
-                checked={workExperience.currentlyWorking}
+                checked={workExp.currentlyWorking}
                 value="Present"
                 name="currentlyWorking"
                 onChange={handleChange}
@@ -196,14 +186,14 @@ function ResumeExperience(props) {
       </FormWindow>
     )
   }
-  else if (!fillingForm && !addExperienceSection) {
+  else if (!fillingFormValue && !modalSectionValue) {
     return (
       <FormWindow onSubmit={toAddExperienceSection} formTitle="Work Experience Description" >
         <textarea
           className="textarea h-1/3 mb-5"
           type="text"
           placeholder="Write down your work's description."
-          value={workExperience.description}
+          value={description.value}
           name="description"
           onChange={handleTextAreaChange}
         />
@@ -214,20 +204,11 @@ function ResumeExperience(props) {
       </FormWindow>
     )
   }
-  else if (!fillingForm && addExperienceSection) {
+  else if (!fillingFormValue && modalSection) {
     return (
-      <FormWindow onSubmit={toResumeEducation} formTitle="Preview Work Experience" >
-        <div className="flex justify-center">
-          {resumeValues.workExperiences != "" ?
-            `${
-              resumeValues.workExperiences?.map((experience) => {
-                <div className="w-full bg-red-200">
-                  awdawd{experience.title}
-                </div>
-              })
-            }`: null}
-        </div>
-        <div className="w-full flex justify-between gap-5">
+      <FormWindow onSubmit={toResumeEducation} formTitle="Want to add more work experience?" >
+        
+        <div className="w-full flex flex-col sm:justify-between gap-5">
           <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
           <button className="btn btn-sm sm:btn-md btn-outline" onClick={addMoreExperience}>Add Experience</button>
           <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
