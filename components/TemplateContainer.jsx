@@ -1,7 +1,7 @@
 import InputTemplate from "./InputTemplate";
 import OutputTemplate from "./OutputTemplate";
 import InputResume from "./Resume/InputResume";
-import OutputResume from "./RESUME/OutputResume";
+import OutputResume from "./Resume/OutputResume";
 
 function TemplateContainer({ children }) {
     return (
