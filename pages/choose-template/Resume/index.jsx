@@ -1,8 +1,4 @@
 import AppNavigation from "../../../components/AppNavigation"
-import InputTemplate from "../../../components/InputTemplate"
-import OutputTemplate from "../../../components/OutputTemplate"
-import InputResume from "../../../components/Resume/InputResume"
-import OutputResume from "../../../components/Resume/OutputResume"
 import { useRouter } from "next/router"
 import { completedSteps } from "../../../utils/store"
 import { auth, db } from "../../../utils/firebase"
@@ -15,6 +11,7 @@ import ResumeSkills from "../../../components/Resume/ResumeSkills"
 import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummary"
 import ResumeProfile from "../../../components/Resume/ResumeProfile"
 import { toast } from "react-toastify"
+import TemplateContainer from "../../../components/TemplateContainer"
 
 function Resume() {
     // Use State
@@ -91,6 +88,41 @@ function Resume() {
         }
     }
 
+    const PageDisplay = () => {
+        if (step == 1) {
+            return (
+                <ResumeProfile formTitle={resumeData} />
+            )
+        }
+        else if (step == 2) {
+            return (
+                <ResumeExperience />
+            )
+        }
+        else if (step == 3) {
+            return (
+                <ResumeEducation />
+            )
+        }
+        else if (step == 4) {
+            return (
+                <ResumeSkills />
+            )
+        }
+        else if (step == 5) {
+            return (
+                <ResumeProfileSummary />
+            )
+        }
+        else if (step > 5) {
+            return (
+                <>
+                    <div>No more content</div>
+                </>
+            )
+        }
+    }
+
     // Get users data
     useEffect(() => {
         getData()
@@ -98,51 +130,11 @@ function Resume() {
     }, [user, loading])
     
     return (
-        <div className="w-full flex flex-col xl:flex-row">
-            <InputTemplate>
-                <InputResume>
-                    {
-                        (() => {
-                            if (step == 1) {
-                                return (
-                                    <ResumeProfile formTitle={resumeData} />
-                                )
-                            }
-                            else if (step == 2) {
-                                return (
-                                    <ResumeExperience />
-                                )
-                            }
-                            else if (step == 3) {
-                                return (
-                                    <ResumeEducation />
-                                )
-                            }
-                            else if (step == 4) {
-                                return (
-                                    <ResumeSkills />
-                                )
-                            }
-                            else if (step == 5) {
-                                return (
-                                    <ResumeProfileSummary />
-                                )
-                            }
-                            else if (step > 5) {
-                                return (
-                                    <>
-                                        <div>No more content</div>
-                                    </>
-                                )
-                            }
-                        })()
-                    }
-                </InputResume>
-            </InputTemplate>
-            <OutputTemplate>
-                <OutputResume />
-            </OutputTemplate>
-        </div>
+        <>
+            <TemplateContainer>
+                {PageDisplay()}
+            </TemplateContainer>
+        </>            
     )
 }
 
