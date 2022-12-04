@@ -6,7 +6,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 export default function Home() {
   // Handle user 
   const [user, loading] = useAuthState(auth)
-
+  
   return (
     <>
       <main className="w-screen bg-neutral text-primary-focus p-20">
