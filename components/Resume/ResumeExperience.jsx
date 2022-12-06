@@ -91,8 +91,8 @@ function ResumeExperience(props) {
     setAddingDetails(false)
   }
 
-  // To Education Section
-  const toEducationSection = (e) => {
+  // Skip Section
+  const skipSection = (e) => {
     e.preventDefault()
     incrementStep()
     setAddingDetails(false)
@@ -181,7 +181,7 @@ function ResumeExperience(props) {
         <div className="w-full flex flex-col sm:justify-between gap-5">
           <button className=" btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
           <button type="submit" className=" btn btn-sm sm:btn-md btn-outline">Continue</button>
-          <button className=" btn btn-sm sm:btn-md btn-outline" onClick={toEducationSection}>Skip to Education Section</button>
+          <button className=" btn btn-sm sm:btn-md btn-outline" onClick={skipSection}>Skip to Education Section</button>
         </div>
       </FormWindow>
     )

@@ -4,6 +4,8 @@ import {
     resumeEducationStore,
     resumeSkillsStore,
     resumeProfileSummaryStore,
+    resumeCertificationStore,
+    resumePortfolioStore,
     completedSteps,
     addingDetails,
 } from "../../utils/store"
@@ -16,6 +18,8 @@ function OutputResume() {
     const educationField = resumeEducationStore(state => state.educationField)
     const educationalBackground = resumeEducationStore(state => state.educationalBackground)
     const userSkills = resumeSkillsStore(state => state.skills)
+    const userCertifications = resumeCertificationStore(state => state.certifications)
+    const userPortfolio = resumePortfolioStore(state => state.portfolio)
     const profileSummary = resumeProfileSummaryStore(state => state.profileSummary)
     const steps = completedSteps(state => state.steps)
     const addingDetailsValue = addingDetails(state => state.value)
@@ -589,7 +593,43 @@ function OutputResume() {
                                 : ''
                             }
                         </>}
-                    </>}
+                        </>}
+                    
+                    {/* CERTIFICATION SECTION */}
+                    {userCertifications != "" ? (
+                        <section className="w-full px-10 pb-5">
+                            <div className="text-center font-bold my-1">
+                                Certifications
+                            </div>
+                            <div className="px-5 mb-5 ">
+                                {userPortfolio[0]?.map((cert) => {
+                                    return (
+                                        <ul className="flex list-disc list-inside" key={cert}>
+                                            <li>{cert}</li>
+                                        </ul>
+                                    )
+                                })}
+                            </div>
+                        </section>
+                    ) : null}
+
+                    {/* PORTFOLIO SECTION */}
+                    {userPortfolio != "" ? (
+                        <section className="w-full px-10 pb-5">
+                            <div className="text-center font-bold my-1">
+                                Portfolio
+                            </div>
+                            <div className="px-5 mb-5 ">
+                                {userPortfolio[0]?.map((port) => {
+                                    return (
+                                        <ul className="flex list-disc list-inside" key={port}>
+                                            <li>{port}</li>
+                                        </ul>
+                                    )
+                                })}
+                            </div>
+                        </section>
+                    ) : null}
                 </div>
             </div>
         </>

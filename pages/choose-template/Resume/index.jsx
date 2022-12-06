@@ -12,6 +12,8 @@ import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummar
 import ResumeProfile from "../../../components/Resume/ResumeProfile"
 import { toast } from "react-toastify"
 import TemplateContainer from "../../../components/TemplateContainer"
+import ResumeCertifications from "../../../components/Resume/ResumeCertifications"
+import ResumePortfolios from "../../../components/Resume/ResumePortfolios"
 
 function Resume() {
     // Use State
@@ -114,7 +116,17 @@ function Resume() {
                 <ResumeProfileSummary />
             )
         }
-        else if (step > 5) {
+        else if (step == 6) {
+            return (
+                <ResumeCertifications />
+            )
+        }
+        else if (step == 7) {
+            return (
+                <ResumePortfolios />
+            )
+        }
+        else {
             return (
                 <>
                     <div>No more content</div>

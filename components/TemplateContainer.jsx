@@ -1,15 +1,15 @@
 import InputTemplate from "./InputTemplate";
 import OutputTemplate from "./OutputTemplate";
-import InputResume from "./Resume/InputResume";
+import InputContainer from "./Resume/InputContainer";
 import OutputResume from "./Resume/OutputResume";
 
 function TemplateContainer({ children }) {
     return (
         <div className="w-full flex flex-col xl:flex-row">
             <InputTemplate>
-                <InputResume>
+                <InputContainer>
                     {children}
-                </InputResume>
+                </InputContainer>
             </InputTemplate>
             <OutputTemplate>
                 <OutputResume />
