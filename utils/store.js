@@ -104,6 +104,20 @@ export let resumeSkillsStore = create((set) => ({
     })),
 }))
 
+export let resumeCertificationStore = create((set) => ({
+    certifications: [],
+    addCertifications: (cert) => set((state) => ({
+        certifications: [cert]
+    })),
+}))
+
+export let resumePortfolioStore = create((set) => ({
+    portfolio: "",
+    addPortfolio: (portfolio) => set((state) => ({
+        portfolio: [portfolio]
+    })),
+}))
+
 export let resumeProfileSummaryStore = create((set) => ({
     profileSummary: "",
     setProfileSummary: (value) => set((state) => ({
