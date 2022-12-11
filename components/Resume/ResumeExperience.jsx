@@ -31,6 +31,16 @@ function ResumeExperience(props) {
     addWorkExp({[name]: value})
   }
 
+  // Handle checkbox 
+  const handleCheckbox = (e) => {
+    const { name, value, checked } = e.target
+    if (checked) {
+      addWorkExp({[name]: value })
+    } else {
+      addWorkExp({ [name]: "" })
+    }
+  }
+
   // Handle Text Area changes
   const handleTextAreaChange = (e) => {
     const { value } = e.target
@@ -104,7 +114,7 @@ function ResumeExperience(props) {
         <div className="w-full flex flex-col gap-2 mb-5
           ">
           <input
-            className={`input ${workExp.title == "" ? "input-warning" : "input-success"}`}
+            className={`input focus:outline-none ${workExp.title == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Work Title"
             value={workExp.title}
@@ -112,7 +122,7 @@ function ResumeExperience(props) {
             onChange={handleChange}
           />
           <input
-            className={`input ${workExp.employer == "" ? "input-warning" : "input-success"}`}
+            className={`input focus:outline-none ${workExp.employer == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Employer"
             value={workExp.employer}
@@ -153,11 +163,11 @@ function ResumeExperience(props) {
           />
           <div className="w-full flex flex-col ">
             <input
-              disabled={workExp.currentlyWorking}
+              disabled={workExp.currentlyWorking == "Present"}
               className="input w-full"
               type="text"
               placeholder="End Date"
-              value={workExp.endDate}
+              value={workExp.currentlyWorking == "Present" ? "" : workExp.endDate}
               name="endDate"
               onChange={handleChange}
               onFocus={(e) => (e.target.type = "date")}
@@ -168,10 +178,9 @@ function ResumeExperience(props) {
               <input
                 className="checkbox "
                 type="checkbox"
-                checked={workExp.currentlyWorking}
-                value="Present"
+                value="Present" 
                 name="currentlyWorking"
-                onChange={handleChange}
+                onChange={handleCheckbox}
               />
             </label>
           </div>

@@ -38,7 +38,7 @@ export let resumeExperienceStore = create((set) => ({
         }
     })),
     addWorkDetailsArray: (expDetails) => set((state) => ({
-        description: [expDetails]
+        description: [...expDetails]
     })),
     updateWorkExpField: () => set((state) => ({
         workExp: {...state.workExp, description: state.description}
@@ -77,7 +77,7 @@ export let resumeEducationStore = create((set) => ({
         }
     })),
     addEducationDetailsArray: (educationDetails) => set((state) => ({
-        description: [educationDetails]
+        description: [...educationDetails]
     })),
     updateEducationField: () => set((state) => ({
         educationField: {...state.educationField, description: state.description}
@@ -100,21 +100,21 @@ export let resumeEducationStore = create((set) => ({
 export let resumeSkillsStore = create((set) => ({
     skills: [],
     addSkills: (skill) => set((state) => ({
-        skills: [skill]
+        skills: [...skill]
     })),
 }))
 
 export let resumeCertificationStore = create((set) => ({
     certifications: [],
     addCertifications: (cert) => set((state) => ({
-        certifications: [cert]
+        certifications: [...cert]
     })),
 }))
 
 export let resumePortfolioStore = create((set) => ({
     portfolio: "",
     addPortfolio: (portfolio) => set((state) => ({
-        portfolio: [portfolio]
+        portfolio: [...portfolio]
     })),
 }))
 
@@ -123,6 +123,21 @@ export let resumeProfileSummaryStore = create((set) => ({
     setProfileSummary: (value) => set((state) => ({
         profileSummary: value
     })),
+}))
+
+export let resumeDataStore = create((set) => ({
+    resumeData: {
+        personalInformation: {},
+        workExperiences: [],
+        educationalBackground: [],
+        skills: [],
+        certifications: [],
+        portfolio: "",
+        profileSummary: "",
+    },
+    setResumeData: (value) => set((state) => ({
+        resumeData: value
+    }))
 }))
 
 export let completedSteps = create((set) => ({

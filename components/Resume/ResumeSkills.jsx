@@ -15,7 +15,7 @@ function ResumeSkills(props) {
         const { value } = e.target
         addSkills(value.split("\n"))
     }
-
+    console.log(userSkills)
     // Go back to the previous page 
     const toPreviousPage = (e) => {
         e.preventDefault()

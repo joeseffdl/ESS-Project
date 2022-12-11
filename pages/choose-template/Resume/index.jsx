@@ -1,6 +1,6 @@
 import AppNavigation from "../../../components/AppNavigation"
 import { useRouter } from "next/router"
-import { completedSteps } from "../../../utils/store"
+import { resumeDataStore, completedSteps } from "../../../utils/store"
 import { auth, db } from "../../../utils/firebase"
 import { collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore"
 import { useAuthState } from "react-firebase-hooks/auth"
@@ -16,19 +16,23 @@ import ResumeCertifications from "../../../components/Resume/ResumeCertification
 import ResumePortfolios from "../../../components/Resume/ResumePortfolios"
 
 function Resume() {
-    // Use State
-    const [resumeData, setResumeData] = useState({
-        firstname: "",
-        surname: "",
-        city: "",
-        country: "",
-        postalCode: "",
-        phoneNumber: "",
-        emailAddress: "",
-    })
-
     // State Management
+    const resumeData = resumeDataStore(state => state.resumeData)
+    const decrementStep = completedSteps(state => state.decrementStep)
     let step = completedSteps(state => state.steps)
+
+    // // Use State
+    // const [resumeData, setResumeData] = useState({
+        
+    //     // firstname: "",
+    //     // surname: "",
+    //     // city: "",
+    //     // country: "",
+    //     // postalCode: "",
+    //     // phoneNumber: "",
+    //     // emailAddress: "",
+    // })
+
 
     // Router
     const router = useRouter()
@@ -40,7 +44,6 @@ function Resume() {
     // Submit Resume
     const submitResume = async (e) => {
         e.preventDefault()
-
         try {
             if (resumeData?.hasOwnProperty("id")) {
                 const docRef = doc(db, "resumes", resumeData.id)
@@ -54,14 +57,23 @@ function Resume() {
             else {
                 const collectionRef = collection(db, "resumes")
                 await addDoc(collectionRef, {
-                    ...resumeData,
                     createdOn: serverTimestamp(),
                     user: user.uid,
                     username: user.displayName,
                     avatar: user.photoURL,
                     type: "Resume",
+                    resumeData: {
+                        personalInformation:resumeData.personalInformation,
+                        workExperiences:resumeData.workExperiences,
+                        educationalBackground: resumeData.educationalBackground,
+                        skills: resumeData.skills,
+                        certifications: resumeData.certifications,
+                        portfolio: resumeData.portfolio,
+                        profileSummary: resumeData.profileSummary,
+                    }
                 })
-                setCompletedSteps({ step: ++step })
+                toast.success("Successfully saved to database 🚀")
+                router.push("/resumes")
             }
         } catch (err) {
             console.log(err)
@@ -90,6 +102,13 @@ function Resume() {
         }
     }
 
+    // Go back to the previous page 
+    const toPreviousPage = (e) => {
+        e.preventDefault()
+        decrementStep()
+    }
+
+    // Display page according to page count
     const PageDisplay = () => {
         if (step == 1) {
             return (
@@ -129,7 +148,10 @@ function Resume() {
         else {
             return (
                 <>
-                    <div>No more content</div>
+                    <div className="w-full flex flex-col gap-5">
+                        <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
+                        <button type="submit" className="btn btn-sm sm:btn-md btn-outline" onClick={submitResume}>Save Resume</button>
+                    </div>
                 </>
             )
         }
