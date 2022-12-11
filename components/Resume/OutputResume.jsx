@@ -73,7 +73,7 @@ function OutputResume() {
                                 Skills
                             </div>
                             <div className="grid grid-cols-2 justify-center items-center ">
-                                {userSkills[0]?.map((skill) => {
+                                {userSkills?.map((skill) => {
                                     return (
                                         <ul className="flex list-disc list-inside" key={skill}>
                                             <li>{skill}</li>
@@ -131,7 +131,7 @@ function OutputResume() {
                                             </div>
                                             {experience.description ? (
                                                 <div className="px-10 mb-5">
-                                                    {experience.description[0]?.map((desc) => {
+                                                    {experience.description?.map((desc) => {
                                                         return (
                                                             <ul className="flex list-disc list-inside" key={desc}>
                                                                 <li>{desc}</li>
@@ -195,7 +195,7 @@ function OutputResume() {
                                             </div>
                                             {experience.description ? (
                                                     <div className="px-10 mb-5">
-                                                        {experience.description[0]?.map((desc) => {
+                                                        {experience.description?.map((desc) => {
                                                             return (
                                                                 <ul className="flex list-disc list-inside" key={desc}>
                                                                     <li>{desc}</li>
@@ -259,7 +259,7 @@ function OutputResume() {
                                                             {experience.description
                                                                 ? (
                                                                     <>
-                                                                        {experience.description[0]?.map((desc) => {
+                                                                        {experience.description?.map((desc) => {
                                                                             return (
                                                                                 <ul className="flex list-disc list-inside" key={desc}>
                                                                                     <li>{desc}</li>
@@ -314,7 +314,7 @@ function OutputResume() {
                                                         </div>
                                                         {experience.description ? (
                                                             <div className="px-10 mb-5">
-                                                                {experience.description[0]?.map((desc) => {
+                                                                {experience.description?.map((desc) => {
                                                                     return (
                                                                         <ul className="flex list-disc list-inside" key={desc}>
                                                                             <li>{desc}</li>
@@ -386,7 +386,7 @@ function OutputResume() {
                                         }
                                         {education.description ? (
                                             <div className="px-5 mb-5">
-                                                {education.description[0]?.map((detail) => {
+                                                {education.description?.map((detail) => {
                                                     return (
                                                         <ul className="flex list-disc list-inside" key={detail}>
                                                             <li>{detail}</li>
@@ -453,7 +453,7 @@ function OutputResume() {
                                                 }
                                                 {education.description ? (
                                                     <div className="px-5 mb-5">
-                                                        {education.description[0]?.map((detail) => {
+                                                        {education.description?.map((detail) => {
                                                             return (
                                                                 <ul className="flex list-disc list-inside" key={detail}>
                                                                     <li>{detail}</li>
@@ -518,7 +518,7 @@ function OutputResume() {
                                                         }
                                                         {education.description ? (
                                                             <div className="px-5 mb-5">
-                                                                {education.description[0]?.map((detail) => {
+                                                                {education.description?.map((detail) => {
                                                                     return (
                                                                         <ul className="flex list-disc list-inside" key={detail}>
                                                                             <li>{detail}</li>
@@ -576,7 +576,7 @@ function OutputResume() {
                                                         }
                                                         {education.description ? (
                                                             <div className="px-5 mb-5">
-                                                                {education.description[0]?.map((detail) => {
+                                                                {education.description?.map((detail) => {
                                                                     return (
                                                                         <ul className="flex list-disc list-inside" key={detail}>
                                                                             <li>{detail}</li>
@@ -601,8 +601,8 @@ function OutputResume() {
                             <div className="text-center font-bold my-1">
                                 Certifications
                             </div>
-                            <div className="px-5 mb-5 ">
-                                {userPortfolio[0]?.map((cert) => {
+                            <div className="mb-5 ">
+                                {userCertifications?.map((cert) => {
                                     return (
                                         <ul className="flex list-disc list-inside" key={cert}>
                                             <li>{cert}</li>
@@ -619,11 +619,11 @@ function OutputResume() {
                             <div className="text-center font-bold my-1">
                                 Portfolio
                             </div>
-                            <div className="px-5 mb-5 ">
-                                {userPortfolio[0]?.map((port) => {
+                            <div className="mb-5 ">
+                                {userPortfolio?.map((portfolio) => {
                                     return (
-                                        <ul className="flex list-disc list-inside" key={port}>
-                                            <li>{port}</li>
+                                        <ul className="flex list-disc list-inside" key={portfolio}>
+                                            <li>{portfolio}</li>
                                         </ul>
                                     )
                                 })}

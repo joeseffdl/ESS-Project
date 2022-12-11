@@ -117,10 +117,10 @@ function YourResumes() {
                                         <Link href={{ pathname: `/${resume.id}`, query: { ...resume } }}>
                                             <button className="hover:scale-110 hover:text-sky-600" onClick={() => console.log("View")}><AiFillEye /></button>
                                         </Link>
-                                        <Link href={{ pathname: `/journal-template/${resume.type}`, query: resume }}>
+                                        <Link href={{ pathname: `${Links[0].template}/${resume.type}`, query: resume }}>
                                             <button className="hover:scale-110 hover:text-amber-600" onClick={() => console.log("Edit")}><AiFillEdit /></button>
                                         </Link>
-                                        <Link href={`/your-journals`}>
+                                        <Link href={`${Links[0].resumes}`}>
                                             <button className="hover:scale-110 hover:text-red-600" onClick={() => deleteResume(resume.id)}><AiFillDelete /></button>
                                         </Link>
                                         </div>

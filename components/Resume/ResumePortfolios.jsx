@@ -1,13 +1,32 @@
 import FormWindow from "../FormWindow";
 import { toast } from "react-toastify";
-import { completedSteps, resumePortfolioStore } from '../../utils/store'
+import {
+    resumePersonalInformationStore,
+    resumeExperienceStore,
+    resumeEducationStore,
+    resumeSkillsStore,
+    resumeProfileSummaryStore,
+    resumeCertificationStore,
+    resumePortfolioStore,
+    resumeDataStore,
+    completedSteps,
+} from '../../utils/store'
 
 function ResumePortfolios() {
     // State Management
-    const userPortfolio = resumePortfolioStore(state => state.portfolio)
+    const personalInformation = resumePersonalInformationStore(state => state.personalInformation)
+    const workExperiences = resumeExperienceStore(state => state.workExperiences)
+    const educationalBackground = resumeEducationStore(state => state.educationalBackground)
+    const skills = resumeSkillsStore(state => state.skills)
+    const profileSummary = resumeProfileSummaryStore(state => state.profileSummary)
+    const certifications = resumeCertificationStore(state => state.certifications)
+
+    const portfolio = resumePortfolioStore(state => state.portfolio)
     const addPortfolio = resumePortfolioStore(state => state.addPortfolio)
+    
     const incrementStep = completedSteps(state => state.incrementStep)
     const decrementStep = completedSteps(state => state.decrementStep)
+    const setResumeData = resumeDataStore(state => state.setResumeData)
 
     // Handle change 
     const handleChange = (e) => {
@@ -24,16 +43,34 @@ function ResumePortfolios() {
     // Continue to next section
     const toNextSection = (e) => {
         e.preventDefault()
-        if (userPortfolio.length == 0) {
+        if (portfolio.length == 0) {
             toast.error("Please enter a portfolio 😞")
             return
         }
+        setResumeData({
+            personalInformation,
+            workExperiences,
+            educationalBackground,
+            skills,
+            profileSummary,
+            certifications,
+            portfolio,
+        })
         incrementStep()
     }
 
     // Skip Section
     const skipSection = (e) => {
         e.preventDefault()
+        setResumeData({
+            personalInformation,
+            workExperiences,
+            educationalBackground,
+            skills,
+            profileSummary,
+            certifications,
+            portfolio,
+        })
         incrementStep()
     }
 
