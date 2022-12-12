@@ -3,7 +3,7 @@ import OutputTemplate from "./OutputTemplate";
 import InputContainer from "./Resume/InputContainer";
 import OutputResume from "./Resume/OutputResume";
 
-function TemplateContainer({ children }) {
+function TemplateContainer({ children, outputChild }) {
     return (
         <div className="w-full flex flex-col xl:flex-row">
             <InputTemplate>

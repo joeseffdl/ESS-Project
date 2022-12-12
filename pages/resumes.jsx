@@ -116,7 +116,7 @@ function Resumes() {
                 <div className="bg-white p-5 rounded-2xl divide-y-2">
                     <div className="flex justify-between md:grid md:grid-cols-3 items-center font-bold text-sm text-neutral-focus
                         sm:text-base md:text-lg lg:text-xl">
-                        <div className="pl-2 ">Resume Title</div>
+                        <div className="pl-2 ">Resume Template</div>
                         <div className="col-span-2 w-1/2 md:w-full">
                             <div className="flex justify-center items-center md:grid md:grid-cols-3 md:justify-items-center ">
                                 <div className="hidden md:block">Owner</div>
@@ -132,11 +132,11 @@ function Resumes() {
                                     {user.uid == resume.user
                                         ? (
                                             <div className="flex gap-1">
-                                                <Link href={{pathname:`/${resume.id}`, query:{...resume}}}>
-                                                    <button className="hover:scale-110 hover:text-sky-600" onClick={() => console.log("View")}><AiFillEye /></button>
+                                                <Link href={{pathname:`/${resume.id}`}}>
+                                                    <button className="hover:scale-110 hover:text-sky-600" ><AiFillEye /></button>
                                                 </Link>
                                                 <Link href={{ pathname: `${Links[0].template}/${resume.template}`, query: resume }}>
-                                                    <button className="hover:scale-110 hover:text-amber-600" onClick={() => console.log("Edit")}><AiFillEdit /></button>
+                                                    <button className="hover:scale-110 hover:text-amber-600" ><AiFillEdit /></button>
                                                 </Link>
                                                 <Link href={`${Links[0].resumes}`}>
                                                     <button className="hover:scale-110 hover:text-red-600" onClick={() => deleteResume(resume.id)}><AiFillDelete /></button>

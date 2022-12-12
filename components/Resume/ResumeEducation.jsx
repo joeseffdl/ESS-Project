@@ -146,7 +146,7 @@ function ResumeEducation(props) {
                         <option value="Degree">Enter a different degree</option>
                     </select>
                     <input
-                        disabled={educationField.degreeType === ("") || educationField.degreeType === ("High School Diploma") || educationField.degreeType === ("GED")}
+                        disabled={educationField.degreeType === ("") || educationField.degreeType === ("High School Diploma") || educationField.degreeType === ("GED") || educationField.degreeType === ("No Degree")}
                         className="input "
                         placeholder="Field of Study"
                         value={educationField.fieldOfStudy}
