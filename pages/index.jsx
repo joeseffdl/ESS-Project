@@ -16,7 +16,7 @@ export default function Home() {
                 <p className="lg:text-4xl text-3xl ">Oregen: <span className="md:text-2xl text-lg">Resume builder</span></p>
                 <p className="lg:text-6xl text-5xl ">Where your Professional Journey <br />begins with us!</p>
               
-              <Link href={!user ? "/login" : "/journal-template" }>
+              <Link href={!user ? "/login" : "/choose-template" }>
                   <button
                     className="btn btn-outline btn-accent
                       lg:btn-lg
