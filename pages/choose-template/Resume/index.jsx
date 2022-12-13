@@ -2,7 +2,7 @@ import AppNavigation from "../../../components/AppNavigation"
 import { useRouter } from "next/router"
 import { resumeDataStore, completedSteps } from "../../../utils/store"
 import { auth, db } from "../../../utils/firebase"
-import { collection, addDoc, serverTimestamp, doc, updateDoc } from "firebase/firestore"
+import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc } from "firebase/firestore"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useState, useEffect } from "react"
 import ResumeExperience from "../../../components/Resume/ResumeExperience"
@@ -18,25 +18,17 @@ import ResumePortfolios from "../../../components/Resume/ResumePortfolios"
 function Resume() {
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
+    const setResumeData = resumeDataStore(state => state.setResumeData)
+
+    const setCompletedSteps = completedSteps(state => state.setCompletedSteps)
     const decrementStep = completedSteps(state => state.decrementStep)
     let step = completedSteps(state => state.steps)
-
-    // // Use State
-    // const [resumeData, setResumeData] = useState({
-        
-    //     // firstname: "",
-    //     // surname: "",
-    //     // city: "",
-    //     // country: "",
-    //     // postalCode: "",
-    //     // phoneNumber: "",
-    //     // emailAddress: "",
-    // })
 
 
     // Router
     const router = useRouter()
-    const routeData = router.query
+    const routeID = router.query.id
+    const resumeType = router.route.slice(17)
 
     // Handle user
     const [user, loading] = useAuthState(auth)
@@ -46,13 +38,13 @@ function Resume() {
         e.preventDefault()
         try {
             if (resumeData?.hasOwnProperty("id")) {
-                const docRef = doc(db, "resumes", resumeData.id)
-                const updatedJournal = {
-                    ...resumeData,
-                    timestamp: serverTimestamp()
-                }
-                await updateDoc(docRef, updatedJournal)
-                setCompletedSteps({ step: ++step })
+                // const docRef = doc(db, "resumes", resumeData.id)
+                // const updatedJournal = {
+                //     ...resumeData,
+                //     timestamp: serverTimestamp()
+                // }
+                // await updateDoc(docRef, updatedJournal)
+                // setCompletedSteps({ step: ++step })
             }
             else {
                 const collectionRef = collection(db, "resumes")
@@ -61,7 +53,7 @@ function Resume() {
                     user: user.uid,
                     username: user.displayName,
                     avatar: user.photoURL,
-                    type: "Resume",
+                    type: resumeType,
                     resumeData: {
                         personalInformation:resumeData.personalInformation,
                         workExperiences:resumeData.workExperiences,
@@ -79,26 +71,31 @@ function Resume() {
             console.log(err)
         }
     }
+
+    // Get user resume data
+    const getResumeData = async (id) => {
+        
+        try {
+            const docRef = doc(db, 'resumes', id)
+            const docSnap = await getDoc(docRef)
+            const unsubscribe = setResumeData(docSnap.data().resumeData)
+            return unsubscribe
+        } catch (err) {
+            console.log(err)
+        }
+    }
     
     // Logged in?
-    const getData = async () => {
+    const getData = () => {
         if (loading) return;
         if (!user) return router.push("/login")
-        if (routeData.id) {
-            setCompletedSteps({ step: 1 })
-            setResumeData((prev) => {
-                return {
-                    ...prev,
-                    id: routeData.id,
-                    firstname: routeData.firstname,
-                    surname: routeData.surname,
-                    city: routeData.city,
-                    country: routeData.country,
-                    postalCode: routeData.postalCode,
-                    phoneNumber: routeData.phoneNumber,
-                    emailAddress: routeData.emailAddress,
-                }
-            })
+    }
+
+    // Editing document?
+    const editingDocument = () => {
+        if (routeID != '') {
+            setCompletedSteps(1)
+            getResumeData(routeID)
         }
     }
 
@@ -112,7 +109,7 @@ function Resume() {
     const PageDisplay = () => {
         if (step == 1) {
             return (
-                <ResumeProfile formTitle={resumeData} />
+                <ResumeProfile />
             )
         }
         else if (step == 2) {
@@ -160,7 +157,10 @@ function Resume() {
     // Get users data
     useEffect(() => {
         getData()
-        // setResumeValues({ ...profile })
+        if (routeID) {
+            editingDocument()
+        }
+        
     }, [user, loading])
     
     return (

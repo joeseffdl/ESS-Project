@@ -1,10 +1,17 @@
 import FormWindow from "../FormWindow";
 import validator from "validator"
 import { toast } from "react-toastify";
-import { completedSteps, resumeSkillsStore } from '../../utils/store'
+import { completedSteps, resumeDataStore, resumeSkillsStore } from '../../utils/store'
+import { useRouter } from "next/router";
 
-function ResumeSkills(props) {
+function ResumeSkills() {
+    // Router
+    const router = useRouter()
+
     // State Management
+    const resumeData = resumeDataStore(state => state.resumeData)
+    const updateResumeSkills = resumeDataStore(state => state.updateResumeSkills)
+
     const userSkills = resumeSkillsStore(state => state.skills)
     const addSkills = resumeSkillsStore(state => state.addSkills)
     const incrementStep = completedSteps(state => state.incrementStep)
@@ -13,9 +20,13 @@ function ResumeSkills(props) {
     // Handle change 
     const handleChange = (e) => {
         const { value } = e.target
-        addSkills(value.split("\n"))
+        if (!router.query.id) {
+            addSkills(value.split("\n"))
+        } else {
+            updateResumeSkills(value.split("\n"))
+        }
     }
-    
+
     // Go back to the previous page 
     const toPreviousPage = (e) => {
         e.preventDefault()
@@ -25,7 +36,7 @@ function ResumeSkills(props) {
     // Continue to Profile Summary section
     const toProfileSummarySection = (e) => {
         e.preventDefault()
-        if (userSkills.length == 0) {
+        if (!router.query.id && userSkills.length == 0) {
             toast.error("Please enter a skill 😞")
             return
         }
@@ -33,12 +44,11 @@ function ResumeSkills(props) {
     }
 
     return (
-        <FormWindow onSubmit={toProfileSummarySection} formTitle="Skills and Expertise">
+        <FormWindow onSubmit={toProfileSummarySection} formTitle={router.query.id ? "Editing Resume Skills and Expertise" : "Skills and Expertise"}>
             <textarea
                 className="textarea h-1/3 mb-5"
                 placeholder="Write down your skills"
-                // value={skills.value}
-                // name="value"
+                value={router.query.id ? resumeData.skills.join("\n") : userSkills}
                 onChange={handleChange}
             />
             <div className="w-full flex flex-col sm:justify-between gap-5">

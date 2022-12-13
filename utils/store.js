@@ -1,5 +1,4 @@
 import create from "zustand";
-import { devtools, persist } from "zustand/middleware";
 
 export let resumePersonalInformationStore = create((set) => ({
     personalInformation: {
@@ -137,11 +136,57 @@ export let resumeDataStore = create((set) => ({
     },
     setResumeData: (value) => set((state) => ({
         resumeData: value
-    }))
+    })),
+    updateResumePersonalInformation: (personalInformation) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            personalInformation: {
+                ...state.resumeData.personalInformation,
+                ...personalInformation
+            }
+        }
+        
+    })),
+    updateResumeSkills: (skill) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            skills:[
+                ...skill
+            ]
+            
+        }
+    })),
+    updateResumeProfileSummary: (value) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            profileSummary: value
+        }
+    })),
+    updateResumeCertifications: (cert) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            certifications:[
+                ...cert
+            ]
+            
+        }
+    })),
+    updateResumePortfolio: (portfolio) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            portfolio:[
+                ...portfolio
+            ]
+            
+        }
+    })),
 }))
 
 export let completedSteps = create((set) => ({
     steps: 1,
+    setCompletedSteps: (value) => set((state) => ({
+        steps: value
+    })),
     incrementStep: () => set((state) => ({ steps: state.steps + 1 })),
     decrementStep: () => set((state) => ({ steps: state.steps - 1 })),
 }))

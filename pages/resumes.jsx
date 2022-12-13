@@ -135,7 +135,7 @@ function Resumes() {
                                                 <Link href={{pathname:`/${resume.id}`}}>
                                                     <button className="hover:scale-110 hover:text-sky-600" ><AiFillEye /></button>
                                                 </Link>
-                                                <Link href={{ pathname: `${Links[0].template}/${resume.template}`, query: resume }}>
+                                                <Link href={{ pathname: `${Links[0].template}/${resume.type}/${[query.id]}`, query: { id: resume.id }  }}>
                                                     <button className="hover:scale-110 hover:text-amber-600" ><AiFillEdit /></button>
                                                 </Link>
                                                 <Link href={`${Links[0].resumes}`}>
@@ -145,7 +145,9 @@ function Resumes() {
                                         )
                                         : (
                                             <div className="flex gap-1">
-                                                <button className="hover:scale-110 hover:text-sky-600" onClick={() => console.log("View")}><AiFillEye /></button>
+                                                <Link href={{pathname:`/${resume.id}`}}>
+                                                    <button className="hover:scale-110 hover:text-sky-600" onClick={() => console.log(resume.id)}><AiFillEye /></button>
+                                                </Link>
                                             </div>
                                         )
                                     }
