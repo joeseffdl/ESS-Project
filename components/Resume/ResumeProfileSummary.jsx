@@ -1,10 +1,17 @@
 import FormWindow from "../FormWindow";
 import validator from "validator"
 import { toast } from "react-toastify";
-import { completedSteps, resumeProfileSummaryStore } from "../../utils/store"
+import { completedSteps, resumeDataStore, resumeProfileSummaryStore } from "../../utils/store"
+import { useRouter } from "next/router";
 
 function ResumeProfileSummary() {
+    // Router
+    const router = useRouter()
+
     // State Management
+    const resumeData = resumeDataStore(state => state.resumeData)
+    const updateResumeProfileSummary = resumeDataStore(state => state.updateResumeProfileSummary)
+
     const profileSummary = resumeProfileSummaryStore(state => state.profileSummary)
     const setProfileSummary = resumeProfileSummaryStore(state => state.setProfileSummary)
     const incrementStep = completedSteps(state => state.incrementStep)
@@ -13,7 +20,11 @@ function ResumeProfileSummary() {
     // Handle change 
     const handleChange = (e) => {
         const { value } = e.target
-        setProfileSummary(value)
+        if (!router.query.id) {
+            setProfileSummary(value)
+        } else {
+            updateResumeProfileSummary(value)
+        }
     }
 
     // Go back to the previous page 
@@ -25,7 +36,7 @@ function ResumeProfileSummary() {
     // Continue to Submit section
     const toSubmit = (e) => {
         e.preventDefault()
-        if (validator.isEmpty(profileSummary)) {
+        if (!router.query.id && validator.isEmpty(profileSummary)) {
             toast.error("Please enter your profile summary😞")
             return
         }
@@ -37,13 +48,13 @@ function ResumeProfileSummary() {
         e.preventDefault()
         incrementStep()
     }
-
+    
     return (
         <FormWindow onSubmit={toSubmit} formTitle="Resume Profile Summary">
             <textarea
                 className="textarea h-1/3 mb-5"
                 placeholder="Write down your skills"
-                value={profileSummary}
+                value={router.query.id ? resumeData.profileSummary : profileSummary}
                 name="value"
                 onChange={handleChange}
             />

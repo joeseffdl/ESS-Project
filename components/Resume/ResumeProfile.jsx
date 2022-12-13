@@ -1,14 +1,17 @@
-import { useRouter } from "next/router";
 import FormWindow from "../FormWindow";
 import validator from "validator";
 import { toast } from "react-toastify";
-import { completedSteps, resumePersonalInformationStore } from '../../utils/store'
+import { completedSteps, resumeDataStore, resumePersonalInformationStore } from '../../utils/store'
+import { useRouter } from "next/router";
 
-function ResumeProfile(props) {
+function ResumeProfile() {
     // Router
     const router = useRouter()
 
     // State Management
+    const resumeData = resumeDataStore(state => state.resumeData)
+    const updateResumePersonalInformation = resumeDataStore(state => state.updateResumePersonalInformation)
+
     const personalInformation = resumePersonalInformationStore(state => state.personalInformation)
     const updatePersonalInformation = resumePersonalInformationStore(state => state.updatePersonalInformation)
     const incrementStep = completedSteps(state => state.incrementStep)
@@ -16,7 +19,12 @@ function ResumeProfile(props) {
     // Handle change 
     const handleChange = (e) => {
         const { name, value } = e.target
-        updatePersonalInformation({ [name]: value } )
+        if (!router.query.id) {
+            updatePersonalInformation({ [name]: value } )
+        } else {
+            updateResumePersonalInformation({ [name]: value } )
+        }
+        
     }
 
     // Go back to the Resume templates page
@@ -28,7 +36,7 @@ function ResumeProfile(props) {
     // Continue to Experience section
     const toResumeExperience = (e) => {
         e.preventDefault()
-        if (validator.isEmpty(personalInformation.emailAddress)) {
+        if (!router.query.id && validator.isEmpty(personalInformation.emailAddress)) {
             toast.error("Please enter an Email Address😞")
             return
         }
@@ -36,15 +44,14 @@ function ResumeProfile(props) {
     }
 
     return (
-        <FormWindow onSubmit={toResumeExperience} formTitle={personalInformation.hasOwnProperty("id") ? "Editing Resume Header" : "Profile Header"}>
+        <FormWindow onSubmit={toResumeExperience} formTitle={router.query.id ? "Editing Resume Header" : "Profile Header"}>
             <div className="w-full flex flex-col gap-2 mb-5
                 ">
-                {/* sm:flex-row sm:justify-between */}
                 <input
                     className="input w-full"
                     type="text"
                     placeholder="First Name"
-                    value={personalInformation.firstname}
+                    value={router.query.id ? resumeData.personalInformation.firstname : personalInformation.firstname}
                     name="firstname"
                     onChange={handleChange}
                 />
@@ -52,7 +59,7 @@ function ResumeProfile(props) {
                     className="input w-full"
                     type="text"
                     placeholder="Surname"
-                    value={personalInformation.surname}
+                    value={router.query.id ? resumeData.personalInformation.surname : personalInformation.surname}
                     name="surname"
                     onChange={handleChange}
                 />
@@ -63,7 +70,7 @@ function ResumeProfile(props) {
                     className="input w-full"
                     type="text"
                     placeholder="City/Municipality"
-                    value={personalInformation.city}
+                    value={router.query.id ? resumeData.personalInformation.city : personalInformation.city}
                     name="city"
                     onChange={handleChange}
                 />
@@ -71,7 +78,7 @@ function ResumeProfile(props) {
                     className="input w-full"
                     type="text"
                     placeholder="Country"
-                    value={personalInformation.country}
+                    value={router.query.id ? resumeData.personalInformation.country : personalInformation.country}
                     name="country"
                     onChange={handleChange}
                 />
@@ -79,7 +86,7 @@ function ResumeProfile(props) {
                     className="input w-full"
                     type="text"
                     placeholder="Postal Code"
-                    value={personalInformation.postalCode}
+                    value={router.query.id ? resumeData.personalInformation.postalCode : personalInformation.postalCode}
                     name="postalCode"
                     onChange={handleChange}
                 />
@@ -90,7 +97,7 @@ function ResumeProfile(props) {
                     className="input w-full"
                     type="number"
                     placeholder="Phone Number"
-                    value={personalInformation.phoneNumber}
+                    value={router.query.id ? resumeData.personalInformation.phoneNumber : personalInformation.phoneNumber}
                     name="phoneNumber"
                     onChange={handleChange}
                 />
@@ -98,7 +105,7 @@ function ResumeProfile(props) {
                     className="input w-full"
                     type="email"
                     placeholder="Email Address"
-                    value={personalInformation.emailAddress}
+                    value={router.query.id ? resumeData.personalInformation.emailAddress : personalInformation.emailAddress}
                     name="emailAddress"
                     onChange={handleChange}
                 />

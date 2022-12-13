@@ -6,6 +6,7 @@ import {
     resumeProfileSummaryStore,
     resumeCertificationStore,
     resumePortfolioStore,
+    resumeDataStore,
     completedSteps,
     addingDetails,
 } from "../../utils/store"
@@ -26,6 +27,7 @@ function OutputResume({
     const routerID = router.query.resume
 
     // State Management
+    const resumeData = resumeDataStore(state => state.resumeData)
     const personalInformation = resumePersonalInformationStore(state => state.personalInformation)
     const workExp = resumeExperienceStore(state => state.workExp)
     const workExperiences = resumeExperienceStore(state => state.workExperiences)
@@ -78,30 +80,66 @@ function OutputResume({
                         : (
                             <section className="w-full ">
                                 <div className="text-center text-3xl font-semibold my-4 tracking-widest">
-                                    {personalInformation.firstname || personalInformation.surname != "" ? `${personalInformation.firstname.toUpperCase()} ${personalInformation.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
+                                    {router.query.id
+                                        ? <>
+                                            {resumeData.personalInformation.firstname || resumeData.personalInformation.surname != "" ? `${resumeData.personalInformation.firstname?.toUpperCase()} ${resumeData.personalInformation.surname?.toUpperCase()}` : ""}
+                                        </>
+                                        : <>
+                                            {personalInformation.firstname || personalInformation.surname != "" ? `${personalInformation.firstname.toUpperCase()} ${personalInformation.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
+                                        </>
+                                    }
+                                    
                                 </div>
                                 <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 mx-32 divide-x">
-                                    {personalInformation.emailAddress != ""
-                                        ? (
-                                            <div className="px-2">
-                                                {personalInformation.emailAddress}
-                                            </div>
-                                        )
-                                        : null}
+                                    {router.query.id
+                                        ? <>
+                                            {resumeData.personalInformation.emailAddress != ""
+                                                ? (
+                                                    <div className="px-2">
+                                                        {resumeData.personalInformation.emailAddress}
+                                                    </div>
+                                                )
+                                                : ``}
 
-                                    {personalInformation.phoneNumber != ""
-                                        ? <div className="px-2">
-                                            {personalInformation.phoneNumber}
-                                        </div>
-                                        : ``
-                                    }
+                                            {resumeData.personalInformation.phoneNumber != ""
+                                                ? <div className="px-2">
+                                                    {resumeData.personalInformation.phoneNumber}
+                                                </div>
+                                                : ``
+                                            }
 
-                                    {personalInformation.city || personalInformation.country != ``
-                                        ? <div className="px-2">
-                                            {personalInformation.city != "" ? `${personalInformation.city}, ` : ``} {personalInformation.country} {personalInformation.postalCode}
-                                        </div>
-                                        : ``
+                                            {resumeData.personalInformation.city || resumeData.personalInformation.country != ``
+                                                ? <div className="px-2">
+                                                    {resumeData.personalInformation.city != "" ? `${resumeData.personalInformation.city}, ` : ``} {resumeData.personalInformation.country} {resumeData.personalInformation.postalCode}
+                                                </div>
+                                                : ``
+                                            }
+                                        </>
+                                        : <>
+                                            {personalInformation.emailAddress != ""
+                                                ? (
+                                                    <div className="px-2">
+                                                        {personalInformation.emailAddress}
+                                                    </div>
+                                                )
+                                                : ``}
+
+                                            {personalInformation.phoneNumber != ""
+                                                ? <div className="px-2">
+                                                    {personalInformation.phoneNumber}
+                                                </div>
+                                                : ``
+                                            }
+
+                                            {personalInformation.city || personalInformation.country != ``
+                                                ? <div className="px-2">
+                                                    {personalInformation.city != "" ? `${personalInformation.city}, ` : ``} {personalInformation.country} {personalInformation.postalCode}
+                                                </div>
+                                                : ``
+                                            }
+                                        </>
                                     }
+                                    
                                 </div>
                             </section>
                         )
@@ -128,18 +166,37 @@ function OutputResume({
                         )
                         : (
                             <>
-                                {profileSummary != ""
-                                    ? (
-                                        <section className="w-full ">
-                                            <div className="text-center font-bold my-1">
-                                                Profile Summary
-                                            </div>
-                                            <div className="w-auto break-words text-center mx-10 my-3 divide-x">
-                                                {profileSummary}
-                                            </div>
-                                        </section>
-                                    ) : null
+                                {router.query.id
+                                    ? <>
+                                        {resumeData.profileSummary != ""
+                                            ? (
+                                                <section className="w-full ">
+                                                    <div className="text-center font-bold my-1">
+                                                        Profile Summary
+                                                    </div>
+                                                    <div className="w-auto break-words text-center mx-10 my-3 divide-x">
+                                                        {resumeData.profileSummary}
+                                                    </div>
+                                                </section>
+                                            ) : null
+                                        }
+                                    </>
+                                    : <>
+                                        {profileSummary != ""
+                                            ? (
+                                                <section className="w-full ">
+                                                    <div className="text-center font-bold my-1">
+                                                        Profile Summary
+                                                    </div>
+                                                    <div className="w-auto break-words text-center mx-10 my-3 divide-x">
+                                                        {profileSummary}
+                                                    </div>
+                                                </section>
+                                            ) : null
+                                        }
+                                    </>
                                 }
+                                
                             </>
                         )
                     }
@@ -166,22 +223,44 @@ function OutputResume({
                             ) : null}
                         </>)
                         : (<>
-                            {userSkills != "" ? (
-                                <section className="w-full px-10 pb-5">
-                                    <div className="text-center font-bold my-1">
-                                        Skills
-                                    </div>
-                                    <div className="grid grid-cols-2 justify-center items-center ">
-                                        {userSkills?.map((skill) => {
-                                            return (
-                                                <ul className="flex list-disc list-inside" key={skill}>
-                                                    <li>{skill}</li>
-                                                </ul>
-                                            )
-                                        })}
-                                    </div>
-                                </section>
-                            ) : null}
+                            {router.query.id
+                                ? <>
+                                    {resumeData.skills != "" ? (
+                                        <section className="w-full px-10 pb-5">
+                                            <div className="text-center font-bold my-1">
+                                                Skills
+                                            </div>
+                                            <div className="grid grid-cols-2 justify-center items-center ">
+                                                {resumeData.skills?.map((skill) => {
+                                                    return (
+                                                        <ul className="flex list-disc list-inside" key={skill}>
+                                                            <li>{skill}</li>
+                                                        </ul>
+                                                    )
+                                                })}
+                                            </div>
+                                        </section>
+                                    ) : null}
+                                </>
+                                : <>
+                                    {userSkills != "" ? (
+                                        <section className="w-full px-10 pb-5">
+                                            <div className="text-center font-bold my-1">
+                                                Skills
+                                            </div>
+                                            <div className="grid grid-cols-2 justify-center items-center ">
+                                                {userSkills?.map((skill) => {
+                                                    return (
+                                                        <ul className="flex list-disc list-inside" key={skill}>
+                                                            <li>{skill}</li>
+                                                        </ul>
+                                                    )
+                                                })}
+                                            </div>
+                                        </section>
+                                    ) : null}
+                                </>
+                            }
                         </>)
                     }
 
@@ -866,22 +945,45 @@ function OutputResume({
                             ) : null}
                         </>
                         : <>
-                            {userCertifications != "" ? (
-                                <section className="w-full px-10 pb-5">
-                                    <div className="text-center font-bold my-1">
-                                        Certifications
-                                    </div>
-                                    <div className="mb-5 ">
-                                        {userCertifications?.map((cert) => {
-                                            return (
-                                                <ul className="flex list-disc list-inside" key={cert}>
-                                                    <li>{cert}</li>
-                                                </ul>
-                                            )
-                                        })}
-                                    </div>
-                                </section>
-                            ) : null}
+                            {router.query.id
+                                ? <>
+                                    {resumeData.certifications != "" ? (
+                                        <section className="w-full px-10 pb-5">
+                                            <div className="text-center font-bold my-1">
+                                                Certifications
+                                            </div>
+                                            <div className="mb-5 ">
+                                                {resumeData.certifications?.map((cert) => {
+                                                    return (
+                                                        <ul className="flex list-disc list-inside" key={cert}>
+                                                            <li>{cert}</li>
+                                                        </ul>
+                                                    )
+                                                })}
+                                            </div>
+                                        </section>
+                                    ) : null}
+                                </> 
+                                : <>
+                                    {userCertifications != "" ? (
+                                        <section className="w-full px-10 pb-5">
+                                            <div className="text-center font-bold my-1">
+                                                Certifications
+                                            </div>
+                                            <div className="mb-5 ">
+                                                {userCertifications?.map((cert) => {
+                                                    return (
+                                                        <ul className="flex list-disc list-inside" key={cert}>
+                                                            <li>{cert}</li>
+                                                        </ul>
+                                                    )
+                                                })}
+                                            </div>
+                                        </section>
+                                    ) : null}
+                                </>
+                            }
+                            
                         </>
                     }
 
@@ -909,25 +1011,46 @@ function OutputResume({
                         </>
                         :
                         <>
-                            {userPortfolio != "" ? (
-                                <section className="w-full px-10 pb-5">
-                                    <div className="text-center font-bold my-1">
-                                        Portfolio
-                                    </div>
-                                    <div className="mb-5 ">
-                                        {userPortfolio?.map((portfolio) => {
-                                            return (
-                                                <ul className="flex list-disc list-inside" key={portfolio}>
-                                                    <li>{portfolio}</li>
-                                                </ul>
-                                            )
-                                        })}
-                                    </div>
-                                </section>
-                            ) : null}
+                            {router.query.id 
+                                ? <>
+                                    {resumeData.portfolio != "" ? (
+                                        <section className="w-full px-10 pb-5">
+                                            <div className="text-center font-bold my-1">
+                                                Portfolio
+                                            </div>
+                                            <div className="mb-5 ">
+                                                {resumeData.portfolio?.map((portfolio) => {
+                                                    return (
+                                                        <ul className="flex list-disc list-inside" key={portfolio}>
+                                                            <li>{portfolio}</li>
+                                                        </ul>
+                                                    )
+                                                })}
+                                            </div>
+                                        </section>
+                                    ) : null}
+                                </>
+                                : <>
+                                    {userPortfolio != "" ? (
+                                        <section className="w-full px-10 pb-5">
+                                            <div className="text-center font-bold my-1">
+                                                Portfolio
+                                            </div>
+                                            <div className="mb-5 ">
+                                                {userPortfolio?.map((portfolio) => {
+                                                    return (
+                                                        <ul className="flex list-disc list-inside" key={portfolio}>
+                                                            <li>{portfolio}</li>
+                                                        </ul>
+                                                    )
+                                                })}
+                                            </div>
+                                        </section>
+                                    ) : null}
+                                </>
+                            }
                         </>
                     }
-
                 </div>
             </div>
         </>

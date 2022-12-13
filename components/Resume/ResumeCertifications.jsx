@@ -1,9 +1,16 @@
 import FormWindow from "../FormWindow";
 import { toast } from "react-toastify";
-import { completedSteps, resumeCertificationStore } from '../../utils/store'
+import { completedSteps, resumeDataStore, resumeCertificationStore } from '../../utils/store'
+import { useRouter } from "next/router";
 
 function ResumeCertifications() {
+    // Router
+    const router = useRouter()
+
     // State Management
+    const resumeData = resumeDataStore(state => state.resumeData)
+    const updateResumeCertifications = resumeDataStore(state => state.updateResumeCertifications)
+
     const userCertifications = resumeCertificationStore(state => state.certifications)
     const addCertifications = resumeCertificationStore(state => state.addCertifications)
     const incrementStep = completedSteps(state => state.incrementStep)
@@ -12,7 +19,11 @@ function ResumeCertifications() {
     // Handle change 
     const handleChange = (e) => {
         const { value } = e.target
-        addCertifications(value.split("\n"))
+        if (!router.query.id) {
+            addCertifications(value.split("\n"))
+        } else {
+            updateResumeCertifications(value.split("\n"))
+        }
     }
 
     // Go back to the previous page 
@@ -24,7 +35,7 @@ function ResumeCertifications() {
     // Continue to next section
     const toNextSection = (e) => {
         e.preventDefault()
-        if (userCertifications.length == 0) {
+        if (!router.query.id && userCertifications.length == 0) {
             toast.error("Please enter a certificate 😞")
             return
         }
@@ -42,8 +53,7 @@ function ResumeCertifications() {
             <textarea
                 className="textarea h-1/3 mb-5"
                 placeholder="Write down your certificates"
-                // value={skills.value}
-                // name="value"
+                value={router.query.id ? resumeData.certifications.join("\n") : userCertifications}
                 onChange={handleChange}
             />
             <div className="w-full flex flex-col sm:justify-between gap-5">
