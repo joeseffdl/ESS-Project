@@ -24,9 +24,9 @@ function View() {
 
     // Get user resume data
     const getResumeData = async (id) => {
-        const docRef = doc(db, 'resumes', id)
-
+        
         try { 
+            const docRef = doc(db, 'resumes', id)
             const docSnap = await getDoc(docRef)
             const unsubscribe = setResumeDocument(docSnap.data())
             return unsubscribe
@@ -45,7 +45,7 @@ function View() {
     
     useEffect(() => {
         getData()
-        if (!loading) {
+        if (routeDataID) {
             getResumeData(routeDataID)
         }
     }, [user, loading])

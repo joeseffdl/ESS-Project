@@ -266,7 +266,7 @@ function OutputResume({
 
 
                     {/* WORK EXPERIENCE SECTION */}
-                    {(workExperiences.length == 0) && (workExp.title || workExp.employer) !== '' ? (
+                    {(workExperiences.length == 0) && (workExp.title || workExp.employer) !== '' && !router.query.id ? (
                         <section className="w-full relative">
                             <div className="text-center font-bold my-1">
                                 Work Experience
@@ -399,117 +399,56 @@ function OutputResume({
                                             : ``
                                     }
                                 </>)
-                                : (<>
-                                    {!addingDetailsValue && workExperiences.length != 0 ?
-                                        <section className="w-full relative">
-                                            <div className="text-center font-bold my-1">
-                                                {workExperiences.length > 1 ? "Work Experiences" : "Work Experience"}
-                                            </div>
-                                            <div>
-                                                {workExperiences?.map((experience) => {
-                                                    return (
-                                                        <div className="flex flex-col " key={experience.title}>
-                                                            <div className="flex items-center justify-center">
-                                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
-                                                                    {experience.title != ""
-                                                                        ? (
-                                                                            <div className="font-bold px-2">
-                                                                                {experience.title}
-                                                                            </div>
-                                                                        ) : null
-                                                                    }
-                                                                    {experience.employer != ""
-                                                                        ? (
-                                                                            <div className="px-2">
-                                                                                {experience.employer} {
-                                                                                    experience.city && experience.country != ""
-                                                                                        ? `${`- ${experience.city}, `} ${experience.country}`
-                                                                                        : `${experience.country != "" ? `- ${experience.country}` : ``} `
-                                                                                }
-                                                                            </div>
-                                                                        )
-                                                                        : null
-                                                                    }
-                                                                    {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
-                                                                        ? (
-                                                                            <div className="px-2">
-                                                                                {experience.startDate} {
-                                                                                    (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
-                                                                                        ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
-                                                                                        : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
-                                                                                }
-                                                                            </div>
-                                                                        )
-                                                                        : null
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                            {experience.description ? (
-                                                                <div className="px-10 mb-5">
-                                                                    {experience.description?.map((desc) => {
-                                                                        return (
-                                                                            <ul className="flex list-disc list-inside" key={desc}>
-                                                                                <li>{desc}</li>
-                                                                            </ul>
-                                                                        )
-                                                                    })}
-                                                                </div>
-                                                            ) : null
-                                                            }
+                                : (
+                                    <>
+                                        {router.query.id
+                                            ? <>
+                                                {(resumeData.workExperiences.length > 0 && !addingDetailsValue) && (resumeData.workExperiences[0].title != "" || resumeData.workExperiences[0].employer != "") ?
+                                                    <section className="w-full relative">
+                                                        <div className="text-center font-bold my-1">
+                                                            {resumeData.workExperiences.length > 1 ? "Work Experiences" :  "Work Experience"}
                                                         </div>
-                                                    )
-                                                })}
-                                            </div>
-                                        </section>
-                                        : <>
-                                            {addingDetailsValue && steps >= 2 ?
-                                                <section className="w-full relative">
-                                                    <div className={`text-center ${steps == 2 ? "text-accent" : null} font-bold my-1`}>
-                                                        {steps > 2 ? "Work Experiences" : "Adding Work Experience"}
-                                                    </div>
-                                                    {steps == 2 && [workExp]?.map((experience) => {
-                                                        return (
-                                                            <div className="flex flex-col " key={experience.title}>
-                                                                <div className="flex items-center justify-center">
-                                                                    <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
-                                                                        {experience.title != ""
-                                                                            ? (
-                                                                                <div className="font-bold px-2">
-                                                                                    {experience.title}
-                                                                                </div>
-                                                                            )
-                                                                            : null}
-
-                                                                        {experience.employer != ""
-                                                                            ? (
-                                                                                <div className="px-2">
-                                                                                    {experience.employer} {
-                                                                                        experience.city && experience.country != ""
-                                                                                            ? `${`- ${experience.city}, `} ${experience.country}`
-                                                                                            : `${experience.country != "" ? `- ${experience.country}` : ``} `
-                                                                                    }
-                                                                                </div>
-                                                                            )
-                                                                            : null
-                                                                        }
-                                                                        {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
-                                                                            ? (
-                                                                                <div className="px-2">
-                                                                                    {experience.startDate} {
-                                                                                        (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
-                                                                                            ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
-                                                                                            : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
-                                                                                    }
-                                                                                </div>
-                                                                            )
-                                                                            : null
-                                                                        }
-                                                                    </div>
-                                                                </div>
-                                                                <div className="px-10 mb-5">
-                                                                    {experience.description
-                                                                        ? (
-                                                                            <>
+                                                        <div>
+                                                            {resumeData.workExperiences?.map((experience) => {
+                                                                return (
+                                                                    <div className="flex flex-col " key={experience.title}>
+                                                                        <div className="flex items-center justify-center">
+                                                                            <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
+                                                                                {experience.title != ""
+                                                                                    ? (
+                                                                                        <div className="font-bold px-2">
+                                                                                            {experience.title}
+                                                                                        </div>
+                                                                                    ) : null
+                                                                                }
+                                                                                {experience.employer != ""
+                                                                                    ? (
+                                                                                        <div className="px-2">
+                                                                                            {experience.employer} {
+                                                                                                experience.city && experience.country != ""
+                                                                                                    ? `${`- ${experience.city}, `} ${experience.country}`
+                                                                                                    : `${experience.country != "" ? `- ${experience.country}` : ``} `
+                                                                                            }
+                                                                                        </div>
+                                                                                    )
+                                                                                    : null
+                                                                                }
+                                                                                {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
+                                                                                    ? (
+                                                                                        <div className="px-2">
+                                                                                            {experience.startDate} {
+                                                                                                (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
+                                                                                                    ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
+                                                                                                    : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
+                                                                                            }
+                                                                                        </div>
+                                                                                    )
+                                                                                    : null
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                        {experience.description ? (
+                                                                            <div className="px-10 mb-5">
                                                                                 {experience.description?.map((desc) => {
                                                                                     return (
                                                                                         <ul className="flex list-disc list-inside" key={desc}>
@@ -517,79 +456,276 @@ function OutputResume({
                                                                                         </ul>
                                                                                     )
                                                                                 })}
-                                                                            </>
-                                                                        )
-                                                                        : null}
+                                                                            </div>
+                                                                        ) : null
+                                                                        }
+                                                                    </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </section>
+                                                    : <>
+                                                        {addingDetailsValue && steps >= 2 ?
+                                                            <section className="w-full relative">
+                                                                <div className={`text-center ${addingDetailsValue && steps == 2 ? "text-accent" : null} font-bold my-1`}>
+                                                                    {addingDetailsValue  && steps == 2 ? "Adding Work Experience" : resumeData.workExperiences.length > 1 ? "Work Experiences" : "Work Experience"}
                                                                 </div>
-                                                            </div>
-                                                        )
-                                                    })}
-                                                    {workExperiences?.map((experience) => {
-                                                        return (
-                                                            <div className="flex flex-col " key={experience.title}>
-                                                                <div className="flex items-center justify-center">
-                                                                    <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
-                                                                        {experience.title != ""
-                                                                            ? (
-                                                                                <div className="font-bold px-2">
-                                                                                    {experience.title}
-                                                                                </div>
-                                                                            )
-                                                                            : null}
+                                                                
+                                                                {resumeData.workExperiences?.map((experience) => {
+                                                                    return (
+                                                                        <div className="flex flex-col " key={experience.title}>
+                                                                            <div className="flex items-center justify-center">
+                                                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
+                                                                                    {experience.title != ""
+                                                                                        ? (
+                                                                                            <div className="font-bold px-2">
+                                                                                                {experience.title}
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null}
 
-                                                                        {experience.employer != ""
-                                                                            ? (
-                                                                                <div className="px-2">
-                                                                                    {experience.employer} {
-                                                                                        experience.city && experience.country != ""
-                                                                                            ? `${`- ${experience.city}, `} ${experience.country}`
-                                                                                            : `${experience.country != "" ? `- ${experience.country}` : ``} `
+                                                                                    {experience.employer != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {experience.employer} {
+                                                                                                    experience.city && experience.country != ""
+                                                                                                        ? `${`- ${experience.city}, `} ${experience.country}`
+                                                                                                        : `${experience.country != "" ? `- ${experience.country}` : ``} `
+                                                                                                }
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null
+                                                                                    }
+                                                                                    {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {experience.startDate} {
+                                                                                                    (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
+                                                                                                        ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
+                                                                                                        : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
+                                                                                                }
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null
                                                                                     }
                                                                                 </div>
-                                                                            )
-                                                                            : null
-                                                                        }
-                                                                        {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
-                                                                            ? (
-                                                                                <div className="px-2">
-                                                                                    {experience.startDate} {
-                                                                                        (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
-                                                                                            ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
-                                                                                            : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
-                                                                                    }
+                                                                            </div>
+                                                                            {experience.description ? (
+                                                                                <div className="px-10 mb-5">
+                                                                                    {experience.description?.map((desc) => {
+                                                                                        return (
+                                                                                            <ul className="flex list-disc list-inside" key={desc}>
+                                                                                                <li>{desc}</li>
+                                                                                            </ul>
+                                                                                        )
+                                                                                    })}
                                                                                 </div>
-                                                                            )
-                                                                            : null
+                                                                            ) : null
+                                                                            }
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </section>
+                                                            : ''
+                                                        }
+                                                    </>
+                                                }
+                                            </>
+                                            : <>
+                                                {!addingDetailsValue && workExperiences.length != 0 ?
+                                                    <section className="w-full relative">
+                                                        <div className="text-center font-bold my-1">
+                                                            {workExperiences.length > 1 ? "Work Experiences" : "Work Experience"}
+                                                        </div>
+                                                        <div>
+                                                            {workExperiences?.map((experience) => {
+                                                                return (
+                                                                    <div className="flex flex-col " key={experience.title}>
+                                                                        <div className="flex items-center justify-center">
+                                                                            <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
+                                                                                {experience.title != ""
+                                                                                    ? (
+                                                                                        <div className="font-bold px-2">
+                                                                                            {experience.title}
+                                                                                        </div>
+                                                                                    ) : null
+                                                                                }
+                                                                                {experience.employer != ""
+                                                                                    ? (
+                                                                                        <div className="px-2">
+                                                                                            {experience.employer} {
+                                                                                                experience.city && experience.country != ""
+                                                                                                    ? `${`- ${experience.city}, `} ${experience.country}`
+                                                                                                    : `${experience.country != "" ? `- ${experience.country}` : ``} `
+                                                                                            }
+                                                                                        </div>
+                                                                                    )
+                                                                                    : null
+                                                                                }
+                                                                                {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
+                                                                                    ? (
+                                                                                        <div className="px-2">
+                                                                                            {experience.startDate} {
+                                                                                                (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
+                                                                                                    ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
+                                                                                                    : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
+                                                                                            }
+                                                                                        </div>
+                                                                                    )
+                                                                                    : null
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                        {experience.description ? (
+                                                                            <div className="px-10 mb-5">
+                                                                                {experience.description?.map((desc) => {
+                                                                                    return (
+                                                                                        <ul className="flex list-disc list-inside" key={desc}>
+                                                                                            <li>{desc}</li>
+                                                                                        </ul>
+                                                                                    )
+                                                                                })}
+                                                                            </div>
+                                                                        ) : null
                                                                         }
                                                                     </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </section>
+                                                    : <>
+                                                        {addingDetailsValue && steps >= 2 ?
+                                                            <section className="w-full relative">
+                                                                <div className={`text-center ${steps == 2 ? "text-accent" : null} font-bold my-1`}>
+                                                                    {steps > 2 ? "Work Experiences" : "Adding Work Experience"}
                                                                 </div>
-                                                                {experience.description ? (
-                                                                    <div className="px-10 mb-5">
-                                                                        {experience.description?.map((desc) => {
-                                                                            return (
-                                                                                <ul className="flex list-disc list-inside" key={desc}>
-                                                                                    <li>{desc}</li>
-                                                                                </ul>
-                                                                            )
-                                                                        })}
-                                                                    </div>
-                                                                ) : null
-                                                                }
-                                                            </div>
-                                                        )
-                                                    })}
-                                                </section>
-                                                : ''
-                                            }
-                                        </>
-                                    }
-                                </>)
+                                                                {steps == 2 && [workExp]?.map((experience) => {
+                                                                    return (
+                                                                        <div className="flex flex-col " key={experience.title}>
+                                                                            <div className="flex items-center justify-center">
+                                                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
+                                                                                    {experience.title != ""
+                                                                                        ? (
+                                                                                            <div className="font-bold px-2">
+                                                                                                {experience.title}
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null}
+
+                                                                                    {experience.employer != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {experience.employer} {
+                                                                                                    experience.city && experience.country != ""
+                                                                                                        ? `${`- ${experience.city}, `} ${experience.country}`
+                                                                                                        : `${experience.country != "" ? `- ${experience.country}` : ``} `
+                                                                                                }
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null
+                                                                                    }
+                                                                                    {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {experience.startDate} {
+                                                                                                    (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
+                                                                                                        ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
+                                                                                                        : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
+                                                                                                }
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            <div className="px-10 mb-5">
+                                                                                {experience.description
+                                                                                    ? (
+                                                                                        <>
+                                                                                            {experience.description?.map((desc) => {
+                                                                                                return (
+                                                                                                    <ul className="flex list-disc list-inside" key={desc}>
+                                                                                                        <li>{desc}</li>
+                                                                                                    </ul>
+                                                                                                )
+                                                                                            })}
+                                                                                        </>
+                                                                                    )
+                                                                                    : null}
+                                                                            </div>
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                                {workExperiences?.map((experience) => {
+                                                                    return (
+                                                                        <div className="flex flex-col " key={experience.title}>
+                                                                            <div className="flex items-center justify-center">
+                                                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
+                                                                                    {experience.title != ""
+                                                                                        ? (
+                                                                                            <div className="font-bold px-2">
+                                                                                                {experience.title}
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null}
+
+                                                                                    {experience.employer != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {experience.employer} {
+                                                                                                    experience.city && experience.country != ""
+                                                                                                        ? `${`- ${experience.city}, `} ${experience.country}`
+                                                                                                        : `${experience.country != "" ? `- ${experience.country}` : ``} `
+                                                                                                }
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null
+                                                                                    }
+                                                                                    {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {experience.startDate} {
+                                                                                                    (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
+                                                                                                        ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
+                                                                                                        : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
+                                                                                                }
+                                                                                            </div>
+                                                                                        )
+                                                                                        : null
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            {experience.description ? (
+                                                                                <div className="px-10 mb-5">
+                                                                                    {experience.description?.map((desc) => {
+                                                                                        return (
+                                                                                            <ul className="flex list-disc list-inside" key={desc}>
+                                                                                                <li>{desc}</li>
+                                                                                            </ul>
+                                                                                        )
+                                                                                    })}
+                                                                                </div>
+                                                                            ) : null
+                                                                            }
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </section>
+                                                            : ''
+                                                        }
+                                                    </>
+                                                }
+                                            </>
+                                        }
+                                    
+                                    </>
+                                )
                             }
                         </>
                     }
 
                     {/* EDUCATION SECTION */}
-                    {(educationalBackground.length == 0) && (educationField.institutionName || educationField.degreeType !== '') ? (
+                    {(educationalBackground.length == 0) && (educationField.institutionName || educationField.degreeType !== '') && !router.query.id ? (
                         <section className="w-full px-5">
                             <div className="text-center font-bold my-1">
                                 Education
@@ -656,7 +792,7 @@ function OutputResume({
                         </section>
                     ) :
                         <>
-                            {routerID
+                            {routerID 
                                 ? (<>
                                     {
                                         viewEducationalBackground.length > 0
@@ -677,7 +813,7 @@ function OutputResume({
                                                                                 </div>
                                                                             ) : null
                                                                         }
-                                                                        {education.institutionLocation && (education.graduationYear || education.graduationMonth) != ""
+                                                                        {education.institutionLocation || (education.graduationYear || education.graduationMonth) != ""
                                                                             ? (
                                                                                 <>
                                                                                     {education.institutionLocation != "" ?
@@ -728,198 +864,340 @@ function OutputResume({
                                     }
                                 </>
                                 )
-                                : (<>
-                                    {!addingDetailsValue && educationalBackground.length != 0 ?
-                                        <section className="w-full px-5">
-                                            <div className="text-center font-bold my-1">
-                                                Educational Background
-                                            </div>
-                                            <div>
-                                                {educationalBackground.map((education) => {
-                                                    return (
-                                                        <div className="flex flex-col " key={education.institutionName}>
-                                                            <div className="flex items-center justify-center">
-                                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
-                                                                    {education.institutionName != ""
-                                                                        ? (
-                                                                            <div className="px-2">
-                                                                                {education.institutionName}
+                                : (
+                                    <>
+                                        {router.query.id
+                                            ? <>
+                                                {(resumeData.educationalBackground.length > 0 && !addingDetailsValue) && (resumeData.educationalBackground[0].institutionName != "" || resumeData.educationalBackground[0].degreeType != "") ?
+                                                    <section className="w-full px-5">
+                                                        <div className="text-center font-bold my-1">
+                                                            Educational Background
+                                                        </div>
+                                                        <div>
+                                                            {resumeData.educationalBackground.map((education) => {
+                                                                return (
+                                                                    <div className="flex flex-col " key={education.institutionName}>
+                                                                        <div className="flex items-center justify-center">
+                                                                            <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
+                                                                                {education.institutionName != ""
+                                                                                    ? (
+                                                                                        <div className="px-2">
+                                                                                            {education.institutionName}
+                                                                                        </div>
+                                                                                    ) : null
+                                                                                }
+                                                                                {education.institutionLocation || (education.graduationYear || education.graduationMonth) != ""
+                                                                                    ? (
+                                                                                        <>
+                                                                                            {education.institutionLocation != "" ?
+                                                                                                <div className="px-2">
+                                                                                                    {education.institutionLocation}
+                                                                                                </div>
+                                                                                                : null
+                                                                                            }
+                                                                                            {education.graduationYear || education.graduationMonth != "" ? (
+                                                                                                <div className="px-2">
+                                                                                                    {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
+                                                                                                </div>
+                                                                                            )
+                                                                                                : null
+                                                                                            }
+                                                                                        </>
+                                                                                    )
+                                                                                    : null
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                        {education.degreeType != ""
+                                                                            ? (
+                                                                                <div className="text-center my-3">
+                                                                                    <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
+                                                                                </div>
+                                                                            )
+                                                                            : null
+                                                                        }
+                                                                        {education.description ? (
+                                                                            <div className="px-5 mb-5">
+                                                                                {education.description?.map((detail) => {
+                                                                                    return (
+                                                                                        <ul className="flex list-disc list-inside" key={detail}>
+                                                                                            <li>{detail}</li>
+                                                                                        </ul>
+                                                                                    )
+                                                                                })}
                                                                             </div>
                                                                         ) : null
-                                                                    }
-                                                                    {education.institutionLocation && (education.graduationYear || education.graduationMonth) != ""
-                                                                        ? (
-                                                                            <>
-                                                                                {education.institutionLocation != "" ?
-                                                                                    <div className="px-2">
-                                                                                        {education.institutionLocation}
-                                                                                    </div>
-                                                                                    : null
-                                                                                }
-                                                                                {education.graduationYear || education.graduationMonth != "" ? (
-                                                                                    <div className="px-2">
-                                                                                        {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
-                                                                                    </div>
-                                                                                )
-                                                                                    : null
-                                                                                }
-                                                                            </>
-                                                                        )
-                                                                        : null
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                            {education.degreeType != ""
-                                                                ? (
-                                                                    <div className="text-center my-3">
-                                                                        <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
+                                                                        }
                                                                     </div>
                                                                 )
-                                                                : null
-                                                            }
-                                                            {education.description ? (
-                                                                <div className="px-5 mb-5">
-                                                                    {education.description?.map((detail) => {
-                                                                        return (
-                                                                            <ul className="flex list-disc list-inside" key={detail}>
-                                                                                <li>{detail}</li>
-                                                                            </ul>
-                                                                        )
-                                                                    })}
-                                                                </div>
-                                                            ) : null
-                                                            }
+                                                            })}
                                                         </div>
-                                                    )
-                                                })}
-                                            </div>
-                                        </section>
-                                        : <>
-                                            {addingDetailsValue && steps >= 3 ?
-                                                <section className="w-full px-5">
-                                                    <div className={`text-center ${steps == 3 ? "text-accent" : null} font-bold my-1`}>
-                                                        {steps > 3 ? "Educational Background" : "Adding Educational Background"}
-                                                    </div>
-                                                    {steps == 3 && [educationField]?.map((education) => {
-                                                        return (
-                                                            <div className="flex flex-col " key={education.institutionName}>
-                                                                <div className="flex items-center justify-center">
-                                                                    <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
-                                                                        {education.institutionName != ""
-                                                                            ? (
-                                                                                <div className="px-2">
-                                                                                    {education.institutionName}
-                                                                                </div>
-                                                                            ) : null
-                                                                        }
-                                                                        {education.institutionLocation || education.graduationYear || education.graduationMonth != ""
-                                                                            ? (
-                                                                                <>
-                                                                                    {education.institutionLocation != "" ?
-                                                                                        <div className="px-2">
-                                                                                            {education.institutionLocation}
-                                                                                        </div>
-                                                                                        : null
-                                                                                    }
-                                                                                    {education.graduationYear || education.graduationMonth != "" ? (
-                                                                                        <div className="px-2">
-                                                                                            {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
-                                                                                        </div>
-                                                                                    )
-                                                                                        : null
-                                                                                    }
-                                                                                </>
-                                                                            )
-                                                                            : null
-                                                                        }
-                                                                    </div>
+                                                    </section>
+                                                    : <>
+                                                        {addingDetailsValue && steps >= 3 ?
+                                                            <section className="w-full px-5">
+                                                                <div className={`text-center ${addingDetailsValue && steps == 3 ? "text-accent" : null} font-bold my-1`}>
+                                                                    {addingDetailsValue && steps == 3 ? "Adding Educational Background" : "Educational Background" }
                                                                 </div>
-                                                                {education.degreeType != ""
-                                                                    ? (
-                                                                        <div className="text-center my-3">
-                                                                            <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
-                                                                        </div>
-                                                                    )
-                                                                    : null
-                                                                }
-                                                                {education.description ? (
-                                                                    <div className="px-5 mb-5">
-                                                                        {education.description?.map((detail) => {
-                                                                            return (
-                                                                                <ul className="flex list-disc list-inside" key={detail}>
-                                                                                    <li>{detail}</li>
-                                                                                </ul>
-                                                                            )
-                                                                        })}
-                                                                    </div>
-                                                                ) : null
-                                                                }
-                                                            </div>
-                                                        )
-                                                    })}
 
-                                                    {educationalBackground.map((education) => {
-                                                        return (
-                                                            <div className="flex flex-col " key={education.institutionName}>
-                                                                <div className="flex items-center justify-center">
-                                                                    <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
-                                                                        {education.institutionName != ""
-                                                                            ? (
-                                                                                <div className="px-2">
-                                                                                    {education.institutionName}
+                                                                {resumeData.educationalBackground.map((education) => {
+                                                                    return (
+                                                                        <div className="flex flex-col " key={education.institutionName}>
+                                                                            <div className="flex items-center justify-center">
+                                                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
+                                                                                    {education.institutionName != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {education.institutionName}
+                                                                                            </div>
+                                                                                        ) : null
+                                                                                    }
+                                                                                    {education.institutionLocation || (education.graduationYear || education.graduationMonth) != ""
+                                                                                        ? (
+                                                                                            <>
+                                                                                                {education.institutionLocation != "" ?
+                                                                                                    <div className="px-2">
+                                                                                                        {education.institutionLocation}
+                                                                                                    </div>
+                                                                                                    : null
+                                                                                                }
+                                                                                                {education.graduationYear || education.graduationMonth != "" ? (
+                                                                                                    <div className="px-2">
+                                                                                                        {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
+                                                                                                    </div>
+                                                                                                )
+                                                                                                    : null
+                                                                                                }
+                                                                                            </>
+                                                                                        )
+                                                                                        : null
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            {education.degreeType != ""
+                                                                                ? (
+                                                                                    <div className="text-center my-3">
+                                                                                        <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
+                                                                                    </div>
+                                                                                )
+                                                                                : null
+                                                                            }
+                                                                            {education.description ? (
+                                                                                <div className="px-5 mb-5">
+                                                                                    {education.description?.map((detail) => {
+                                                                                        return (
+                                                                                            <ul className="flex list-disc list-inside" key={detail}>
+                                                                                                <li>{detail}</li>
+                                                                                            </ul>
+                                                                                        )
+                                                                                    })}
                                                                                 </div>
                                                                             ) : null
-                                                                        }
-                                                                        {education.institutionLocation && (education.graduationYear || education.graduationMonth) != ""
-                                                                            ? (
-                                                                                <>
-                                                                                    {education.institutionLocation != "" ?
+                                                                            }
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </section>
+                                                            : ''
+                                                        }
+                                                    </>}
+                                            </>
+                                            : <>
+                                                {!addingDetailsValue && educationalBackground.length != 0 ?
+                                                    <section className="w-full px-5">
+                                                        <div className="text-center font-bold my-1">
+                                                            Educational Background
+                                                        </div>
+                                                        <div>
+                                                            {educationalBackground.map((education) => {
+                                                                return (
+                                                                    <div className="flex flex-col " key={education.institutionName}>
+                                                                        <div className="flex items-center justify-center">
+                                                                            <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
+                                                                                {education.institutionName != ""
+                                                                                    ? (
                                                                                         <div className="px-2">
-                                                                                            {education.institutionLocation}
+                                                                                            {education.institutionName}
                                                                                         </div>
-                                                                                        : null
-                                                                                    }
-                                                                                    {education.graduationYear || education.graduationMonth != "" ? (
-                                                                                        <div className="px-2">
-                                                                                            {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
-                                                                                        </div>
+                                                                                    ) : null
+                                                                                }
+                                                                                {education.institutionLocation || (education.graduationYear || education.graduationMonth) != ""
+                                                                                    ? (
+                                                                                        <>
+                                                                                            {education.institutionLocation != "" ?
+                                                                                                <div className="px-2">
+                                                                                                    {education.institutionLocation}
+                                                                                                </div>
+                                                                                                : null
+                                                                                            }
+                                                                                            {education.graduationYear || education.graduationMonth != "" ? (
+                                                                                                <div className="px-2">
+                                                                                                    {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
+                                                                                                </div>
+                                                                                            )
+                                                                                                : null
+                                                                                            }
+                                                                                        </>
                                                                                     )
-                                                                                        : null
-                                                                                    }
-                                                                                </>
+                                                                                    : null
+                                                                                }
+                                                                            </div>
+                                                                        </div>
+                                                                        {education.degreeType != ""
+                                                                            ? (
+                                                                                <div className="text-center my-3">
+                                                                                    <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
+                                                                                </div>
                                                                             )
                                                                             : null
                                                                         }
+                                                                        {education.description ? (
+                                                                            <div className="px-5 mb-5">
+                                                                                {education.description?.map((detail) => {
+                                                                                    return (
+                                                                                        <ul className="flex list-disc list-inside" key={detail}>
+                                                                                            <li>{detail}</li>
+                                                                                        </ul>
+                                                                                    )
+                                                                                })}
+                                                                            </div>
+                                                                        ) : null
+                                                                        }
                                                                     </div>
+                                                                )
+                                                            })}
+                                                        </div>
+                                                    </section>
+                                                    : <>
+                                                        {addingDetailsValue && steps >= 3 ?
+                                                            <section className="w-full px-5">
+                                                                <div className={`text-center ${steps == 3 ? "text-accent" : null} font-bold my-1`}>
+                                                                    {steps > 3 ? "Educational Background" : "Adding Educational Background"}
                                                                 </div>
-                                                                {education.degreeType != ""
-                                                                    ? (
-                                                                        <div className="text-center my-3">
-                                                                            <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
+                                                                {steps == 3 && [educationField]?.map((education) => {
+                                                                    return (
+                                                                        <div className="flex flex-col " key={education.institutionName}>
+                                                                            <div className="flex items-center justify-center">
+                                                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
+                                                                                    {education.institutionName != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {education.institutionName}
+                                                                                            </div>
+                                                                                        ) : null
+                                                                                    }
+                                                                                    {education.institutionLocation || education.graduationYear || education.graduationMonth != ""
+                                                                                        ? (
+                                                                                            <>
+                                                                                                {education.institutionLocation != "" ?
+                                                                                                    <div className="px-2">
+                                                                                                        {education.institutionLocation}
+                                                                                                    </div>
+                                                                                                    : null
+                                                                                                }
+                                                                                                {education.graduationYear || education.graduationMonth != "" ? (
+                                                                                                    <div className="px-2">
+                                                                                                        {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
+                                                                                                    </div>
+                                                                                                )
+                                                                                                    : null
+                                                                                                }
+                                                                                            </>
+                                                                                        )
+                                                                                        : null
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            {education.degreeType != ""
+                                                                                ? (
+                                                                                    <div className="text-center my-3">
+                                                                                        <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
+                                                                                    </div>
+                                                                                )
+                                                                                : null
+                                                                            }
+                                                                            {education.description ? (
+                                                                                <div className="px-5 mb-5">
+                                                                                    {education.description?.map((detail) => {
+                                                                                        return (
+                                                                                            <ul className="flex list-disc list-inside" key={detail}>
+                                                                                                <li>{detail}</li>
+                                                                                            </ul>
+                                                                                        )
+                                                                                    })}
+                                                                                </div>
+                                                                            ) : null
+                                                                            }
                                                                         </div>
                                                                     )
-                                                                    : null
-                                                                }
-                                                                {education.description ? (
-                                                                    <div className="px-5 mb-5">
-                                                                        {education.description?.map((detail) => {
-                                                                            return (
-                                                                                <ul className="flex list-disc list-inside" key={detail}>
-                                                                                    <li>{detail}</li>
-                                                                                </ul>
-                                                                            )
-                                                                        })}
-                                                                    </div>
-                                                                ) : null
-                                                                }
-                                                            </div>
-                                                        )
-                                                    })}
-                                                </section>
-                                                : ''
-                                            }
-                                        </>}
-                                </>)
+                                                                })}
+
+                                                                {educationalBackground.map((education) => {
+                                                                    return (
+                                                                        <div className="flex flex-col " key={education.institutionName}>
+                                                                            <div className="flex items-center justify-center">
+                                                                                <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
+                                                                                    {education.institutionName != ""
+                                                                                        ? (
+                                                                                            <div className="px-2">
+                                                                                                {education.institutionName}
+                                                                                            </div>
+                                                                                        ) : null
+                                                                                    }
+                                                                                    {education.institutionLocation && (education.graduationYear || education.graduationMonth) != ""
+                                                                                        ? (
+                                                                                            <>
+                                                                                                {education.institutionLocation != "" ?
+                                                                                                    <div className="px-2">
+                                                                                                        {education.institutionLocation}
+                                                                                                    </div>
+                                                                                                    : null
+                                                                                                }
+                                                                                                {education.graduationYear || education.graduationMonth != "" ? (
+                                                                                                    <div className="px-2">
+                                                                                                        {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
+                                                                                                    </div>
+                                                                                                )
+                                                                                                    : null
+                                                                                                }
+                                                                                            </>
+                                                                                        )
+                                                                                        : null
+                                                                                    }
+                                                                                </div>
+                                                                            </div>
+                                                                            {education.degreeType != ""
+                                                                                ? (
+                                                                                    <div className="text-center my-3">
+                                                                                        <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
+                                                                                    </div>
+                                                                                )
+                                                                                : null
+                                                                            }
+                                                                            {education.description ? (
+                                                                                <div className="px-5 mb-5">
+                                                                                    {education.description?.map((detail) => {
+                                                                                        return (
+                                                                                            <ul className="flex list-disc list-inside" key={detail}>
+                                                                                                <li>{detail}</li>
+                                                                                            </ul>
+                                                                                        )
+                                                                                    })}
+                                                                                </div>
+                                                                            ) : null
+                                                                            }
+                                                                        </div>
+                                                                    )
+                                                                })}
+                                                            </section>
+                                                            : ''
+                                                        }
+                                                    </>}
+                                            </>
+                                        }
+                                    
+                                </>
+                                )
                             }
 
                         </>}

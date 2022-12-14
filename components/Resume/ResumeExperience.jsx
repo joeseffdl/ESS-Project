@@ -1,10 +1,23 @@
 import FormWindow from "../FormWindow";
 import validator from "validator"
 import { toast } from "react-toastify";
-import { resumeExperienceStore, fillingForm, modalSection, addingDetails, completedSteps,  } from '../../utils/store'
+import { resumeDataExperienceIndexStore, resumeDataStore, resumeExperienceStore, fillingForm, modalSection, addingDetails, completedSteps,  } from '../../utils/store'
+import { useRouter } from "next/router";
 
-function ResumeExperience(props) {
+function ResumeExperience() {
+  // Router
+  const router = useRouter()
+
   // State Management
+  const resumeData = resumeDataStore(state => state.resumeData)
+  const updateResumeWorkExp = resumeDataStore(state => state.updateResumeWorkExp)
+  const updateResumeWorkDetailsArray = resumeDataStore(state => state.updateResumeWorkDetailsArray)
+  const clearResumeWorkExpField = resumeDataStore(state => state.clearResumeWorkExpField)
+  
+  const indexValue = resumeDataExperienceIndexStore(state => state.indexValue)
+  const incrementIndexValue = resumeDataExperienceIndexStore(state => state.incrementIndexValue)
+  const decrementIndexValue = resumeDataExperienceIndexStore(state => state.decrementIndexValue)
+
   const workExperiences = resumeExperienceStore(state => state.workExperiences)
   const workExp = resumeExperienceStore(state => state.workExp)
   const description = resumeExperienceStore(state => state.description)
@@ -28,24 +41,42 @@ function ResumeExperience(props) {
   // Handle change 
   const handleChange = (e) => {
     const { name, value } = e.target
-    addWorkExp({[name]: value})
+    if (!router.query.id) {
+      addWorkExp({[name]: value})
+    } else {
+      updateResumeWorkExp(indexValue, { [name]: value })
+    }
   }
 
   // Handle checkbox 
   const handleCheckbox = (e) => {
     const { name, value, checked } = e.target
-    if (checked) {
-      addWorkExp({[name]: value })
-    } else {
-      addWorkExp({ [name]: "" })
+    if (!router.query.id) {
+      if (checked) {
+        addWorkExp({[name]: value })
+      } else {
+        addWorkExp({ [name]: "" })
+      }
+    }
+    else {
+      if (checked) {
+        updateResumeWorkExp(indexValue, { [name]: value })
+      } else {
+        updateResumeWorkExp(indexValue, { [name]: "" })
+      }
     }
   }
 
   // Handle Text Area changes
   const handleTextAreaChange = (e) => {
     const { value } = e.target
-    addWorkDetailsArray(value.split("\n"))
-    updateWorkExpField()
+    if (!router.query.id) {
+      addWorkDetailsArray(value.split("\n"))
+      updateWorkExpField()
+    } else {
+      updateResumeWorkDetailsArray(indexValue,value.split("\n"))
+    }
+    
   }
 
   // Go back to the previous page 
@@ -63,7 +94,7 @@ function ResumeExperience(props) {
   // Change state of fillingForm to false
   const fillingFormState = (e) => {
     e.preventDefault()
-    if (validator.isEmpty(workExp.title && workExp.employer)) {
+    if (!router.query.id && validator.isEmpty(workExp.title && workExp.employer)) {
       toast.error(`Please enter all required fields 😞`)
       return
     }
@@ -86,7 +117,11 @@ function ResumeExperience(props) {
   // Add More Experience
   const addMoreExperience = (e) => {
     e.preventDefault()
-    clearWorkExpField()
+    if (!router.query.id) {
+      clearWorkExpField()
+    } else {
+      clearResumeWorkExpField()
+    }
     setFillingForm()
     setModalSection()
     setAddingDetails(true)
@@ -108,24 +143,48 @@ function ResumeExperience(props) {
     setAddingDetails(false)
   }
 
+  // Increment Index value
+  const incrementIndex = (e) => {
+    e.preventDefault()
+    incrementIndexValue()
+  }
+
+  // Decrement Index value
+  const decrementIndex = (e) => {
+    e.preventDefault()
+    decrementIndexValue()
+  }
+
+  // Delete Index Item
+  const deleteIndex = (e) => {
+    e.preventDefault()
+    resumeData.workExperiences.splice(indexValue, 1)
+    decrementStep()
+    if (resumeData.workExperiences.length === 0) {
+      clearResumeWorkExpField()
+    }
+  }
+
+  console.log(resumeData)
+
   if (fillingFormValue && !modalSectionValue) {
     return (
       <FormWindow onSubmit={fillingFormState} formTitle="Work Experience" >
         <div className="w-full flex flex-col gap-2 mb-5
           ">
           <input
-            className={`input focus:outline-none ${workExp.title == "" ? "input-warning" : "input-success"}`}
+            className={`input focus:outline-none ${router.query.id ? resumeData.workExperiences[indexValue].title == "" ? "input-warning" : "input-success" : workExp.title == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Work Title"
-            value={workExp.title}
+            value={router.query.id ? resumeData.workExperiences[indexValue].title : workExp.title}
             name="title"
             onChange={handleChange}
           />
           <input
-            className={`input focus:outline-none ${workExp.employer == "" ? "input-warning" : "input-success"}`}
+            className={`input focus:outline-none ${router.query.id ? resumeData.workExperiences[indexValue].employer == "" ? "input-warning" : "input-success" : workExp.employer == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Employer"
-            value={workExp.employer}
+            value={router.query.id ? resumeData.workExperiences[indexValue].employer : workExp.employer}
             name="employer"
             onChange={handleChange}
           />
@@ -136,7 +195,7 @@ function ResumeExperience(props) {
             className="input "
             type="text"
             placeholder="City/Municipality"
-            value={workExp.city}
+            value={router.query.id ? resumeData.workExperiences[indexValue].city : workExp.city}
             name="city"
             onChange={handleChange}
           />
@@ -144,7 +203,7 @@ function ResumeExperience(props) {
             className="input "
             type="text"
             placeholder="Country"
-            value={workExp.country}
+            value={router.query.id ? resumeData.workExperiences[indexValue].country : workExp.country}
             name="country"
             onChange={handleChange}
           />
@@ -155,7 +214,7 @@ function ResumeExperience(props) {
             className="input w-full"
             type="text"
             placeholder="Start Date"
-            value={workExp.startDate}
+            value={router.query.id ? resumeData.workExperiences[indexValue].startDate : workExp.startDate}
             name="startDate"
             onChange={handleChange}
             onFocus={(e) => (e.target.type = "date")}
@@ -163,28 +222,39 @@ function ResumeExperience(props) {
           />
           <div className="w-full flex flex-col ">
             <input
-              disabled={workExp.currentlyWorking == "Present"}
+              disabled={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" : workExp.currentlyWorking == "Present"}
               className="input w-full"
               type="text"
               placeholder="End Date"
-              value={workExp.currentlyWorking == "Present" ? "" : workExp.endDate}
+              value={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" ? "" : resumeData.workExperiences[indexValue].endDate : workExp.currentlyWorking == "Present" ? "" : workExp.endDate}
               name="endDate"
               onChange={handleChange}
               onFocus={(e) => (e.target.type = "date")}
               onBlur={(e) => (e.target.type = "text")}
             />
-            <label className="w-full flex gap-5 mt-3 px-2 cursor-pointer">
-              <span className="font-semibold">Currently Working</span>
-              <input
-                className="checkbox "
-                type="checkbox"
-                value="Present" 
-                name="currentlyWorking"
-                onChange={handleCheckbox}
-              />
-            </label>
+            <div className="w-full flex flex-between">
+              <label className="w-full flex gap-5 mt-3 px-2 cursor-pointer">
+                <span className="font-semibold">Currently Working</span>
+                <input
+                  className="checkbox "
+                  checked={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" : workExp.currentlyWorking == "Present"}
+                  type="checkbox"
+                  value="Present" 
+                  name="currentlyWorking"
+                  onChange={handleCheckbox}
+                />
+                
+              </label>
+              {router.query.id
+                ? <div className="w-full flex justify-end gap-5 mt-3 px-2">
+                    <button className=" btn btn-xs btn-error btn-outline" disabled={ resumeData.workExperiences.length <= 1 && resumeData.workExperiences[0].title == "" && resumeData.workExperiences[0].employer == ""} onClick={deleteIndex}>☠️</button>
+                    <button className=" btn btn-xs btn-outline" disabled={ indexValue == 0} onClick={decrementIndex}>&#60;</button>
+                    <button className=" btn btn-xs btn-outline" disabled={ indexValue == resumeData.workExperiences.length - 1 } onClick={incrementIndex}>&#62;</button>
+                  </div>
+                : ``
+              }
+            </div>
           </div>
-          
         </div>
         
         <div className="w-full flex flex-col sm:justify-between gap-5">
@@ -202,7 +272,7 @@ function ResumeExperience(props) {
           className="textarea h-1/3 mb-5"
           type="text"
           placeholder="Write down your work's description."
-          value={description.value}
+          value={router.query.id ? resumeData.workExperiences[indexValue].description.join("\n") : description.value}
           name="description"
           onChange={handleTextAreaChange}
         />

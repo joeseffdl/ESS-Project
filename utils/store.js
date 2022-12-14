@@ -145,7 +145,6 @@ export let resumeDataStore = create((set) => ({
                 ...personalInformation
             }
         }
-        
     })),
     updateResumeSkills: (skill) => set((state) => ({
         resumeData: {
@@ -177,9 +176,91 @@ export let resumeDataStore = create((set) => ({
             portfolio:[
                 ...portfolio
             ]
-            
         }
     })),
+    updateResumeWorkExp: (indexValue, exp) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            ...state.resumeData.workExperiences[indexValue] = {
+                ...state.resumeData.workExperiences[indexValue],
+                ...exp
+            }
+        }
+    })),
+    updateResumeWorkDetailsArray: (indexValue, expDetails, ) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            ...state.resumeData.workExperiences[indexValue].description = [...expDetails]
+        }
+    })),
+    clearResumeWorkExpField: () => set((state) => ({ 
+        resumeData: {
+            ...state.resumeData,
+            workExperiences: [
+                {
+                    title: "",
+                    employer: "",
+                    city: "",
+                    country: "",
+                    startDate: "",
+                    endDate: "",
+                    currentlyWorking: false,
+                    description: []
+                },
+                ...state.resumeData.workExperiences
+            ]
+        }
+    })),
+    updateResumeEducation: (indexValue, education) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            ...state.resumeData.educationalBackground[indexValue] = {
+                ...state.resumeData.educationalBackground[indexValue],
+                ...education
+            }
+        }
+    })),
+    updateResumeEducationDetailsArray: (indexValue, educationDetails, ) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            ...state.resumeData.educationalBackground[indexValue].description = [...educationDetails]
+        }
+    })),
+    clearResumeEducationField: () => set((state) => ({ 
+        resumeData: {
+            ...state.resumeData,
+            educationalBackground: [
+                {
+                    institutionName: "",
+                    institutionLocation: "",
+                    degreeType: "",
+                    fieldOfStudy: "",
+                    graduationMonth: "",
+                    graduationYear: "",
+                    description: []
+                },
+                ...state.resumeData.educationalBackground
+            ]
+        }
+    })),
+}))
+
+export let resumeDataExperienceIndexStore = create((set) => ({
+    indexValue: 0,
+    resetIndexValue: (value) => set((state) => ({
+        indexValue: 0
+    })),
+    incrementIndexValue: () => set((state) => ({ indexValue: state.indexValue + 1 })),
+    decrementIndexValue: () => set((state) => ({ indexValue: state.indexValue - 1 })),
+}))
+
+export let resumeDataEducationalBackgroundIndexStore = create((set) => ({
+    indexValue: 0,
+    resetIndexValue: (value) => set((state) => ({
+        indexValue: 0
+    })),
+    incrementIndexValue: () => set((state) => ({ indexValue: state.indexValue + 1 })),
+    decrementIndexValue: () => set((state) => ({ indexValue: state.indexValue - 1 })),
 }))
 
 export let completedSteps = create((set) => ({
