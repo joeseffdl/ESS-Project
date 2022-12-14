@@ -10,7 +10,7 @@ import OutputResume from "../components/Resume/OutputResume";
 function View() {
     // Router
     const router = useRouter()
-    const routeDataID = router.query.resume
+    const routeDataID = router.query.viewResume
 
     // Handle user
     const [user, loading] = useAuthState(auth)
@@ -24,17 +24,17 @@ function View() {
 
     // Get user resume data
     const getResumeData = async (id) => {
-        
+        const docRef = await doc(db, "resumes", id)
         try { 
-            const docRef = doc(db, 'resumes', id)
             const docSnap = await getDoc(docRef)
-            const unsubscribe = setResumeDocument(docSnap.data())
-            return unsubscribe
+            if (docSnap.exists()) {
+                const unsubscribe = setResumeDocument(docSnap.data())
+                return unsubscribe
+            }
         } catch(err) {
             console.log(err)
         }
     }
-
     // Display according to template
     const displayTemplate = () => {
         // Check the type/template of the resume document
@@ -42,12 +42,9 @@ function View() {
             <OutputResume {...resumeDocument.resumeData} />
         )
     }
-    
     useEffect(() => {
         getData()
-        if (routeDataID) {
-            getResumeData(routeDataID)
-        }
+        getResumeData(routeDataID)
     }, [user, loading])
 
     return (

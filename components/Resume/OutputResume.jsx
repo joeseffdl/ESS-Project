@@ -24,7 +24,7 @@ function OutputResume({
 }) {
     // Router
     const router = useRouter()
-    const routerID = router.query.resume
+    const routerID = router.query.viewResume
 
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
@@ -40,14 +40,13 @@ function OutputResume({
     const steps = completedSteps(state => state.steps)
     const addingDetailsValue = addingDetails(state => state.value)
 
-
     return (
         <>
             <div className="h-full p-8">
                 <div className="h-full text-xs divide-y-2 divide-blue-900">
 
                     {/* PERSONAL INFORMATION SECTION */}
-                    {routerID
+                    {routerID 
                         ? (
                             <section className="w-full ">
                                 <div className="text-center text-3xl font-semibold my-4 tracking-widest">
