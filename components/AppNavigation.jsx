@@ -1,8 +1,8 @@
-import { useState } from 'react'
 import Link from 'next/link'
+import { useState } from 'react'
+import { useAuthState } from "react-firebase-hooks/auth"
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import { auth } from "../utils/firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
 
 function AppNavigation() {
     // Handle user 

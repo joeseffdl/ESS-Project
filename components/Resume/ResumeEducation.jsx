@@ -1,31 +1,33 @@
-import FormWindow from "../FormWindow";
-import validator from "validator"
-import { toast } from "react-toastify";
-import { resumeDataEducationalBackgroundIndexStore, resumeDataStore, resumeEducationStore, fillingForm, modalSection, addingDetails, completedSteps, } from '../../utils/store'
+import _ from "lodash";
 import { useRouter } from "next/router";
-
+import { toast } from "react-toastify";
+import { addingDetails, completedSteps, fillingForm, modalSection, resumeDataEducationalBackgroundIndexStore, resumeDataStore, resumeEducationStore, } from '../../utils/store';
+import FormWindow from "../FormWindow";
 
 function ResumeEducation() {
     // Router
     const router = useRouter()
 
-    // State Management
+    // Edit States
     const resumeData = resumeDataStore(state => state.resumeData)
+    const initialResumeData = resumeDataStore(state => state.initialResumeData)
+    const indexValue = resumeDataEducationalBackgroundIndexStore(state => state.indexValue)
+    
+    // Edit States Functions
     const updateResumeEducation = resumeDataStore(state => state.updateResumeEducation)
     const updateResumeEducationDetailsArray = resumeDataStore(state => state.updateResumeEducationDetailsArray)
     const clearResumeEducationField = resumeDataStore(state => state.clearResumeEducationField)
-
-    const indexValue = resumeDataEducationalBackgroundIndexStore(state => state.indexValue)
     const incrementIndexValue = resumeDataEducationalBackgroundIndexStore(state => state.incrementIndexValue)
     const decrementIndexValue = resumeDataEducationalBackgroundIndexStore(state => state.decrementIndexValue)
 
+    // States
     const educationalBackground = resumeEducationStore(state => state.educationalBackground)
     const educationField = resumeEducationStore(state => state.educationField)
     const description = resumeEducationStore(state => state.description)
     const fillingFormValue = fillingForm(state => state.value)
     const modalSectionValue = modalSection(state => state.value)
 
-    // State Functions
+    // States Functions
     const addEducation = resumeEducationStore(state => state.addEducation)
     const addEducationDetailsArray = resumeEducationStore(state => state.addEducationDetailsArray)
     const updateEducationField = resumeEducationStore(state => state.updateEducationField)
@@ -80,9 +82,19 @@ function ResumeEducation() {
     // Change state of fillingForm to false
     const fillingFormState = (e) => {
         e.preventDefault()
-        if (!router.query.id && validator.isEmpty(educationField.institutionName && educationField.degreeType)) {
+        if (!router.query.id && _.isEmpty(educationField.institutionName && educationField.degreeType)) {
             toast.error("Please enter all required fields 😞")
             return
+        } else if (_.isEmpty(resumeData.educationalBackground[indexValue].institutionName && resumeData.educationalBackground[indexValue].degreeType)) {
+            toast.error("Please enter all required fields 😞")
+            return
+        } else if (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) {
+            try {
+                toast.success("Resume updated successfully 😄")
+            }
+            catch (err) {
+                console.log(err)    
+            }
         }
         setFillingForm()
     }
@@ -141,12 +153,11 @@ function ResumeEducation() {
         e.preventDefault()
         resumeData.educationalBackground.splice(indexValue, 1)
         decrementStep()
+        setAddingDetails(false)
         if (resumeData.educationalBackground.length === 0) {
             clearResumeEducationField()
         }
     }
-
-    console.log(resumeData)
 
     if (fillingFormValue && !modalSectionValue) {
         return (
@@ -401,7 +412,7 @@ function ResumeEducation() {
                 </div>
                 <div className="w-full flex flex-col sm:justify-between gap-5">
                     <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
                     <button className=" btn btn-sm sm:btn-md btn-outline" onClick={toSkillsSection}>Skip to Skills Section</button>
                 </div>
             </FormWindow>

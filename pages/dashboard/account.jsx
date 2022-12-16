@@ -1,9 +1,8 @@
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
 import AppNavigation from "../../components/AppNavigation";
-import Link from "next/link"
-import { useRouter } from "next/router"
-import { auth } from "../../utils/firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { useState, useEffect } from "react"
+import { auth } from "../../utils/firebase";
 function Account() {
     // Router
     const router = useRouter()

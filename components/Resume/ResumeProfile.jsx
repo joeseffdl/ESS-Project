@@ -1,18 +1,24 @@
-import FormWindow from "../FormWindow";
-import validator from "validator";
-import { toast } from "react-toastify";
-import { completedSteps, resumeDataStore, resumePersonalInformationStore } from '../../utils/store'
+import _ from "lodash";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { completedSteps, resumeDataStore, resumePersonalInformationStore } from '../../utils/store';
+import FormWindow from "../FormWindow";
 
 function ResumeProfile() {
     // Router
     const router = useRouter()
 
-    // State Management
+    // Edit State
     const resumeData = resumeDataStore(state => state.resumeData)
+    const initialResumeData = resumeDataStore(state => state.initialResumeData)
+    
+    // Edit State Functions
     const updateResumePersonalInformation = resumeDataStore(state => state.updateResumePersonalInformation)
 
+    // States
     const personalInformation = resumePersonalInformationStore(state => state.personalInformation)
+    
+    // State Functions
     const updatePersonalInformation = resumePersonalInformationStore(state => state.updatePersonalInformation)
     const incrementStep = completedSteps(state => state.incrementStep)
 
@@ -36,13 +42,19 @@ function ResumeProfile() {
     // Continue to Experience section
     const toResumeExperience = (e) => {
         e.preventDefault()
-        if (!router.query.id && validator.isEmpty(personalInformation.emailAddress)) {
+        if (!router.query.id && _.isEmpty(personalInformation.emailAddress)) {
             toast.error("Please enter an Email Address😞")
             return
+        } else if (!_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) {
+            try {
+                toast.success("Resume updated successfully 😄")
+            } catch(err) {
+                console.log(err)
+            }
         }
         incrementStep()
     }
-
+    
     return (
         <FormWindow onSubmit={toResumeExperience} formTitle={router.query.id ? "Editing Resume Header" : "Profile Header"}>
             <div className="w-full flex flex-col gap-2 mb-5
@@ -113,7 +125,7 @@ function ResumeProfile() {
 
             <div className="w-full flex flex-col sm:flex-row justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline" onClick={toResumeTemplates}>Back</button>
-                <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+                <button type="submit" disabled={_.isEmpty(resumeData.personalInformation)} className="btn btn-sm sm:btn-md btn-outline">{ router.query.id && (!_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) ? "Update" : "Continue" }</button>
             </div>
         </FormWindow>
     )

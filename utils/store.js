@@ -125,6 +125,10 @@ export let resumeProfileSummaryStore = create((set) => ({
 }))
 
 export let resumeDataStore = create((set) => ({
+    initialResumeData: {},
+    setInitialResumeData: (value) => set((state) => ({
+        initialResumeData: value
+    })),
     resumeData: {
         personalInformation: {},
         workExperiences: [],

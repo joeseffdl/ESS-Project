@@ -8,18 +8,16 @@ specifiers:
   eslint: 8.27.0
   eslint-config-next: 13.0.3
   firebase: ^9.14.0
+  lodash: ^4.17.21
   next: 13.0.3
   postcss: ^8.4.19
   react: 18.2.0
   react-confetti: ^6.1.0
   react-dom: 18.2.0
   react-firebase-hooks: ^5.1.1
-  react-hook-form: ^7.39.3
   react-icons: ^4.6.0
   react-toastify: ^9.1.1
   tailwindcss: ^3.2.4
-  validator: ^13.7.0
-  zod: ^3.19.1
   zustand: ^4.1.4
 
 dependencies:
@@ -28,16 +26,14 @@ dependencies:
   eslint: 8.27.0
   eslint-config-next: 13.0.3_rmayb2veg2btbq6mbmnyivgasy
   firebase: 9.14.0
+  lodash: 4.17.21
   next: 13.0.3_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-confetti: 6.1.0_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
   react-firebase-hooks: 5.1.1_wrfwn6aonbl2nd2sool3chtjyy
-  react-hook-form: 7.39.3_react@18.2.0
   react-icons: 4.6.0_react@18.2.0
   react-toastify: 9.1.1_biqbaboplfbrettd7655fr4n2y
-  validator: 13.7.0
-  zod: 3.19.1
   zustand: 4.1.4_react@18.2.0
 
 devDependencies:
@@ -2133,6 +2129,10 @@ packages:
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
 
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
+
   /long/4.0.0:
     resolution: {integrity: sha512-XsP+KhQif4bjX1kbuSiySJFNAehNxgLb6hPRGJ9QsUr8ajHkuXGdrHmFUTUUXhDwVX2R5bY4JNZEwbUiMhV+MA==}
     dev: false
@@ -3010,11 +3010,6 @@ packages:
   /util-deprecate/1.0.2:
     resolution: {integrity: sha512-EPD5q1uXyFxJpCrLnCc1nHnq3gOa6DZBocAIiI2TaSCA7VCJ1UJDMagCzIkXNsUYfD1daK//LTEQ8xiIbrHtcw==}
 
-  /validator/13.7.0:
-    resolution: {integrity: sha512-nYXQLCBkpJ8X6ltALua9dRrZDHVYxjJ1wgskNt1lH9fzGjs3tgojGSCBjmEPwkWS1y29+DrizMTW19Pr9uB2nw==}
-    engines: {node: '>= 0.10'}
-    dev: false
-
   /webidl-conversions/3.0.1:
     resolution: {integrity: sha512-2JAn3z8AR6rjK8Sm8orRC0h/bcl/DqL7tRPdGZ4I1CjdF+EaMLmYxBHyXuKL849eucPFhvBoxMsflfOb8kxaeQ==}
     dev: false
@@ -3127,10 +3122,6 @@ packages:
   /yocto-queue/0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
-    dev: false
-
-  /zod/3.19.1:
-    resolution: {integrity: sha512-LYjZsEDhCdYET9ikFu6dVPGp2YH9DegXjdJToSzD9rO6fy4qiRYFoyEYwps88OseJlPyl2NOe2iJuhEhL7IpEA==}
     dev: false
 
   /zustand/4.1.4_react@18.2.0:

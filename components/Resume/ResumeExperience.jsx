@@ -1,31 +1,33 @@
-import FormWindow from "../FormWindow";
-import validator from "validator"
-import { toast } from "react-toastify";
-import { resumeDataExperienceIndexStore, resumeDataStore, resumeExperienceStore, fillingForm, modalSection, addingDetails, completedSteps,  } from '../../utils/store'
+import _ from "lodash";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { addingDetails, completedSteps, fillingForm, modalSection, resumeDataExperienceIndexStore, resumeDataStore, resumeExperienceStore, } from '../../utils/store';
+import FormWindow from "../FormWindow";
 
 function ResumeExperience() {
   // Router
   const router = useRouter()
 
-  // State Management
+  // Edit States
   const resumeData = resumeDataStore(state => state.resumeData)
+  const initialResumeData = resumeDataStore(state => state.initialResumeData)
+  const indexValue = resumeDataExperienceIndexStore(state => state.indexValue)
+  
+  // Edit State Functions
   const updateResumeWorkExp = resumeDataStore(state => state.updateResumeWorkExp)
   const updateResumeWorkDetailsArray = resumeDataStore(state => state.updateResumeWorkDetailsArray)
   const clearResumeWorkExpField = resumeDataStore(state => state.clearResumeWorkExpField)
-  
-  const indexValue = resumeDataExperienceIndexStore(state => state.indexValue)
   const incrementIndexValue = resumeDataExperienceIndexStore(state => state.incrementIndexValue)
   const decrementIndexValue = resumeDataExperienceIndexStore(state => state.decrementIndexValue)
-
+  
+  // States
   const workExperiences = resumeExperienceStore(state => state.workExperiences)
   const workExp = resumeExperienceStore(state => state.workExp)
   const description = resumeExperienceStore(state => state.description)
   const fillingFormValue = fillingForm(state => state.value)
   const modalSectionValue = modalSection(state => state.value)
 
-
-  // State Functions
+  // States Functions
   const addWorkExp = resumeExperienceStore(state => state.addWorkExp)
   const addWorkDetailsArray = resumeExperienceStore(state => state.addWorkDetailsArray)
   const updateWorkExpField = resumeExperienceStore(state => state.updateWorkExpField)
@@ -36,7 +38,6 @@ function ResumeExperience() {
   const setFillingForm = fillingForm(state => state.setFillingForm)
   const setModalSection = modalSection(state => state.setModalSection)
   const setAddingDetails = addingDetails(state => state.setAddingDetails)
-
 
   // Handle change 
   const handleChange = (e) => {
@@ -76,7 +77,6 @@ function ResumeExperience() {
     } else {
       updateResumeWorkDetailsArray(indexValue,value.split("\n"))
     }
-    
   }
 
   // Go back to the previous page 
@@ -94,9 +94,18 @@ function ResumeExperience() {
   // Change state of fillingForm to false
   const fillingFormState = (e) => {
     e.preventDefault()
-    if (!router.query.id && validator.isEmpty(workExp.title && workExp.employer)) {
+    if (!router.query.id && _.isEmpty(workExp.title && workExp.employer)) {
       toast.error(`Please enter all required fields 😞`)
       return
+    } else if (_.isEmpty(resumeData.workExperiences[indexValue].title && resumeData.workExperiences[indexValue].employer)) { 
+      toast.error(`Please enter all required fields 😞`)
+      return
+    } else if (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) {
+      try {
+        toast.success("Resume updated successfully 😄")
+      } catch (err) {
+        console.log(err)
+      }
     }
     setFillingForm()
   }
@@ -104,11 +113,6 @@ function ResumeExperience() {
   // Continue to Add Experience section
   const toAddExperienceSection = (e) => {
     e.preventDefault()
-    // if (validator.isEmpty(workExperience.description)) {
-    //   toast.error("Please enter a Work Description 😞")
-    //   return
-    // }
-    // setWorkExperienceArray(prevArray => [workExperience,...prevArray])
     addWorkExperiencesArray()
     setModalSection()
     setAddingDetails(false)
@@ -160,12 +164,12 @@ function ResumeExperience() {
     e.preventDefault()
     resumeData.workExperiences.splice(indexValue, 1)
     decrementStep()
+    setAddingDetails(false)
+
     if (resumeData.workExperiences.length === 0) {
       clearResumeWorkExpField()
     }
   }
-
-  console.log(resumeData)
 
   if (fillingFormValue && !modalSectionValue) {
     return (
@@ -259,7 +263,7 @@ function ResumeExperience() {
         
         <div className="w-full flex flex-col sm:justify-between gap-5">
           <button className=" btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-          <button type="submit" className=" btn btn-sm sm:btn-md btn-outline">Continue</button>
+          <button type="submit" className=" btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
           <button className=" btn btn-sm sm:btn-md btn-outline" onClick={skipSection}>Skip to Education Section</button>
         </div>
       </FormWindow>

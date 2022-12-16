@@ -1,29 +1,30 @@
-import AppNavigation from "../../../components/AppNavigation"
+import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore"
 import { useRouter } from "next/router"
-import { resumeDataStore, completedSteps } from "../../../utils/store"
-import { auth, db } from "../../../utils/firebase"
-import { collection, addDoc, serverTimestamp, doc, getDoc, updateDoc } from "firebase/firestore"
+import { useEffect } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useState, useEffect } from "react"
-import ResumeExperience from "../../../components/Resume/ResumeExperience"
-import ResumeEducation from "../../../components/Resume/ResumeEducation"
-import ResumeSkills from "../../../components/Resume/ResumeSkills"
-import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummary"
-import ResumeProfile from "../../../components/Resume/ResumeProfile"
 import { toast } from "react-toastify"
-import TemplateContainer from "../../../components/TemplateContainer"
+import AppNavigation from "../../../components/AppNavigation"
 import ResumeCertifications from "../../../components/Resume/ResumeCertifications"
+import ResumeEducation from "../../../components/Resume/ResumeEducation"
+import ResumeExperience from "../../../components/Resume/ResumeExperience"
 import ResumePortfolios from "../../../components/Resume/ResumePortfolios"
+import ResumeProfile from "../../../components/Resume/ResumeProfile"
+import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummary"
+import ResumeSkills from "../../../components/Resume/ResumeSkills"
+import TemplateContainer from "../../../components/TemplateContainer"
+import { auth, db } from "../../../utils/firebase"
+import { completedSteps, resumeDataStore } from "../../../utils/store"
 
 function Resume() {
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
+    let step = completedSteps(state => state.steps)
+    
+    // State functions
     const setResumeData = resumeDataStore(state => state.setResumeData)
-
+    const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
     const setCompletedSteps = completedSteps(state => state.setCompletedSteps)
     const decrementStep = completedSteps(state => state.decrementStep)
-    let step = completedSteps(state => state.steps)
-
 
     // Router
     const router = useRouter()
@@ -74,12 +75,12 @@ function Resume() {
 
     // Get user resume data
     const getResumeData = async (id) => {
-        
         try {
             const docRef = doc(db, 'resumes', id)
             const docSnap = await getDoc(docRef)
             const unsubscribe = setResumeData(docSnap.data().resumeData)
-            return unsubscribe
+            const setInitial = setInitialResumeData(docSnap.data().resumeData)
+            return (unsubscribe,setInitial)
         } catch (err) {
             console.log(err)
         }
@@ -93,10 +94,8 @@ function Resume() {
 
     // Editing document?
     const editingDocument = () => {
-        if (routeID != '') {
-            setCompletedSteps(1)
-            getResumeData(routeID)
-        }
+        setCompletedSteps(1)
+        getResumeData(routeID)
     }
 
     // Go back to the previous page 
@@ -159,6 +158,8 @@ function Resume() {
         getData()
         if (routeID) {
             editingDocument()
+        } else {
+            setCompletedSteps(1)
         }
         
     }, [user, loading])

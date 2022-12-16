@@ -1,10 +1,10 @@
-import AppNavigation from "../../components/AppNavigation"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { auth } from "../../utils/firebase"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { useState, useEffect } from "react"
+import { useEffect, useState } from "react"
 import Confetti from "react-confetti"
+import { useAuthState } from "react-firebase-hooks/auth"
+import AppNavigation from "../../components/AppNavigation"
+import { auth } from "../../utils/firebase"
 function Welcome() {
     // Router
     const router = useRouter()

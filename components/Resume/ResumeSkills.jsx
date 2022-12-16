@@ -1,18 +1,24 @@
-import FormWindow from "../FormWindow";
-import validator from "validator"
-import { toast } from "react-toastify";
-import { completedSteps, resumeDataStore, resumeSkillsStore } from '../../utils/store'
+import _ from "lodash";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import { completedSteps, resumeDataStore, resumeSkillsStore } from '../../utils/store';
+import FormWindow from "../FormWindow";
 
 function ResumeSkills() {
     // Router
     const router = useRouter()
 
-    // State Management
+    // Edit States
     const resumeData = resumeDataStore(state => state.resumeData)
+    const initialResumeData = resumeDataStore(state => state.initialResumeData)
+    
+    // Edit States Functions
     const updateResumeSkills = resumeDataStore(state => state.updateResumeSkills)
-
+    
+    // States
     const userSkills = resumeSkillsStore(state => state.skills)
+    
+    // States Functions
     const addSkills = resumeSkillsStore(state => state.addSkills)
     const incrementStep = completedSteps(state => state.incrementStep)
     const decrementStep = completedSteps(state => state.decrementStep)
@@ -36,9 +42,15 @@ function ResumeSkills() {
     // Continue to Profile Summary section
     const toProfileSummarySection = (e) => {
         e.preventDefault()
-        if (!router.query.id && userSkills.length == 0) {
+        if (!router.query.id && _.isEmpty(userSkills)) {
             toast.error("Please enter a skill 😞")
             return
+        } else if (!_.isEqual(initialResumeData.skills, resumeData.skills)) {
+            try {
+                toast.success("Resume updated successfully 😄")
+            } catch (err) {
+                console.log(err)
+            }
         }
         incrementStep()
     }
@@ -53,7 +65,7 @@ function ResumeSkills() {
             />
             <div className="w-full flex flex-col sm:justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+                <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.skills, resumeData.skills)) ? "Update" : "Continue"}</button>
             </div>
         </FormWindow>
     )
