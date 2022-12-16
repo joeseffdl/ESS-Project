@@ -1,13 +1,13 @@
-import AppNavigation from "../components/AppNavigation"
-import UserResumes from "../components/UserResumes"
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from "firebase/firestore"
 import Link from 'next/link'
 import { useRouter } from "next/router"
-import { auth, db } from "../utils/firebase"
-import { collection, query, orderBy, onSnapshot, where, doc, deleteDoc } from "firebase/firestore"
+import { useEffect, useState } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useState, useEffect } from "react"
-import { AiFillEdit, AiFillDelete, AiFillEye } from 'react-icons/ai'
+import { AiFillDelete, AiFillEdit, AiFillEye } from 'react-icons/ai'
 import { toast } from "react-toastify"
+import AppNavigation from "../components/AppNavigation"
+import UserResumes from "../components/UserResumes"
+import { auth, db } from "../utils/firebase"
 
 function YourResumes() {
     // Router

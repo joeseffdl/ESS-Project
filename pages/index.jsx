@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import Image from 'next/image'
-import { auth } from "../utils/firebase"
+import Link from 'next/link'
 import { useAuthState } from "react-firebase-hooks/auth"
+import { auth } from "../utils/firebase"
 
 export default function Home() {
   // Handle user 

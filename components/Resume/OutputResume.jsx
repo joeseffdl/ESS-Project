@@ -1,16 +1,16 @@
-import {
-    resumePersonalInformationStore,
-    resumeExperienceStore,
-    resumeEducationStore,
-    resumeSkillsStore,
-    resumeProfileSummaryStore,
-    resumeCertificationStore,
-    resumePortfolioStore,
-    resumeDataStore,
-    completedSteps,
-    addingDetails,
-} from "../../utils/store"
 import { useRouter } from "next/router"
+import {
+    addingDetails,
+    completedSteps,
+    resumeCertificationStore,
+    resumeDataStore,
+    resumeEducationStore,
+    resumeExperienceStore,
+    resumePersonalInformationStore,
+    resumePortfolioStore,
+    resumeProfileSummaryStore,
+    resumeSkillsStore,
+} from "../../utils/store"
 
 
 function OutputResume({

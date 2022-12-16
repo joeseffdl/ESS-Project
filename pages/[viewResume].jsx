@@ -1,11 +1,11 @@
-import { useRouter } from "next/router"
-import { auth, db } from "../utils/firebase"
 import { doc, getDoc } from "firebase/firestore"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useState, useEffect } from "react"
-import AppNavigation from "../components/AppNavigation";
-import OutputTemplate from "../components/OutputTemplate";
-import OutputResume from "../components/Resume/OutputResume";
+import AppNavigation from "../components/AppNavigation"
+import OutputTemplate from "../components/OutputTemplate"
+import OutputResume from "../components/Resume/OutputResume"
+import { auth, db } from "../utils/firebase"
 
 function View() {
     // Router

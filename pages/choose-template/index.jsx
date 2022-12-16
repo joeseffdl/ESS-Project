@@ -1,10 +1,10 @@
-import AppNavigation from "../../components/AppNavigation"
 import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
-import { auth } from "../../utils/firebase"
+import { useEffect } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { useState, useEffect } from "react"
+import AppNavigation from "../../components/AppNavigation"
+import { auth } from "../../utils/firebase"
 
 function Templates() {
     // Router

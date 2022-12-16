@@ -1,10 +1,10 @@
-import Link from "next/link"
-import { useRouter }  from "next/router"
-import { useState } from "react"
-import { useForm, useController } from "react-hook-form"
 import { zodResolver } from "@hookform/resolvers/zod"
-import { string, boolean, z } from "zod"
+import Link from "next/link"
+import { useRouter } from "next/router"
+import { useState } from "react"
+import { useController, useForm } from "react-hook-form"
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
+import { boolean, string, z } from "zod"
 function SignUp({ user = {} }) {
     // Router
     const router = useRouter()

@@ -1,4 +1,4 @@
-import {completedSteps} from "../../utils/store"
+import { completedSteps } from "../../utils/store";
 
 function InputResume({ children }) {
     // State Management

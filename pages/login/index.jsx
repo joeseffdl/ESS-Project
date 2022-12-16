@@ -1,17 +1,14 @@
+import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import Image from "next/image"
 import Link from "next/link"
-import { useRouter }  from "next/router"
-import loginImage from "../../public/Sample.jpg"
-import { useState, useEffect } from "react"
-import { useForm } from "react-hook-form"
-import { zodResolver } from "@hookform/resolvers/zod"
-import { string, z } from "zod"
-import { AiOutlineClose, AiOutlineMenu, AiOutlineGithub } from 'react-icons/ai'
-import { FcGoogle } from "react-icons/fc"
-import { signInWithPopup, GoogleAuthProvider, GithubAuthProvider } from "firebase/auth"
-import { auth } from "../../utils/firebase"
+import { useRouter } from "next/router"
+import { useEffect, useState } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import {toast} from "react-toastify"
+import { AiOutlineClose, AiOutlineGithub, AiOutlineMenu } from 'react-icons/ai'
+import { FcGoogle } from "react-icons/fc"
+import { toast } from "react-toastify"
+import loginImage from "../../public/Sample.jpg"
+import { auth } from "../../utils/firebase"
 function Login({ defaultUser = {} }) {
     // Router
     const router = useRouter()
@@ -19,16 +16,6 @@ function Login({ defaultUser = {} }) {
 
     // NavBar State
     let [open, setOpen] = useState(false)
-
-    // Form Validation
-    const schema = z.object({
-        email: string().email(),
-        password: string().min(1, { message: "Password is required"}),
-    })
-
-    // React Form Hook
-    const { register, handleSubmit, formState } = useForm({ defaultValues: defaultUser, resolver: zodResolver(schema) })
-    const { errors } = formState
 
     // Functions
     const onSubmit = formValues => {
@@ -84,12 +71,6 @@ function Login({ defaultUser = {} }) {
                                 <p className="md:text-4xl text-3xl">Oregen</p>
                             </Link>
                         </li> 
-                        
-                        {/* <li className="hover:translate-x-2 ease-in-out duration-300">
-                            <Link href="/signup">
-                                <p className="md:text-2xl text-xl">Sign Up</p>
-                            </Link>
-                        </li> */}
                     </ul>
             </nav>
             <section className="w-full h-4/5 flex justify-center">
@@ -99,25 +80,7 @@ function Login({ defaultUser = {} }) {
                 <div className="container w-full">
                     <div className="h-full flex flex-col gap-3 justify-center items-center p-10">
                         <h2 className="text-3xl font-bold text-center text-secondary pb-5">Login to your account</h2>
-                        {/* <form className="form-control w-full max-w-lg" onSubmit={handleSubmit(onSubmit)}>
-                            
-                            <div className="pb-2">
-                                <label className="label">
-                                    <span className="label-text">Email</span>
-                                </label>
-                                <input {...register("email")} type="text" placeholder="Email" className="input input-secondary input-bordered w-full max-w-lg" />
-                                <div className="text-red-500 p-2">{errors.email?.message}</div>
-                            </div>  
-                            <div className="pb-2">
-                                <label className="label">
-                                    <span className="label-text">Password</span>
-                                </label>
-                                <input {...register("password")} type="text" placeholder="Password" className="input input-secondary input-bordered w-full max-w-lg" />
-                                <div className="text-red-500 p-2">{errors.password?.message}</div>
-                            </div>
-                            <p className="pb-4 text-center"><span className="font-semibold">Not yet a member?</span> <Link href="/signup">Sign up now</Link></p>
-                            <button className="btn btn-outline btn-accent">Sign In</button>
-                        </form> */}
+                        
                         <div className="flex justify-center items-center w-full max-w-lg" >
                             <button onClick={GoogleLogin} className="btn btn-neutral w-full">
                                 <FcGoogle className="text-2xl mr-2" />
