@@ -1,6 +1,8 @@
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { db } from "../../utils/firebase";
 import {
     completedSteps,
     resumeCertificationStore,
@@ -24,6 +26,7 @@ function ResumePortfolios() {
 
     // Edit States Functions
     const updateResumePortfolio = resumeDataStore(state => state.updateResumePortfolio)
+    const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
     
     // States
     const personalInformation = resumePersonalInformationStore(state => state.personalInformation)
@@ -57,7 +60,7 @@ function ResumePortfolios() {
     }
 
     // Continue to next section
-    const toNextSection = (e) => {
+    const toNextSection = async (e) => {
         e.preventDefault()
         if (!router.query.id && _.isEmpty(portfolio)) {
             toast.error("Please enter a portfolio 😞")
@@ -74,6 +77,18 @@ function ResumePortfolios() {
             })
         } else if (!_.isEqual(initialResumeData.portfolio, resumeData.portfolio)) {
             try {
+                const docRef = doc(db, "resumes", router.query.id)
+                const docSnap = await getDoc(docRef)
+                const updatedResume = {
+                    ...docSnap.data(),
+                    resumeData: {
+                        ...docSnap.data().resumeData,
+                        portfolio: resumeData.portfolio
+                    },
+                    lastUpdatedOn: serverTimestamp()
+                }
+                await updateDoc(docRef, updatedResume)
+                setInitialResumeData(resumeData)
                 toast.success("Resume updated successfully 😄")
             } catch (err) {
                 console.log(err)

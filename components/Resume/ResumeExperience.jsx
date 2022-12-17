@@ -1,6 +1,8 @@
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { db } from "../../utils/firebase";
 import { addingDetails, completedSteps, fillingForm, modalSection, resumeDataExperienceIndexStore, resumeDataStore, resumeExperienceStore, } from '../../utils/store';
 import FormWindow from "../FormWindow";
 
@@ -19,7 +21,8 @@ function ResumeExperience() {
   const clearResumeWorkExpField = resumeDataStore(state => state.clearResumeWorkExpField)
   const incrementIndexValue = resumeDataExperienceIndexStore(state => state.incrementIndexValue)
   const decrementIndexValue = resumeDataExperienceIndexStore(state => state.decrementIndexValue)
-  
+  const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
+
   // States
   const workExperiences = resumeExperienceStore(state => state.workExperiences)
   const workExp = resumeExperienceStore(state => state.workExp)
@@ -82,6 +85,8 @@ function ResumeExperience() {
   // Go back to the previous page 
   const toPreviousPage = (e) => {
     e.preventDefault()
+    setFillingForm(true)
+    setModalSection(false)
     decrementStep()
   }
 
@@ -92,7 +97,7 @@ function ResumeExperience() {
   }
   
   // Change state of fillingForm to false
-  const fillingFormState = (e) => {
+  const fillingFormState = async (e) => {
     e.preventDefault()
     if (!router.query.id && _.isEmpty(workExp.title && workExp.employer)) {
       toast.error(`Please enter all required fields 😞`)
@@ -102,6 +107,28 @@ function ResumeExperience() {
       return
     } else if (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) {
       try {
+        const docRef = doc(db, "resumes", router.query.id)
+        const docSnap = await getDoc(docRef)
+        const updatedResume = {
+          ...docSnap.data(),
+          resumeData: {
+            ...docSnap.data().resumeData,
+            workExperiences: resumeData.workExperiences
+          },
+          lastUpdatedOn: serverTimestamp()
+        }
+        await updateDoc(docRef, updatedResume)
+        setInitialResumeData({
+          resumeData: {
+            certifications: resumeData.certifications,
+            educationalBackground: resumeData.educationalBackground,
+            personalInformation: resumeData.personalInformation,
+            profileSummary: resumeData.profileSummary,
+            portfolio: resumeData.portfolio,
+            skills: resumeData.skills,
+            workExperiences: resumeData.workExperiences
+          }
+        })
         toast.success("Resume updated successfully 😄")
       } catch (err) {
         console.log(err)
@@ -111,8 +138,37 @@ function ResumeExperience() {
   }
 
   // Continue to Add Experience section
-  const toAddExperienceSection = (e) => {
+  const toAddExperienceSection = async (e) => {
     e.preventDefault()
+    if (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) {
+      try {
+        const docRef = doc(db, "resumes", router.query.id)
+        const docSnap = await getDoc(docRef)
+        const updatedResume = {
+          ...docSnap.data(),
+          resumeData: {
+            ...docSnap.data().resumeData,
+            workExperiences: resumeData.workExperiences
+          },
+          lastUpdatedOn: serverTimestamp()
+        }
+        await updateDoc(docRef, updatedResume)
+        setInitialResumeData({
+          resumeData: {
+            certifications: resumeData.certifications,
+            educationalBackground: resumeData.educationalBackground,
+            personalInformation: resumeData.personalInformation,
+            profileSummary: resumeData.profileSummary,
+            portfolio: resumeData.portfolio,
+            skills: resumeData.skills,
+            workExperiences: resumeData.workExperiences
+          }
+        })
+        toast.success("Resume updated successfully 😄")
+      } catch (err) {
+        console.log(err)
+      }
+    }
     addWorkExperiencesArray()
     setModalSection()
     setAddingDetails(false)
@@ -170,6 +226,8 @@ function ResumeExperience() {
       clearResumeWorkExpField()
     }
   }
+
+  // console.log(initialResumeData.workExperiences)
 
   if (fillingFormValue && !modalSectionValue) {
     return (
@@ -282,7 +340,7 @@ function ResumeExperience() {
         />
         <div className="w-full flex flex-col sm:justify-between gap-5">
           <button className="btn btn-sm sm:btn-md btn-outline" onClick={toExperienceForm}>Back</button>
-          <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+          <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
         </div>
       </FormWindow>
     )

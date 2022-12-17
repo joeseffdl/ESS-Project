@@ -1,6 +1,8 @@
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { db } from "../../utils/firebase";
 import { completedSteps, resumeCertificationStore, resumeDataStore } from '../../utils/store';
 import FormWindow from "../FormWindow";
 
@@ -14,6 +16,7 @@ function ResumeCertifications() {
 
     // Edit States Functions
     const updateResumeCertifications = resumeDataStore(state => state.updateResumeCertifications)
+    const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
 
     // States
     const userCertifications = resumeCertificationStore(state => state.certifications)
@@ -40,13 +43,25 @@ function ResumeCertifications() {
     }
 
     // Continue to next section
-    const toNextSection = (e) => {
+    const toNextSection = async (e) => {
         e.preventDefault()
         if (!router.query.id && _.isEmpty(userCertifications)) {
             toast.error("Please enter a certificate 😞")
             return
         } else if (!_.isEqual(initialResumeData.certifications, resumeData.certifications)) {
             try {
+                const docRef = doc(db, "resumes", router.query.id)
+                const docSnap = await getDoc(docRef)
+                const updatedResume = {
+                    ...docSnap.data(),
+                    resumeData: {
+                        ...docSnap.data().resumeData,
+                        certifications: resumeData.certifications
+                    },
+                    lastUpdatedOn: serverTimestamp()
+                }
+                await updateDoc(docRef, updatedResume)
+                setInitialResumeData(resumeData)
                 toast.success("Resume updated successfully 😄")
             } catch (err) {
                 console.log(err)

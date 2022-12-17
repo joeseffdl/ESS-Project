@@ -38,14 +38,8 @@ function Resume() {
     const submitResume = async (e) => {
         e.preventDefault()
         try {
-            if (resumeData?.hasOwnProperty("id")) {
-                // const docRef = doc(db, "resumes", resumeData.id)
-                // const updatedJournal = {
-                //     ...resumeData,
-                //     timestamp: serverTimestamp()
-                // }
-                // await updateDoc(docRef, updatedJournal)
-                // setCompletedSteps({ step: ++step })
+            if (routeID) {
+                router.push(`/${routeID}`)
             }
             else {
                 const collectionRef = collection(db, "resumes")
@@ -146,7 +140,7 @@ function Resume() {
                 <>
                     <div className="w-full flex flex-col gap-5">
                         <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                        <button type="submit" className="btn btn-sm sm:btn-md btn-outline" onClick={submitResume}>Save Resume</button>
+                        <button type="submit" className="btn btn-sm sm:btn-md btn-outline" onClick={submitResume}>{routeID ? "View Resume" : "Save Resume"}</button>
                     </div>
                 </>
             )
