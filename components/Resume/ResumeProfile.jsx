@@ -1,8 +1,11 @@
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { db } from "../../utils/firebase";
 import { completedSteps, resumeDataStore, resumePersonalInformationStore } from '../../utils/store';
 import FormWindow from "../FormWindow";
+
 
 function ResumeProfile() {
     // Router
@@ -14,6 +17,7 @@ function ResumeProfile() {
     
     // Edit State Functions
     const updateResumePersonalInformation = resumeDataStore(state => state.updateResumePersonalInformation)
+    const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
 
     // States
     const personalInformation = resumePersonalInformationStore(state => state.personalInformation)
@@ -40,13 +44,25 @@ function ResumeProfile() {
     }
 
     // Continue to Experience section
-    const toResumeExperience = (e) => {
+    const toResumeExperience = async (e) => {
         e.preventDefault()
         if (!router.query.id && _.isEmpty(personalInformation.emailAddress)) {
             toast.error("Please enter an Email Address😞")
             return
         } else if (!_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) {
             try {
+                const docRef = doc(db, "resumes", router.query.id)
+                const docSnap = await getDoc(docRef)
+                const updatedResume = {
+                    ...docSnap.data(),
+                    resumeData: {
+                        ...docSnap.data().resumeData,
+                        personalInformation: resumeData.personalInformation
+                    },
+                    lastUpdatedOn: serverTimestamp()
+                }
+                await updateDoc(docRef, updatedResume)
+                setInitialResumeData(resumeData)
                 toast.success("Resume updated successfully 😄")
             } catch(err) {
                 console.log(err)

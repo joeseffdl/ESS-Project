@@ -1,6 +1,8 @@
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { db } from "../../utils/firebase";
 import { addingDetails, completedSteps, fillingForm, modalSection, resumeDataEducationalBackgroundIndexStore, resumeDataStore, resumeEducationStore, } from '../../utils/store';
 import FormWindow from "../FormWindow";
 
@@ -19,6 +21,7 @@ function ResumeEducation() {
     const clearResumeEducationField = resumeDataStore(state => state.clearResumeEducationField)
     const incrementIndexValue = resumeDataEducationalBackgroundIndexStore(state => state.incrementIndexValue)
     const decrementIndexValue = resumeDataEducationalBackgroundIndexStore(state => state.decrementIndexValue)
+    const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
 
     // States
     const educationalBackground = resumeEducationStore(state => state.educationalBackground)
@@ -70,6 +73,8 @@ function ResumeEducation() {
     // Go back to the previous page 
     const toPreviousPage = (e) => {
         e.preventDefault()
+        setFillingForm(true)
+        setModalSection(false)
         decrementStep()
     }
 
@@ -80,7 +85,7 @@ function ResumeEducation() {
     }
 
     // Change state of fillingForm to false
-    const fillingFormState = (e) => {
+    const fillingFormState = async (e) => {
         e.preventDefault()
         if (!router.query.id && _.isEmpty(educationField.institutionName && educationField.degreeType)) {
             toast.error("Please enter all required fields 😞")
@@ -90,6 +95,28 @@ function ResumeEducation() {
             return
         } else if (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) {
             try {
+                const docRef = doc(db, "resumes", router.query.id)
+                const docSnap = await getDoc(docRef)
+                const updatedResume = {
+                    ...docSnap.data(),
+                    resumeData: {
+                        ...docSnap.data().resumeData,
+                        educationalBackground: resumeData.educationalBackground
+                    },
+                    lastUpdatedOn: serverTimestamp()
+                }
+                await updateDoc(docRef, updatedResume)
+                setInitialResumeData({
+                    resumeData: {
+                        certifications: resumeData.certifications,
+                        educationalBackground: resumeData.educationalBackground,
+                        personalInformation: resumeData.personalInformation,
+                        profileSummary: resumeData.profileSummary,
+                        portfolio: resumeData.portfolio,
+                        skills: resumeData.skills,
+                        workExperiences: resumeData.workExperiences
+                    }
+                })
                 toast.success("Resume updated successfully 😄")
             }
             catch (err) {
@@ -100,8 +127,37 @@ function ResumeEducation() {
     }
 
     // Continue to Add Education section 
-    const toAddEducationSection = (e) => {
+    const toAddEducationSection = async (e) => {
         e.preventDefault()
+        if (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) {
+            try {
+                const docRef = doc(db, "resumes", router.query.id)
+                const docSnap = await getDoc(docRef)
+                const updatedResume = {
+                    ...docSnap.data(),
+                    resumeData: {
+                        ...docSnap.data().resumeData,
+                        educationalBackground: resumeData.educationalBackground
+                    },
+                    lastUpdatedOn: serverTimestamp()
+                }
+                await updateDoc(docRef, updatedResume)
+                setInitialResumeData({
+                    resumeData: {
+                        certifications: resumeData.certifications,
+                        educationalBackground: resumeData.educationalBackground,
+                        personalInformation: resumeData.personalInformation,
+                        profileSummary: resumeData.profileSummary,
+                        portfolio: resumeData.portfolio,
+                        skills: resumeData.skills,
+                        workExperiences: resumeData.workExperiences
+                    }
+                })
+                toast.success("Resume updated successfully 😄")
+            } catch (err) {
+                console.log(err)
+            }
+        }
         addEducationalBackgroundArray()
         setModalSection()
         setAddingDetails(false)
@@ -431,7 +487,7 @@ function ResumeEducation() {
 
                 <div className="w-full flex flex-col sm:justify-between gap-5">
                     <button className="btn btn-sm sm:btn-md btn-outline" onClick={toEducationForm}>Back</button>
-                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
                 </div>
             </FormWindow>
         )

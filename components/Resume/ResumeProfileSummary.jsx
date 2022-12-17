@@ -1,6 +1,8 @@
+import { doc, getDoc, updateDoc, serverTimestamp } from "firebase/firestore";
 import _ from "lodash";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import { db } from "../../utils/firebase";
 import { completedSteps, resumeDataStore, resumeProfileSummaryStore } from "../../utils/store";
 import FormWindow from "../FormWindow";
 
@@ -14,6 +16,7 @@ function ResumeProfileSummary() {
 
     // Edit States Functions
     const updateResumeProfileSummary = resumeDataStore(state => state.updateResumeProfileSummary)
+    const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
 
     // States
     const profileSummary = resumeProfileSummaryStore(state => state.profileSummary)
@@ -40,13 +43,25 @@ function ResumeProfileSummary() {
     }
 
     // Continue to Submit section
-    const toSubmit = (e) => {
+    const toSubmit = async (e) => {
         e.preventDefault()
         if (!router.query.id && _.isEmpty(profileSummary)) {
             toast.error("Please enter your profile summary😞")
             return
         } else if (!_.isEqual(initialResumeData.profileSummary, resumeData.profileSummary)) {
             try {
+                const docRef = doc(db, "resumes", router.query.id)
+                const docSnap = await getDoc(docRef)
+                const updatedResume = {
+                    ...docSnap.data(),
+                    resumeData: {
+                        ...docSnap.data().resumeData,
+                        profileSummary: resumeData.profileSummary
+                    },
+                    lastUpdatedOn: serverTimestamp()
+                }
+                await updateDoc(docRef, updatedResume)
+                setInitialResumeData(resumeData)
                 toast.success("Resume updated successfully 😄")
             } catch (err) {
                 console.log(err)
