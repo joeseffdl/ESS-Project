@@ -90,10 +90,10 @@ function ResumeEducation() {
         if (!router.query.id && _.isEmpty(educationField.institutionName && educationField.degreeType)) {
             toast.error("Please enter all required fields 😞")
             return
-        } else if (_.isEmpty(resumeData.educationalBackground[indexValue].institutionName && resumeData.educationalBackground[indexValue].degreeType)) {
+        } else if (router.query.id && _.isEmpty(resumeData.educationalBackground[indexValue].institutionName && resumeData.educationalBackground[indexValue].degreeType)) {
             toast.error("Please enter all required fields 😞")
             return
-        } else if (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) {
+        } else if (router.query.id && !_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) {
             try {
                 const docRef = doc(db, "resumes", router.query.id)
                 const docSnap = await getDoc(docRef)
@@ -129,7 +129,7 @@ function ResumeEducation() {
     // Continue to Add Education section 
     const toAddEducationSection = async (e) => {
         e.preventDefault()
-        if (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) {
+        if (router.query.id && !_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) {
             try {
                 const docRef = doc(db, "resumes", router.query.id)
                 const docSnap = await getDoc(docRef)
@@ -243,7 +243,7 @@ function ResumeEducation() {
                         name="degreeType"
                         onChange={handleChange}
                     >
-                        <option value="" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "" : ""}>Degree Type</option>
+                        <option value="" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "" : educationField.degreeType == ""}>Degree Type</option>
                         <option
                             value="High School Diploma"
                             selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "High School Diploma" : ``}
@@ -359,7 +359,7 @@ function ResumeEducation() {
                         name="graduationMonth"
                         onChange={handleChange}
                     >
-                        <option value="" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "" : ""}>Graduation Month</option>
+                        <option value="" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "" : educationField.graduationMonth == ""}>Graduation Month</option>
                         <option
                             value=""
                             selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "" : ``}
@@ -444,7 +444,7 @@ function ResumeEducation() {
                         name="graduationYear"
                         onChange={handleChange}
                     >
-                        <option value="graduationYear" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationYear == "" : ""}>Graduation Year</option>
+                        <option value="graduationYear" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationYear == "" : educationField.graduationYear == ""}>Graduation Year</option>
                         <option >{yearsOptionArray[1]}</option>
                         {
                             yearsOptionArray.map((year) =>

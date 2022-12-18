@@ -102,10 +102,10 @@ function ResumeExperience() {
     if (!router.query.id && _.isEmpty(workExp.title && workExp.employer)) {
       toast.error(`Please enter all required fields 😞`)
       return
-    } else if (_.isEmpty(resumeData.workExperiences[indexValue].title && resumeData.workExperiences[indexValue].employer)) { 
+    } else if (router.query.id && _.isEmpty(resumeData.workExperiences[indexValue].title && resumeData.workExperiences[indexValue].employer)) { 
       toast.error(`Please enter all required fields 😞`)
       return
-    } else if (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) {
+    } else if (router.query.id && !_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) {
       try {
         const docRef = doc(db, "resumes", router.query.id)
         const docSnap = await getDoc(docRef)
@@ -140,7 +140,7 @@ function ResumeExperience() {
   // Continue to Add Experience section
   const toAddExperienceSection = async (e) => {
     e.preventDefault()
-    if (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) {
+    if (router.query.id && !_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) {
       try {
         const docRef = doc(db, "resumes", router.query.id)
         const docSnap = await getDoc(docRef)
@@ -218,16 +218,21 @@ function ResumeExperience() {
   // Delete Index Item
   const deleteIndex = (e) => {
     e.preventDefault()
-    resumeData.workExperiences.splice(indexValue, 1)
-    decrementStep()
-    setAddingDetails(false)
+    if (router.query.id) {
+      resumeData.workExperiences.splice(indexValue, 1)
+      decrementStep()
+      setAddingDetails(false)
 
-    if (resumeData.workExperiences.length === 0) {
-      clearResumeWorkExpField()
+      if (resumeData.workExperiences.length === 0) {
+        clearResumeWorkExpField()
+      }
+    } else if (!router.query.id) {
+      toast.success(workExperiences)
     }
+    
   }
 
-  // console.log(initialResumeData.workExperiences)
+  console.log(workExperiences)
 
   if (fillingFormValue && !modalSectionValue) {
     return (
@@ -279,7 +284,7 @@ function ResumeExperience() {
             value={router.query.id ? resumeData.workExperiences[indexValue].startDate : workExp.startDate}
             name="startDate"
             onChange={handleChange}
-            onFocus={(e) => (e.target.type = "date")}
+            onFocus={(e) => (e.target.type = "month")}
             onBlur={(e) => (e.target.type = "text")}
           />
           <div className="w-full flex flex-col ">
@@ -291,7 +296,7 @@ function ResumeExperience() {
               value={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" ? "" : resumeData.workExperiences[indexValue].endDate : workExp.currentlyWorking == "Present" ? "" : workExp.endDate}
               name="endDate"
               onChange={handleChange}
-              onFocus={(e) => (e.target.type = "date")}
+              onFocus={(e) => (e.target.type = "month")}
               onBlur={(e) => (e.target.type = "text")}
             />
             <div className="w-full flex flex-between">
@@ -313,7 +318,13 @@ function ResumeExperience() {
                     <button className=" btn btn-xs btn-outline" disabled={ indexValue == 0} onClick={decrementIndex}>&#60;</button>
                     <button className=" btn btn-xs btn-outline" disabled={ indexValue == resumeData.workExperiences.length - 1 } onClick={incrementIndex}>&#62;</button>
                   </div>
-                : ``
+                : <>
+                    {/* <div className="w-full flex justify-end gap-5 mt-3 px-2">
+                      <button className=" btn btn-xs btn-error btn-outline" disabled={workExperiences.length <= 1 && workExperiences[0]?.title == "" && workExperiences[0]?.employer == ""} onClick={deleteIndex}>☠️</button>
+                      <button className=" btn btn-xs btn-outline" disabled={indexValue == 0} onClick={decrementIndex}>&#60;</button>
+                      <button className=" btn btn-xs btn-outline" disabled={indexValue == workExperiences.length - 1} onClick={incrementIndex}>&#62;</button>
+                    </div> */}
+                </>
               }
             </div>
           </div>

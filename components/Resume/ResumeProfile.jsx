@@ -141,7 +141,7 @@ function ResumeProfile() {
 
             <div className="w-full flex flex-col sm:flex-row justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline" onClick={toResumeTemplates}>Back</button>
-                <button type="submit" disabled={_.isEmpty(resumeData.personalInformation)} className="btn btn-sm sm:btn-md btn-outline">{ router.query.id && (!_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) ? "Update" : "Continue" }</button>
+                <button type="submit" disabled={router.query.id && _.isEmpty(resumeData.personalInformation)} className="btn btn-sm sm:btn-md btn-outline">{ router.query.id && (!_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) ? "Update" : "Continue" }</button>
             </div>
         </FormWindow>
     )
