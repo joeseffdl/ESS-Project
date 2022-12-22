@@ -21,10 +21,19 @@ function OutputResume({
     certifications: viewCertifications,
     portfolio: viewPortfolio,
     profileSummary: viewProfileSummary,
+    fontFamily,
+    fontSize,
+    textColor,
+    headerFontSize,
+    headerLineHeight,
+    summaryMarginX,
+    skillsPaddingX,
+    skillsPaddingY
 }) {
+
     // Router
     const router = useRouter()
-    const routerID = router.query.viewResume
+    const viewingResume = router.query.viewResume
 
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
@@ -46,13 +55,16 @@ function OutputResume({
                 <div className="h-full text-xs divide-y-2 divide-blue-900">
 
                     {/* PERSONAL INFORMATION SECTION */}
-                    {routerID 
+                    {viewingResume 
                         ? (
                             <section className="w-full ">
-                                <div className="text-center text-3xl font-semibold my-4 tracking-widest">
+                                <div className="text-center font-semibold my-4 tracking-widest" style={{
+                                    'font-size': headerFontSize + 'rem',
+                                    'line-height': headerLineHeight + 'rem',
+                                }}>
                                     {viewPersonalInformation.firstname || viewPersonalInformation.surname != "" ? `${viewPersonalInformation.firstname.toUpperCase()} ${viewPersonalInformation.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
                                 </div>
-                                <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 mx-32 divide-x">
+                                <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 divide-x">
                                     {viewPersonalInformation.emailAddress != ""
                                         ? (
                                             <div className="px-2">
@@ -146,7 +158,7 @@ function OutputResume({
 
 
                     {/* PROFILE SUMMARY SECTION */}
-                    {routerID
+                    {viewingResume
                         ? (
                             <>
                                 {viewProfileSummary != ""
@@ -155,7 +167,12 @@ function OutputResume({
                                             <div className="text-center font-bold my-1">
                                                 Profile Summary
                                             </div>
-                                            <div className="w-auto break-words text-center mx-10 my-3 divide-x">
+                                            <div className="w-auto break-words text-center my-3 divide-x"
+                                                style={{
+                                                    'margin-left': summaryMarginX + 'rem',
+                                                    'margin-right': summaryMarginX + 'rem',
+                                                }}
+                                            >
                                                 {viewProfileSummary}
                                             </div>
                                         </section>
@@ -202,17 +219,25 @@ function OutputResume({
 
 
                     {/* SKILLS SECTION */}
-                    {routerID
+                    {viewingResume
                         ? (<>
                             {viewSkills != "" ? (
-                                <section className="w-full px-10 pb-5">
+                                <section className="w-full pb-5"
+                                    
+                                >
                                     <div className="text-center font-bold my-1">
                                         Skills
                                     </div>
                                     <div className="grid grid-cols-2 justify-center items-center ">
                                         {viewSkills?.map((skill) => {
                                             return (
-                                                <ul className="flex list-disc list-inside" key={skill}>
+                                                <ul className="flex list-disc list-inside"
+                                                    style={{
+                                                        'padding-left': skillsPaddingX + 'rem',
+                                                        'padding-right': skillsPaddingX + 'rem',
+                                                        'padding-top': skillsPaddingY + 'rem',
+                                                        'padding-right': skillsPaddingY + 'rem',
+                                                    }} key={skill}>
                                                     <li>{skill}</li>
                                                 </ul>
                                             )
@@ -225,14 +250,14 @@ function OutputResume({
                             {router.query.id
                                 ? <>
                                     {resumeData.skills != "" ? (
-                                        <section className="w-full px-10 pb-5">
+                                        <section className="w-full pb-5">
                                             <div className="text-center font-bold my-1">
                                                 Skills
                                             </div>
                                             <div className="grid grid-cols-2 justify-center items-center ">
                                                 {resumeData.skills?.map((skill) => {
                                                     return (
-                                                        <ul className="flex list-disc list-inside" key={skill}>
+                                                        <ul className="flex list-disc list-inside px-10" key={skill}>
                                                             <li>{skill}</li>
                                                         </ul>
                                                     )
@@ -243,14 +268,14 @@ function OutputResume({
                                 </>
                                 : <>
                                     {userSkills != "" ? (
-                                        <section className="w-full px-10 pb-5">
+                                        <section className="w-full pb-5">
                                             <div className="text-center font-bold my-1">
                                                 Skills
                                             </div>
                                             <div className="grid grid-cols-2 justify-center items-center ">
                                                 {userSkills?.map((skill) => {
                                                     return (
-                                                        <ul className="flex list-disc list-inside" key={skill}>
+                                                        <ul className="flex list-disc list-inside px-10" key={skill}>
                                                             <li>{skill}</li>
                                                         </ul>
                                                     )
@@ -329,7 +354,7 @@ function OutputResume({
                     ) :
 
                         <>
-                            {routerID
+                            {viewingResume
                                 ? (<>
                                     {
                                         viewWorkExperiences.length > 0
@@ -791,7 +816,7 @@ function OutputResume({
                         </section>
                     ) :
                         <>
-                            {routerID 
+                            {viewingResume 
                                 ? (<>
                                     {
                                         viewEducationalBackground.length > 0
@@ -1202,7 +1227,7 @@ function OutputResume({
                         </>}
 
                     {/* CERTIFICATION SECTION */}
-                    {routerID
+                    {viewingResume
                         ? <>
                             {viewCertifications != "" ? (
                                 <section className="w-full px-10 pb-5">
@@ -1266,7 +1291,7 @@ function OutputResume({
 
 
                     {/* PORTFOLIO SECTION */}
-                    {routerID
+                    {viewingResume
                         ?
                         <>
                             {viewPortfolio != "" ? (
