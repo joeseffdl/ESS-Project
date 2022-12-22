@@ -146,7 +146,7 @@ function Resumes() {
                                         : (
                                             <div className="flex gap-1">
                                                 <Link href={{pathname:`/${resume.id}`}}>
-                                                    <button className="hover:scale-110 hover:text-sky-600" onClick={() => console.log(resume.id)}><AiFillEye /></button>
+                                                    <button className="hover:scale-110 hover:text-sky-600"><AiFillEye /></button>
                                                 </Link>
                                             </div>
                                         )

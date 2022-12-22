@@ -26,8 +26,8 @@ function View() {
 
     // Get user resume data
     const getResumeData = async (id) => {
-        const docRef = await doc(db, "resumes", id)
         try { 
+            const docRef = await doc(db, "resumes", id)
             const docSnap = await getDoc(docRef)
             if (docSnap.exists()) {
                 const unsubscribe = setResumeDocument(docSnap.data())
@@ -60,7 +60,10 @@ function View() {
             <OutputTemplate>
                 {displayTemplate()}
             </OutputTemplate>
-            <CustomView dataFromCustomView={getDataFromCustomView} />
+            {!loading && (user.uid == resumeDocument.user)
+                ? <CustomView dataFromCustomView={getDataFromCustomView} />
+                : ''
+            }
         </div>
     )
 }
