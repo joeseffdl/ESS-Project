@@ -6,6 +6,7 @@ import AppNavigation from "../components/AppNavigation"
 import OutputTemplate from "../components/OutputTemplate"
 import OutputResume from "../components/Resume/OutputResume"
 import { auth, db } from "../utils/firebase"
+import CustomView from "../components/CustomView"
 
 function View() {
     // Router
@@ -52,6 +53,7 @@ function View() {
             <OutputTemplate>
                 {displayTemplate()}
             </OutputTemplate>
+            <CustomView />
         </div>
     )
 }
