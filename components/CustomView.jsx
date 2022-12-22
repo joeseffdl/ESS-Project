@@ -1,11 +1,14 @@
 import { useState } from "react";
 import FormWindow from "./FormWindow";
-function CustomView() {
+
+function CustomView(props) {
     // State
     const [resumeFormat, setResumeFormat] = useState({
         template: "",
+        headerFontSize: "1.875rem",
+        headerLineHeight: "1.25rem",
         fontFamily: "Helvetica",
-        fontSize: "16px",
+        fontSize: "1rem",
         textColor: "black",
         margin: "1.25rem",
         padding: "1.25rem",
@@ -15,7 +18,11 @@ function CustomView() {
     const handleChange = (e) => {
         const { name, value } = e.target
         if (name == "fontSize") {
-            setResumeFormat({ ...resumeFormat, [name]: value + "px" })
+            setResumeFormat({ ...resumeFormat, [name]: value + "rem" })
+        } else if (name == "headerFontSize") {
+            setResumeFormat({ ...resumeFormat, [name]: value + "rem" })
+        } else if (name == "headerLineHeight") {
+            setResumeFormat({ ...resumeFormat, [name]: value + "rem" })
         } else if (name == "margin") {
             setResumeFormat({ ...resumeFormat, [name]: value + "rem" })
         } else if (name == "padding") {
@@ -24,7 +31,7 @@ function CustomView() {
             setResumeFormat({ ...resumeFormat, [name]: value })
         }
     }
-    console.log(resumeFormat)
+    props.dataFromCustomView(resumeFormat)
 
     // Resume Properties
     const resumeTemplatesArray = [
@@ -43,6 +50,18 @@ function CustomView() {
         "Red",
         "Green",
         "Blue",
+    ]
+
+    const fontSizesArray = [
+        "xs",
+        "sm",
+        "base",
+        "lg",
+        "xl",
+        "2xl",
+        "3xl",
+        "4xl",
+        "5xl",
     ]
 
     return (
@@ -84,7 +103,7 @@ function CustomView() {
                             }
                         </select>
 
-                        <select
+                        {/* <select
                             className="select bg-white"
                             name="textColor"
                             onChange={handleChange}
@@ -100,6 +119,69 @@ function CustomView() {
                                     </option>)
                             }
                         </select>
+                        
+                        <select
+                            className="select bg-white"
+                            name="headerFontSize"
+                            onChange={handleChange}
+                        >
+                            <option value="headerFontSize" disabled selected>Header Font Size</option>
+                            {
+                                fontSizesArray.map((fontSize) =>
+                                    <option
+                                        value={fontSize}
+                                        key={fontSize}
+                                    >
+                                        {fontSize}
+                                    </option>)
+                            }
+                        </select> */}
+
+                        <div className="w-full flex align-center p-4 bg-white rounded-lg">
+                            <label className="w-full relative flex align-center justify-between text-sm font-semibold">Header:
+                                <input
+                                    className="absolute w-1/2 left-20 top-0.5"
+                                    name="headerFontSize"
+                                    type="range"
+                                    min="0.75"
+                                    max="3"
+                                    step={
+                                        resumeFormat.headerFontSize >= "1.25rem" && resumeFormat.headerFontSize < "1.5rem"
+                                            ? '0.25'
+                                            : resumeFormat.headerFontSize >= "1.5rem" && resumeFormat.headerFontSize < "2.25rem"
+                                                ? "0.375"
+                                                : resumeFormat.headerFontSize >= "2.25rem"
+                                                    ? "0.75"
+                                                    : "0.125"
+                                    }
+                                    onChange={handleChange}
+                                />
+                                {resumeFormat.headerFontSize}
+                            </label>
+                        </div>
+                        
+                        <div className="w-full flex align-center p-4 bg-white rounded-lg">
+                            <label className="w-full relative flex align-center justify-between text-sm font-semibold">Head Gap:
+                                <input
+                                    className="absolute w-1/2 left-20 top-0.5"
+                                    name="headerLineHeight"
+                                    type="range"
+                                    min="0.75"
+                                    max="3"
+                                    step={
+                                        resumeFormat.headerLineHeight >= "1.25rem" && resumeFormat.headerLineHeight < "1.5rem"
+                                            ? '0.25'
+                                            : resumeFormat.headerLineHeight >= "1.5rem" && resumeFormat.headerLineHeight < "2.25rem"
+                                                ? "0.375"
+                                                : resumeFormat.headerLineHeight >= "2.25rem"
+                                                    ? "0.75"
+                                                    : "0.125"
+                                    }
+                                    onChange={handleChange}
+                                />
+                                {resumeFormat.headerLineHeight}
+                            </label>
+                        </div>
 
                         <div className="w-full flex align-center p-4 bg-white rounded-lg">
                             <label className="w-full relative flex align-center justify-between text-sm font-semibold">Font Size:
@@ -107,9 +189,9 @@ function CustomView() {
                                     className="absolute w-1/2 left-20 top-0.5"
                                     name="fontSize"
                                     type="range"
-                                    min="12"
-                                    max="72"
-                                    step="2"
+                                    min="0.75"
+                                    max="8"
+                                    step="0.125"
                                     onChange={handleChange}
                                 />
                                 {resumeFormat.fontSize}

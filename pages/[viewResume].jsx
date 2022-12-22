@@ -3,10 +3,10 @@ import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
 import AppNavigation from "../components/AppNavigation"
+import CustomView from "../components/CustomView"
 import OutputTemplate from "../components/OutputTemplate"
 import OutputResume from "../components/Resume/OutputResume"
 import { auth, db } from "../utils/firebase"
-import CustomView from "../components/CustomView"
 
 function View() {
     // Router
@@ -16,6 +16,7 @@ function View() {
     // Handle user
     const [user, loading] = useAuthState(auth)
     const [resumeDocument, setResumeDocument] = useState([])
+    const [resumeProperties, setResumeProperties] = useState([])
 
     // Logged in?
     const getData = async () => {
@@ -36,13 +37,19 @@ function View() {
             console.log(err)
         }
     }
+
+    // Get Data from CustomView
+    const getDataFromCustomView = (data) => {
+        setResumeProperties(data)
+    }
     // Display according to template
-    const displayTemplate = () => {
+    const displayTemplate = (data) => {
         // Check the type/template of the resume document
         if (resumeDocument.type == "Resume") return (
-            <OutputResume {...resumeDocument.resumeData} />
+            <OutputResume {...resumeDocument.resumeData} {...resumeProperties} />
         )
     }
+
     useEffect(() => {
         getData()
         getResumeData(routeDataID)
@@ -53,7 +60,7 @@ function View() {
             <OutputTemplate>
                 {displayTemplate()}
             </OutputTemplate>
-            <CustomView />
+            <CustomView dataFromCustomView={getDataFromCustomView} />
         </div>
     )
 }

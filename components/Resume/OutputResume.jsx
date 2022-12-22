@@ -21,10 +21,18 @@ function OutputResume({
     certifications: viewCertifications,
     portfolio: viewPortfolio,
     profileSummary: viewProfileSummary,
+    fontFamily,
+    headerFontSize,
+    headerLineHeight,
+    fontSize,
+    textColor,
+    margin,
+    padding,
 }) {
+
     // Router
     const router = useRouter()
-    const routerID = router.query.viewResume
+    const viewingResume = router.query.viewResume
 
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
@@ -46,10 +54,13 @@ function OutputResume({
                 <div className="h-full text-xs divide-y-2 divide-blue-900">
 
                     {/* PERSONAL INFORMATION SECTION */}
-                    {routerID 
+                    {viewingResume 
                         ? (
                             <section className="w-full ">
-                                <div className="text-center text-3xl font-semibold my-4 tracking-widest">
+                                <div className="text-center font-semibold my-4 tracking-widest" style={{
+                                    'font-size': headerFontSize,
+                                    'line-height': headerLineHeight
+                                }}>
                                     {viewPersonalInformation.firstname || viewPersonalInformation.surname != "" ? `${viewPersonalInformation.firstname.toUpperCase()} ${viewPersonalInformation.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
                                 </div>
                                 <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 mx-32 divide-x">
@@ -146,7 +157,7 @@ function OutputResume({
 
 
                     {/* PROFILE SUMMARY SECTION */}
-                    {routerID
+                    {viewingResume
                         ? (
                             <>
                                 {viewProfileSummary != ""
@@ -202,7 +213,7 @@ function OutputResume({
 
 
                     {/* SKILLS SECTION */}
-                    {routerID
+                    {viewingResume
                         ? (<>
                             {viewSkills != "" ? (
                                 <section className="w-full px-10 pb-5">
@@ -329,7 +340,7 @@ function OutputResume({
                     ) :
 
                         <>
-                            {routerID
+                            {viewingResume
                                 ? (<>
                                     {
                                         viewWorkExperiences.length > 0
@@ -791,7 +802,7 @@ function OutputResume({
                         </section>
                     ) :
                         <>
-                            {routerID 
+                            {viewingResume 
                                 ? (<>
                                     {
                                         viewEducationalBackground.length > 0
@@ -1202,7 +1213,7 @@ function OutputResume({
                         </>}
 
                     {/* CERTIFICATION SECTION */}
-                    {routerID
+                    {viewingResume
                         ? <>
                             {viewCertifications != "" ? (
                                 <section className="w-full px-10 pb-5">
@@ -1266,7 +1277,7 @@ function OutputResume({
 
 
                     {/* PORTFOLIO SECTION */}
-                    {routerID
+                    {viewingResume
                         ?
                         <>
                             {viewPortfolio != "" ? (
