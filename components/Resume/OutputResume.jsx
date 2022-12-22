@@ -22,12 +22,13 @@ function OutputResume({
     portfolio: viewPortfolio,
     profileSummary: viewProfileSummary,
     fontFamily,
-    headerFontSize,
-    headerLineHeight,
     fontSize,
     textColor,
-    margin,
-    padding,
+    headerFontSize,
+    headerLineHeight,
+    summaryMarginX,
+    skillsPaddingX,
+    skillsPaddingY
 }) {
 
     // Router
@@ -58,12 +59,12 @@ function OutputResume({
                         ? (
                             <section className="w-full ">
                                 <div className="text-center font-semibold my-4 tracking-widest" style={{
-                                    'font-size': headerFontSize,
-                                    'line-height': headerLineHeight
+                                    'font-size': headerFontSize + 'rem',
+                                    'line-height': headerLineHeight + 'rem',
                                 }}>
                                     {viewPersonalInformation.firstname || viewPersonalInformation.surname != "" ? `${viewPersonalInformation.firstname.toUpperCase()} ${viewPersonalInformation.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
                                 </div>
-                                <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 mx-32 divide-x">
+                                <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 divide-x">
                                     {viewPersonalInformation.emailAddress != ""
                                         ? (
                                             <div className="px-2">
@@ -166,7 +167,12 @@ function OutputResume({
                                             <div className="text-center font-bold my-1">
                                                 Profile Summary
                                             </div>
-                                            <div className="w-auto break-words text-center mx-10 my-3 divide-x">
+                                            <div className="w-auto break-words text-center my-3 divide-x"
+                                                style={{
+                                                    'margin-left': summaryMarginX + 'rem',
+                                                    'margin-right': summaryMarginX + 'rem',
+                                                }}
+                                            >
                                                 {viewProfileSummary}
                                             </div>
                                         </section>
@@ -216,14 +222,22 @@ function OutputResume({
                     {viewingResume
                         ? (<>
                             {viewSkills != "" ? (
-                                <section className="w-full px-10 pb-5">
+                                <section className="w-full pb-5"
+                                    
+                                >
                                     <div className="text-center font-bold my-1">
                                         Skills
                                     </div>
                                     <div className="grid grid-cols-2 justify-center items-center ">
                                         {viewSkills?.map((skill) => {
                                             return (
-                                                <ul className="flex list-disc list-inside" key={skill}>
+                                                <ul className="flex list-disc list-inside"
+                                                    style={{
+                                                        'padding-left': skillsPaddingX + 'rem',
+                                                        'padding-right': skillsPaddingX + 'rem',
+                                                        'padding-top': skillsPaddingY + 'rem',
+                                                        'padding-right': skillsPaddingY + 'rem',
+                                                    }} key={skill}>
                                                     <li>{skill}</li>
                                                 </ul>
                                             )
@@ -236,14 +250,14 @@ function OutputResume({
                             {router.query.id
                                 ? <>
                                     {resumeData.skills != "" ? (
-                                        <section className="w-full px-10 pb-5">
+                                        <section className="w-full pb-5">
                                             <div className="text-center font-bold my-1">
                                                 Skills
                                             </div>
                                             <div className="grid grid-cols-2 justify-center items-center ">
                                                 {resumeData.skills?.map((skill) => {
                                                     return (
-                                                        <ul className="flex list-disc list-inside" key={skill}>
+                                                        <ul className="flex list-disc list-inside px-10" key={skill}>
                                                             <li>{skill}</li>
                                                         </ul>
                                                     )
@@ -254,14 +268,14 @@ function OutputResume({
                                 </>
                                 : <>
                                     {userSkills != "" ? (
-                                        <section className="w-full px-10 pb-5">
+                                        <section className="w-full pb-5">
                                             <div className="text-center font-bold my-1">
                                                 Skills
                                             </div>
                                             <div className="grid grid-cols-2 justify-center items-center ">
                                                 {userSkills?.map((skill) => {
                                                     return (
-                                                        <ul className="flex list-disc list-inside" key={skill}>
+                                                        <ul className="flex list-disc list-inside px-10" key={skill}>
                                                             <li>{skill}</li>
                                                         </ul>
                                                     )
