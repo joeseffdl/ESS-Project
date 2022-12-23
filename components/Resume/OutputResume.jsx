@@ -43,15 +43,27 @@ function OutputResume({
     experiencesDescriptionPaddingL,
     experiencesDescriptionPaddingR,
     experiencesDescriptionPaddingY,
+    experiencesMarginB,
 
-    educationPaddingX,
-    educationPaddingY,
+    educationHeadMarginT,
+    educationHeadMarginB,
+    educationSubHeadMarginT,
+    educationSubHeadMarginB,
+    educationHeadPaddingX,
+    educationDescriptionPaddingL,
+    educationDescriptionPaddingR,
+    educationDescriptionPaddingY,
+    educationMarginB,
     
-    certificationsPaddingX,
-    certificationsPaddingY,
+    certificationsPaddingL,
+    certificationsPaddingR,
+    certificationsPaddingT,
+    certificationsPaddingB,
 
-    portfolioPaddingX,
-    portfolioPaddingY,
+    portfolioPaddingL,
+    portfolioPaddingR,
+    portfolioPaddingT,
+    portfolioPaddingB,
 }) {
 
     // Router
@@ -394,7 +406,7 @@ function OutputResume({
                                                             return (
                                                                 <div className="flex flex-col " key={experience.title}>
                                                                     <div className="flex items-center justify-center">
-                                                                        <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1"
+                                                                        <div className="grid grid-flow-col auto-cols-max text-center divide-x"
                                                                             style={{
                                                                                 'margin-top': experiencesHeadMarginT + 'rem',
                                                                                 'margin-bottom': experiencesHeadMarginB + 'rem',
@@ -447,6 +459,7 @@ function OutputResume({
                                                                         <div className="mb-5"
                                                                             style={{
                                                                                 'padding-left': experiencesDescriptionPaddingL + 'rem',
+                                                                                'margin-bottom': experiencesMarginB + 'rem',
                                                                         }}>
                                                                             {experience.description?.map((desc) => {
                                                                                 return (
@@ -876,10 +889,16 @@ function OutputResume({
                                                         return (
                                                             <div className="flex flex-col " key={education.institutionName}>
                                                                 <div className="flex items-center justify-center">
-                                                                    <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
+                                                                    <div className="grid grid-flow-col auto-cols-max text-center divide-x" style={{
+                                                                        'margin-top': educationHeadMarginT + 'rem',
+                                                                        'margin-bottom': educationHeadMarginB + 'rem',
+                                                                    }}>
                                                                         {education.institutionName != ""
                                                                             ? (
-                                                                                <div className="px-2">
+                                                                                <div style={{
+                                                                                    'padding-left': educationHeadPaddingX + 'rem',
+                                                                                    'padding-right': educationHeadPaddingX + 'rem',
+                                                                                }}>
                                                                                     {education.institutionName}
                                                                                 </div>
                                                                             ) : null
@@ -888,13 +907,19 @@ function OutputResume({
                                                                             ? (
                                                                                 <>
                                                                                     {education.institutionLocation != "" ?
-                                                                                        <div className="px-2">
+                                                                                        <div style={{
+                                                                                            'padding-left': educationHeadPaddingX + 'rem',
+                                                                                            'padding-right': educationHeadPaddingX + 'rem',
+                                                                                        }}>
                                                                                             {education.institutionLocation}
                                                                                         </div>
                                                                                         : null
                                                                                     }
                                                                                     {education.graduationYear || education.graduationMonth != "" ? (
-                                                                                        <div className="px-2">
+                                                                                        <div style={{
+                                                                                            'padding-left': educationHeadPaddingX + 'rem',
+                                                                                            'padding-right': educationHeadPaddingX + 'rem',
+                                                                                        }}>
                                                                                             {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
                                                                                         </div>
                                                                                     )
@@ -908,17 +933,26 @@ function OutputResume({
                                                                 </div>
                                                                 {education.degreeType != ""
                                                                     ? (
-                                                                        <div className="text-center my-3">
+                                                                        <div className="text-center " style={{
+                                                                            'margin-top': educationSubHeadMarginT + 'rem',
+                                                                            'margin-bottom': educationSubHeadMarginB + 'rem',
+                                                                        }}>
                                                                             <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
                                                                         </div>
                                                                     )
                                                                     : null
                                                                 }
                                                                 {education.description ? (
-                                                                    <div className="px-5 mb-5">
+                                                                    <div style={{
+                                                                        'padding-left': educationDescriptionPaddingL + 'rem',
+                                                                        'margin-bottom': educationMarginB + 'rem',
+                                                                    }}>
                                                                         {education.description?.map((detail) => {
                                                                             return (
-                                                                                <ul className="flex list-disc list-inside" key={detail}>
+                                                                                <ul className="flex list-disc list-inside" style={{
+                                                                                    'padding-top': educationDescriptionPaddingY + 'rem',
+                                                                                    'padding-bottom': educationDescriptionPaddingY + 'rem',
+                                                                                }} key={detail}>
                                                                                     <li>{detail}</li>
                                                                                 </ul>
                                                                             )
@@ -1277,14 +1311,19 @@ function OutputResume({
                     {viewingResume
                         ? <>
                             {viewCertifications != "" ? (
-                                <section className="w-full px-10 pb-5">
+                                <section className="w-full pb-5">
                                     <div className="text-center font-bold my-1">
                                         Certifications
                                     </div>
                                     <div className="mb-5 ">
                                         {viewCertifications?.map((cert) => {
                                             return (
-                                                <ul className="flex list-disc list-inside" key={cert}>
+                                                <ul className="flex list-disc list-inside" style={{
+                                                    'padding-left': certificationsPaddingL + 'rem',
+                                                    'padding-right': certificationsPaddingR + 'rem',
+                                                    'padding-top': certificationsPaddingT + 'rem',
+                                                    'padding-bottom': certificationsPaddingB + 'rem',
+                                                }} key={cert}>
                                                     <li>{cert}</li>
                                                 </ul>
                                             )
@@ -1342,14 +1381,19 @@ function OutputResume({
                         ?
                         <>
                             {viewPortfolio != "" ? (
-                                <section className="w-full px-10 pb-5">
+                                <section className="w-full pb-5">
                                     <div className="text-center font-bold my-1">
                                         Portfolio
                                     </div>
                                     <div className="mb-5 ">
                                         {viewPortfolio?.map((portfolio) => {
                                             return (
-                                                <ul className="flex list-disc list-inside" key={portfolio}>
+                                                <ul className="flex list-disc list-inside" style={{
+                                                    'padding-left': portfolioPaddingL + 'rem',
+                                                    'padding-right': portfolioPaddingR + 'rem',
+                                                    'padding-top': portfolioPaddingT + 'rem',
+                                                    'padding-bottom': portfolioPaddingB + 'rem',
+                                                }} key={portfolio}>
                                                     <li>{portfolio}</li>
                                                 </ul>
                                             )

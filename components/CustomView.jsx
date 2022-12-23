@@ -24,21 +24,30 @@ function CustomView(props) {
         experiencesHeadMarginT: 0.75,
         experiencesHeadMarginB: 0.25,
         experiencesHeadPaddingX: 0.5,
-        
         experiencesDescriptionPaddingL: 2.5,
         experiencesDescriptionPaddingR: 2.5,
         experiencesDescriptionPaddingY: 0,
+        experiencesMarginB: 1.25,
         
-        educationPaddingX: 2.5,
-        educationPaddingY: 2.5,
-        educationMarginX: 1.25,
-        educationMarginY: 1.25,
+        educationHeadMarginT: 0.75,
+        educationHeadMarginB: 0,
+        educationSubHeadMarginT: 0,
+        educationSubHeadMarginB: 0.5,
+        educationHeadPaddingX: 0.5,
+        educationDescriptionPaddingL: 1.25,
+        educationDescriptionPaddingR: 1.25,
+        educationDescriptionPaddingY: 0,
+        educationMarginB: 1.25,
         
-        certificationsPaddingX: 2.5,
-        certificationsPaddingY: 2.5,
+        certificationsPaddingL: 2.5,
+        certificationsPaddingR: 2.5,
+        certificationsPaddingT: 0,
+        certificationsPaddingB: 0,
         
-        portfolioPaddingX: 2.5,
-        portfolioPaddingY: 2.5,
+        portfolioPaddingL: 2.5,
+        portfolioPaddingR: 2.5,
+        portfolioPaddingT: 0,
+        portfolioPaddingB: 0,
     })
     let [propertiesPage, setPropertiesPage] = useState(1)
 
@@ -137,8 +146,8 @@ function CustomView(props) {
                         </label>
                     </div>
                     
-                    {/* HEADER PROPERTIES */}
-                    <label className="label justify-center text-sm font-semibold" >Header Properties</label>
+                    {/* HEADER SECTION */}
+                    <label className="label justify-center text-sm font-semibold" >Header Section</label>
                     <div className="w-full flex items-center p-4 bg-white rounded-lg">
                         <label className="w-full relative flex items-center justify-between text-xs font-semibold">Font Size:
                             <input
@@ -185,8 +194,8 @@ function CustomView(props) {
                         </label>
                     </div>
 
-                    {/* PROFILE SUMMARY PROPERTIES */}
-                    <label className="label justify-center text-sm font-semibold" >Profile Summary Properties</label>
+                    {/* PROFILE SUMMARY SECTION */}
+                    <label className="label justify-center text-sm font-semibold" >Profile Summary Section</label>
                     <div className="w-full flex items-center p-4 bg-white rounded-lg">
                         <label className="w-full relative flex items-center justify-between text-xs font-semibold">Margin X:
                             <input
@@ -244,8 +253,8 @@ function CustomView(props) {
                         </label>
                     </div>
 
-                    {/* SKILLS PROPERTIES */}
-                    <label className="label justify-center text-sm font-semibold" >Skills Properties</label>
+                    {/* SKILLS SECTION */}
+                    <label className="label justify-center text-sm font-semibold" >Skills Section</label>
                     <div className="w-full flex items-center p-4 bg-white rounded-lg">
                         <label className="w-full relative flex items-center justify-between text-xs font-semibold">Left Padding:
                             <input
@@ -335,8 +344,8 @@ function CustomView(props) {
             return (
                 <div className="w-full flex flex-col gap-2 px-5 mb-5">
                     
-                    {/* EXPERIENCES PROPERTIES */}
-                    <label className="label justify-center text-sm font-semibold" >Experiences Properties</label>
+                    {/* EXPERIENCES SECTION */}
+                    <label className="label justify-center text-sm font-semibold" >Experiences Section</label>
                     <div className="w-full flex items-center p-4 bg-white rounded-lg">
                         <label className="w-full relative flex items-center justify-between text-xs font-semibold">Header Top:
                             <input
@@ -419,6 +428,324 @@ function CustomView(props) {
                             {resumeFormat.experiencesDescriptionPaddingY}rem
                         </label>
                     </div>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Section Gap:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="experiencesMarginB"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.experiencesMarginB}rem
+                        </label>
+                    </div>
+
+                    {/* EDUCATION SECTION */}
+                    <label className="label justify-center text-sm font-semibold" >Education Section</label>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Header Top:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="educationHeadMarginT"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.educationHeadMarginT}rem
+                        </label>
+                    </div>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Header Bot:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="educationHeadMarginB"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.educationHeadMarginB}rem
+                        </label>
+                    </div>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Sub Head Top:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="educationSubHeadMarginT"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.educationSubHeadMarginT}rem
+                        </label>
+                    </div>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Sub Head Bot:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="educationSubHeadMarginB"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.educationSubHeadMarginB}rem
+                        </label>
+                    </div>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Header Gap:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="educationHeadPaddingX"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.educationHeadPaddingX}rem
+                        </label>
+                    </div>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Description X:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="DescriptionPaddingL"
+                                type="range"
+                                min="0"
+                                max="40"
+                                step={
+                                    resumeFormat.educationDescriptionPaddingL >= 1 && resumeFormat.educationDescriptionPaddingL < 3
+                                        ? 0.25
+                                        : resumeFormat.educationDescriptionPaddingL >= 3 && resumeFormat.educationDescriptionPaddingL < 4
+                                            ? 0.5
+                                            : resumeFormat.educationDescriptionPaddingL >= 4 && resumeFormat.educationDescriptionPaddingL < 16
+                                                ? 1
+                                                : resumeFormat.educationDescriptionPaddingL >= 16 && resumeFormat.educationDescriptionPaddingL < 20
+                                                    ? 2
+                                                    : resumeFormat.educationDescriptionPaddingL >= 20 && resumeFormat.educationDescriptionPaddingL >= 24
+                                                        ? 4
+                                                        : 0.125
+                                }
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.educationDescriptionPaddingL}rem
+                        </label>
+                    </div>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Description Y:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="educationDescriptionPaddingY"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.educationDescriptionPaddingY}rem
+                        </label>
+                    </div>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Section Gap:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="educationMarginB"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.educationMarginB}rem
+                        </label>
+                    </div>
+                </div>
+            )
+        } else if (propertiesPage == 3) {
+            return (
+                <div className="w-full flex flex-col gap-2 px-5 mb-5">
+
+                    {/* CERTIFICATIONS SECTION */}
+                    <label className="label justify-center text-sm font-semibold" >Certifications Section</label>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Left Padding:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="certificationsPaddingL"
+                                type="range"
+                                min="0"
+                                max="24"
+                                step={
+                                    resumeFormat.certificationsPaddingL >= 1 && resumeFormat.certificationsPaddingL < 3
+                                        ? 0.25
+                                        : resumeFormat.certificationsPaddingL >= 3 && resumeFormat.certificationsPaddingL < 4
+                                            ? 0.5
+                                            : resumeFormat.certificationsPaddingL >= 4 && resumeFormat.certificationsPaddingL < 16
+                                                ? 1
+                                                : resumeFormat.certificationsPaddingL >= 16 && resumeFormat.certificationsPaddingL < 20
+                                                    ? 2
+                                                    : resumeFormat.certificationsPaddingL >= 20 && resumeFormat.certificationsPaddingL <= 24
+                                                        ? 4
+                                                        : 0.125
+                                }
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.certificationsPaddingL}rem
+                        </label>
+                    </div>
+
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Right Padding:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="certificationsPaddingR"
+                                type="range"
+                                min="0"
+                                max="24"
+                                step={
+                                    resumeFormat.certificationsPaddingR >= 1 && resumeFormat.certificationsPaddingR < 3
+                                        ? 0.25
+                                        : resumeFormat.certificationsPaddingR >= 3 && resumeFormat.certificationsPaddingR < 4
+                                            ? 0.5
+                                            : resumeFormat.certificationsPaddingR >= 4 && resumeFormat.certificationsPaddingR < 16
+                                                ? 1
+                                                : resumeFormat.certificationsPaddingR >= 16 && resumeFormat.certificationsPaddingR < 20
+                                                    ? 2
+                                                    : resumeFormat.certificationsPaddingR >= 20 && resumeFormat.certificationsPaddingR <= 24
+                                                        ? 4
+                                                        : 0.125
+                                }
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.certificationsPaddingR}rem
+                        </label>
+                    </div>
+
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Top Padding:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="certificationsPaddingT"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.certificationsPaddingT}rem
+                        </label>
+                    </div>
+
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Bot Padding:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="certificationsPaddingB"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.certificationsPaddingB}rem
+                        </label>
+                    </div>
+
+                    {/* PORTFOLIO SECTION */}
+                    <label className="label justify-center text-sm font-semibold" >Portfolio Section</label>
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Left Padding:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="portfolioPaddingL"
+                                type="range"
+                                min="0"
+                                max="24"
+                                step={
+                                    resumeFormat.portfolioPaddingL >= 1 && resumeFormat.portfolioPaddingL < 3
+                                        ? 0.25
+                                        : resumeFormat.portfolioPaddingL >= 3 && resumeFormat.portfolioPaddingL < 4
+                                            ? 0.5
+                                            : resumeFormat.portfolioPaddingL >= 4 && resumeFormat.portfolioPaddingL < 16
+                                                ? 1
+                                                : resumeFormat.portfolioPaddingL >= 16 && resumeFormat.portfolioPaddingL < 20
+                                                    ? 2
+                                                    : resumeFormat.portfolioPaddingL >= 20 && resumeFormat.portfolioPaddingL <= 24
+                                                        ? 4
+                                                        : 0.125
+                                }
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.portfolioPaddingL}rem
+                        </label>
+                    </div>
+
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Right Padding:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="portfolioPaddingR"
+                                type="range"
+                                min="0"
+                                max="24"
+                                step={
+                                    resumeFormat.portfolioPaddingR >= 1 && resumeFormat.portfolioPaddingR < 3
+                                        ? 0.25
+                                        : resumeFormat.portfolioPaddingR >= 3 && resumeFormat.portfolioPaddingR < 4
+                                            ? 0.5
+                                            : resumeFormat.portfolioPaddingR >= 4 && resumeFormat.portfolioPaddingR < 16
+                                                ? 1
+                                                : resumeFormat.portfolioPaddingR >= 16 && resumeFormat.portfolioPaddingR < 20
+                                                    ? 2
+                                                    : resumeFormat.portfolioPaddingR >= 20 && resumeFormat.portfolioPaddingR <= 24
+                                                        ? 4
+                                                        : 0.125
+                                }
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.portfolioPaddingR}rem
+                        </label>
+                    </div>
+
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Top Padding:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="portfolioPaddingT"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.portfolioPaddingT}rem
+                        </label>
+                    </div>
+
+                    <div className="w-full flex items-center p-4 bg-white rounded-lg">
+                        <label className="w-full relative flex items-center justify-between text-xs font-semibold">Bot Padding:
+                            <input
+                                className="absolute w-1/2 left-20 top-0.5"
+                                name="portfolioPaddingB"
+                                type="range"
+                                min="0"
+                                max="1.5"
+                                step={0.125}
+                                onChange={handleChange}
+                            />
+                            {resumeFormat.portfolioPaddingB}rem
+                        </label>
+                    </div>
                 </div>
             )
         }
@@ -443,7 +770,7 @@ function CustomView(props) {
                 </FormWindow>
                 <div className="h-full flex items-end justify-around drop-shadow-2xl pb-6">
                     <button disabled={propertiesPage == 1} className="btn border-2 border-primary text-primary font-bold hover:text-accent hover:border-accent" onClick={previousPage}>&#60;</button>
-                    <button disabled={propertiesPage == 2} className="btn border-2 border-primary text-primary font-bold hover:text-accent hover:border-accent" onClick={nextPage}>&#62;</button>
+                    <button disabled={propertiesPage == 3} className="btn border-2 border-primary text-primary font-bold hover:text-accent hover:border-accent" onClick={nextPage}>&#62;</button>
                 </div>
             </div>
         </div>
