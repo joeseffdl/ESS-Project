@@ -6,7 +6,7 @@ function FormWindow({children, formTitle, onSubmit}) {
                 {
                     formTitle
                         ? (
-                            <h2 className="text-2xl text-bold text-center my-5">{formTitle}</h2>
+                            <h2 className="text-2xl text-bold text-center mt-5">{formTitle}</h2>
                         )
                         : (
                             null    

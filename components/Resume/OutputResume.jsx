@@ -12,7 +12,6 @@ import {
     resumeSkillsStore,
 } from "../../utils/store"
 
-
 function OutputResume({
     personalInformation: viewPersonalInformation,
     workExperiences: viewWorkExperiences,
@@ -21,14 +20,38 @@ function OutputResume({
     certifications: viewCertifications,
     portfolio: viewPortfolio,
     profileSummary: viewProfileSummary,
+    
     fontFamily,
     fontSize,
     textColor,
+    
     headerFontSize,
     headerLineHeight,
+
     summaryMarginX,
-    skillsPaddingX,
-    skillsPaddingY
+    summaryMarginY,
+    summaryLineHeight,
+
+    skillsPaddingL,
+    skillsPaddingR,
+    skillsPaddingT,
+    skillsPaddingB,
+    
+    experiencesHeadMarginT,
+    experiencesHeadMarginB,
+    experiencesHeadPaddingX,
+    experiencesDescriptionPaddingL,
+    experiencesDescriptionPaddingR,
+    experiencesDescriptionPaddingY,
+
+    educationPaddingX,
+    educationPaddingY,
+    
+    certificationsPaddingX,
+    certificationsPaddingY,
+
+    portfolioPaddingX,
+    portfolioPaddingY,
 }) {
 
     // Router
@@ -167,10 +190,13 @@ function OutputResume({
                                             <div className="text-center font-bold my-1">
                                                 Profile Summary
                                             </div>
-                                            <div className="w-auto break-words text-center my-3 divide-x"
+                                            <div className="w-auto break-words text-center divide-x"
                                                 style={{
                                                     'margin-left': summaryMarginX + 'rem',
                                                     'margin-right': summaryMarginX + 'rem',
+                                                    'margin-top': summaryMarginY + 'rem',
+                                                    'margin-bottom': summaryMarginY + 'rem',
+                                                    'line-height': summaryLineHeight + 'rem',
                                                 }}
                                             >
                                                 {viewProfileSummary}
@@ -233,10 +259,10 @@ function OutputResume({
                                             return (
                                                 <ul className="flex list-disc list-inside"
                                                     style={{
-                                                        'padding-left': skillsPaddingX + 'rem',
-                                                        'padding-right': skillsPaddingX + 'rem',
-                                                        'padding-top': skillsPaddingY + 'rem',
-                                                        'padding-right': skillsPaddingY + 'rem',
+                                                        'padding-left': skillsPaddingL + 'rem',
+                                                        'padding-right': skillsPaddingR + 'rem',
+                                                        'padding-top': skillsPaddingT + 'rem',
+                                                        'padding-bottom': skillsPaddingB + 'rem',
                                                     }} key={skill}>
                                                     <li>{skill}</li>
                                                 </ul>
@@ -368,17 +394,29 @@ function OutputResume({
                                                             return (
                                                                 <div className="flex flex-col " key={experience.title}>
                                                                     <div className="flex items-center justify-center">
-                                                                        <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1">
+                                                                        <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3 mb-1"
+                                                                            style={{
+                                                                                'margin-top': experiencesHeadMarginT + 'rem',
+                                                                                'margin-bottom': experiencesHeadMarginB + 'rem',
+                                                                            }}
+                                                                        >
                                                                             {experience.title != ""
                                                                                 ? (
-                                                                                    <div className="font-bold px-2">
+                                                                                    <div className="font-bold"
+                                                                                        style={{
+                                                                                            'padding-left': experiencesHeadPaddingX +'rem',
+                                                                                            'padding-right': experiencesHeadPaddingX +'rem',
+                                                                                    }}>
                                                                                         {experience.title}
                                                                                     </div>
                                                                                 ) : null
                                                                             }
                                                                             {experience.employer != ""
                                                                                 ? (
-                                                                                    <div className="px-2">
+                                                                                    <div style={{
+                                                                                            'padding-left': experiencesHeadPaddingX + 'rem',
+                                                                                            'padding-right': experiencesHeadPaddingX + 'rem',
+                                                                                        }}>
                                                                                         {experience.employer} {
                                                                                             experience.city && experience.country != ""
                                                                                                 ? `${`- ${experience.city}, `} ${experience.country}`
@@ -390,7 +428,10 @@ function OutputResume({
                                                                             }
                                                                             {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
                                                                                 ? (
-                                                                                    <div className="px-2">
+                                                                                    <div style={{
+                                                                                        'padding-left': experiencesHeadPaddingX + 'rem',
+                                                                                        'padding-right': experiencesHeadPaddingX + 'rem',
+                                                                                    }}>
                                                                                         {experience.startDate} {
                                                                                             (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
                                                                                                 ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
@@ -403,10 +444,16 @@ function OutputResume({
                                                                         </div>
                                                                     </div>
                                                                     {experience.description ? (
-                                                                        <div className="px-10 mb-5">
+                                                                        <div className="mb-5"
+                                                                            style={{
+                                                                                'padding-left': experiencesDescriptionPaddingL + 'rem',
+                                                                        }}>
                                                                             {experience.description?.map((desc) => {
                                                                                 return (
-                                                                                    <ul className="flex list-disc list-inside" key={desc}>
+                                                                                    <ul className="flex list-disc list-inside" style={{
+                                                                                        'padding-top': experiencesDescriptionPaddingY + 'rem',
+                                                                                        'padding-bottom': experiencesDescriptionPaddingY + 'rem',
+                                                                                    }} key={desc}>
                                                                                         <li>{desc}</li>
                                                                                     </ul>
                                                                                 )
