@@ -87,7 +87,12 @@ function OutputResume({
     return (
         <>
             <div className="h-full p-8">
-                <div className="h-full text-xs divide-y-2 divide-blue-900">
+                <div className="h-full text-xs divide-y-2 divide-blue-900"
+                    style={{
+                        'font-family': fontFamily,
+                        'font-size': fontSize + 'rem',
+                        'color': textColor,
+                    }}>
 
                     {/* PERSONAL INFORMATION SECTION */}
                     {viewingResume 

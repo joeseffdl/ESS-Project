@@ -5,8 +5,8 @@ function CustomView(props) {
     // State
     const [resumeFormat, setResumeFormat] = useState({
         template: "",
-        fontFamily: "Helvetica",
-        fontSize: "1rem",
+        fontFamily: "Segoe UI",
+        fontSize: 0.75,
         textColor: "black",
 
         headerFontSize: 1.875,
@@ -31,8 +31,8 @@ function CustomView(props) {
         
         educationHeadMarginT: 0.75,
         educationHeadMarginB: 0,
-        educationSubHeadMarginT: 0,
-        educationSubHeadMarginB: 0.5,
+        educationSubHeadMarginT: 0.25,
+        educationSubHeadMarginB: 0.25,
         educationHeadPaddingX: 0.5,
         educationDescriptionPaddingL: 1.25,
         educationDescriptionPaddingR: 1.25,
@@ -54,20 +54,45 @@ function CustomView(props) {
     // Resume Properties
     const resumeTemplatesArray = [
         "Resume",
-        "Template 2",
-        "Template 3",
     ]
 
     const fontFamilyArray = [
+        "Segoe UI",
         "Helvetica",
         "Arial",
+        "Verdana",
+        "Tahoma",
+        "Trebuchet MS",
+        "Impact",
+        "Gil Sans",
         "Times New Roman",
+        "Georgia",
+        "Palatino",
+        "Baskerville",
+        "Andalé Mono",
+        "Courier",
+        "Lucida",
+        "Monaco",
+        "Bradley Hand",
+        "Brush Script MT",
+        "Luminari",
+        "Comic Sans MS",
     ]
 
     const textColorArray = [
-        "Red",
-        "Green",
-        "Blue",
+        "Black",
+        "Gray",
+        "Navy",
+        "Indigo",
+        "Plum",
+        "Teal",
+        "Turquoise",
+        "Peru",
+        "Brown",
+        "Crimson",
+        "Maroon",
+        "Salmon",
+        "Pink",
     ]
 
     // Handle Change
@@ -138,11 +163,11 @@ function CustomView(props) {
                                 name="fontSize"
                                 type="range"
                                 min="0.75"
-                                max="8"
+                                max="1.5"
                                 step="0.125"
                                 onChange={handleChange}
                             />
-                            {resumeFormat.fontSize}
+                            {resumeFormat.fontSize}rem
                         </label>
                     </div>
                     
