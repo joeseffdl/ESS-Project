@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import AppNavigation from "../components/AppNavigation"
 import CustomView from "../components/CustomView"
 import OutputTemplate from "../components/OutputTemplate"
-import OutputResume from "./choose-template/Resume/OutputResume"
+import OutputResume from "../components/BasicTemplate/OutputResume"
 import { auth, db } from "../utils/firebase"
 
 function View() {

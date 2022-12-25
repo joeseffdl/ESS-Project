@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { addingDetails, completedSteps, resumeDataStore, resumeExperienceStore } from "../../../utils/store"
+import { addingDetails, completedSteps, resumeDataStore, resumeExperienceStore } from "../../utils/store"
 
 function WorkExperiences({ workExperiencesProps }) {
     // Router
@@ -23,7 +23,7 @@ function WorkExperiences({ workExperiencesProps }) {
         experiencesDescriptionPaddingR,
         experiencesDescriptionPaddingY,
         experiencesMarginB, } = workExperiencesProps
-    
+
     return (
         <>
             {(workExperiences.length == 0) && (workExp.title || workExp.employer) !== '' && !router.query.id ? (

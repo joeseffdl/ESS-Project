@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { resumeCertificationStore, resumeDataStore } from "../../../utils/store"
+import { resumeCertificationStore, resumeDataStore } from "../../utils/store"
 
 function Certifications({ certificationsProps }) {
     // Router
@@ -9,10 +9,10 @@ function Certifications({ certificationsProps }) {
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
     const userCertifications = resumeCertificationStore(state => state.certifications)
-    
+
     // Props
     const { viewCertifications, certificationsPaddingL, certificationsPaddingR, certificationsPaddingT, certificationsPaddingB } = certificationsProps
-    
+
     return (
         <>
             {viewingResume

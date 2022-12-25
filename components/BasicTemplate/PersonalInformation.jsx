@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { resumeDataStore, resumePersonalInformationStore } from "../../../utils/store"
+import { resumeDataStore, resumePersonalInformationStore } from "../../utils/store"
 
 function PersonalInformation({ personalInfoProps }) {
     // Router
@@ -9,7 +9,7 @@ function PersonalInformation({ personalInfoProps }) {
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
     const personalInformation = resumePersonalInformationStore(state => state.personalInformation)
-    
+
     // Props
     const { viewPersonalInformation, headerFontSize, headerLineHeight } = personalInfoProps
     

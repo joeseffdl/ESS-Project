@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { resumeDataStore, resumePortfolioStore } from "../../../utils/store"
+import { resumeDataStore, resumePortfolioStore } from "../../utils/store"
 
 function Portfolio({ portfolioProps }) {
     // Router
@@ -9,10 +9,10 @@ function Portfolio({ portfolioProps }) {
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
     const userPortfolio = resumePortfolioStore(state => state.portfolio)
-    
+
     // Props
     const { viewPortfolio, portfolioPaddingL, portfolioPaddingR, portfolioPaddingT, portfolioPaddingB } = portfolioProps
-    
+
     return (
         <>
             {viewingResume

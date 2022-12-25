@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { resumeDataStore, resumeProfileSummaryStore } from "../../../utils/store"
+import { resumeDataStore, resumeProfileSummaryStore } from "../../utils/store"
 
 function ProfileSummary({ profileSummaryProps }) {
     // Router
@@ -12,7 +12,7 @@ function ProfileSummary({ profileSummaryProps }) {
 
     // Props
     const { viewProfileSummary, summaryMarginX, summaryMarginY, summaryLineHeight } = profileSummaryProps
-    
+
     return (
         <>
             {viewingResume

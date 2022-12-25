@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { addingDetails, completedSteps, resumeDataStore, resumeEducationStore } from "../../../utils/store"
+import { addingDetails, completedSteps, resumeDataStore, resumeEducationStore } from "../../utils/store"
 
 function Education({ educationProps }) {
     // Router
@@ -14,7 +14,7 @@ function Education({ educationProps }) {
     const addingDetailsValue = addingDetails(state => state.value)
 
     // Props
-    const { 
+    const {
         viewEducationalBackground,
         educationHeadMarginT,
         educationHeadMarginB,
@@ -26,7 +26,7 @@ function Education({ educationProps }) {
         educationDescriptionPaddingY,
         educationMarginB,
     } = educationProps
-    
+
     return (
         <>
             {(educationalBackground.length == 0) && (educationField.institutionName || educationField.degreeType !== '') && !router.query.id ? (
