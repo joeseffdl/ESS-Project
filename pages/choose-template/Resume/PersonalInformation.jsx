@@ -22,26 +22,26 @@ function PersonalInformation({ personalInfoProps }) {
                             'font-size': headerFontSize + 'rem',
                             'line-height': headerLineHeight + 'rem',
                         }}>
-                            {viewPersonalInformation.firstname || viewPersonalInformation.surname != "" ? `${viewPersonalInformation.firstname.toUpperCase()} ${viewPersonalInformation.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
+                            {viewPersonalInformation?.firstname || viewPersonalInformation?.surname != "" ? `${viewPersonalInformation?.firstname.toUpperCase()} ${viewPersonalInformation?.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
                         </div>
                         <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 divide-x">
-                            {viewPersonalInformation.emailAddress != ""
+                            {viewPersonalInformation?.emailAddress != ""
                                 ? (
                                     <div className="px-2">
-                                        {viewPersonalInformation.emailAddress}
+                                        {viewPersonalInformation?.emailAddress}
                                     </div>
                                 )
                                 : null}
-                            {viewPersonalInformation.phoneNumber != ""
+                            {viewPersonalInformation?.phoneNumber != ""
                                 ? <div className="px-2">
-                                    {viewPersonalInformation.phoneNumber}
+                                    {viewPersonalInformation?.phoneNumber}
                                 </div>
                                 : ``
                             }
 
-                            {viewPersonalInformation.city || viewPersonalInformation.country != ``
+                            {viewPersonalInformation?.city || viewPersonalInformation?.country != ``
                                 ? <div className="px-2">
-                                    {viewPersonalInformation.city != "" ? `${viewPersonalInformation.city}, ` : ``} {viewPersonalInformation.country} {viewPersonalInformation.postalCode}
+                                    {viewPersonalInformation?.city != "" ? `${viewPersonalInformation?.city}, ` : ``} {viewPersonalInformation?.country} {viewPersonalInformation?.postalCode}
                                 </div>
                                 : ``
                             }

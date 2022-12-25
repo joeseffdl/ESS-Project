@@ -46,7 +46,7 @@ function View() {
     const displayTemplate = (data) => {
         // Check the type/template of the resume document
         if (resumeDocument.type == "Resume") return (
-            <OutputResume {...resumeDocument.resumeData} resumeProperties={resumeProperties} />
+            <OutputResume resumeDataProps={resumeDocument.resumeData} resumeProperties={resumeProperties} />
         )
     }
 

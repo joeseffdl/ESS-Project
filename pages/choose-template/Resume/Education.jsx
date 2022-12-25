@@ -99,13 +99,13 @@ function Education({ educationProps }) {
                     {viewingResume
                         ? (<>
                             {
-                                viewEducationalBackground.length > 0
+                                viewEducationalBackground?.length > 0
                                     ? <section className="w-full px-5">
                                         <div className="text-center font-bold my-1">
                                             Educational Background
                                         </div>
                                         <div>
-                                            {viewEducationalBackground.map((education) => {
+                                            {viewEducationalBackground?.map((education) => {
                                                 return (
                                                     <div className="flex flex-col " key={education.institutionName}>
                                                         <div className="flex items-center justify-center">

@@ -6,16 +6,7 @@ import ProfileSummary from "./ProfileSummary"
 import Skills from "./Skills"
 import WorkExperiences from "./WorkExperiences"
 
-function OutputResume({
-    personalInformation: viewPersonalInformation,
-    workExperiences: viewWorkExperiences,
-    educationalBackground: viewEducationalBackground,
-    skills: viewSkills,
-    certifications: viewCertifications,
-    portfolio: viewPortfolio,
-    profileSummary: viewProfileSummary,
-    resumeProperties,
-}) {
+function OutputResume({ resumeDataProps, resumeProperties }) {
 
     return (
         <>
@@ -29,14 +20,14 @@ function OutputResume({
 
                     {/* PERSONAL INFORMATION SECTION */}
                     <PersonalInformation personalInfoProps={{
-                        viewPersonalInformation,
+                        viewPersonalInformation: resumeDataProps?.personalInformation ,
                         headerFontSize: resumeProperties?.headerFontSize,
                         headerLineHeight: resumeProperties?.headerLineHeight
                     }} />
 
                     {/* PROFILE SUMMARY SECTION */}
                     <ProfileSummary profileSummaryProps={{
-                        viewProfileSummary,
+                        viewProfileSummary: resumeDataProps?.profileSummary,
                         summaryMarginX: resumeProperties?.summaryMarginX,
                         summaryMarginY: resumeProperties?.summaryMarginY,
                         summaryLineHeight: resumeProperties?.summaryLineHeight,
@@ -44,7 +35,7 @@ function OutputResume({
 
                     {/* SKILLS SECTION */}
                     <Skills skillsProps={{
-                        viewSkills,
+                        viewSkills: resumeDataProps?.skills,
                         skillsPaddingL: resumeProperties?.skillsPaddingL,
                         skillsPaddingR: resumeProperties?.skillsPaddingR,
                         skillsPaddingT: resumeProperties?.skillsPaddingT,
@@ -53,7 +44,7 @@ function OutputResume({
 
                     {/* WORK EXPERIENCE SECTION */}
                     <WorkExperiences workExperiencesProps={{
-                        viewWorkExperiences,
+                        viewWorkExperiences: resumeDataProps?.workExperiences,
                         experiencesHeadMarginT: resumeProperties?.experiencesHeadMarginT,
                         experiencesHeadMarginB: resumeProperties?.educationHeadMarginB,
                         experiencesHeadPaddingX: resumeProperties?.experiencesHeadPaddingX,
@@ -65,7 +56,7 @@ function OutputResume({
 
                     {/* EDUCATION SECTION */}
                     <Education educationProps={{
-                        viewEducationalBackground,
+                        viewEducationalBackground: resumeDataProps?.educationalBackground,
                         educationHeadMarginT: resumeProperties?.educationHeadMarginT,
                         educationHeadMarginB: resumeProperties?.educationHeadMarginB,
                         educationSubHeadMarginT: resumeProperties?.educationSubHeadMarginT,
@@ -79,7 +70,7 @@ function OutputResume({
 
                     {/* CERTIFICATION SECTION */}
                     <Certifications certificationsProps={{
-                        viewCertifications,
+                        viewCertifications: resumeDataProps?.certifications,
                         certificationsPaddingL: resumeProperties?.certificationsPaddingL,
                         certificationsPaddingR: resumeProperties?.certificationsPaddingR,
                         certificationsPaddingT: resumeProperties?.certificationsPaddingT,
@@ -88,7 +79,7 @@ function OutputResume({
 
                     {/* PORTFOLIO SECTION */}
                     <Portfolio portfolioProps={{
-                        viewPortfolio,
+                        viewPortfolio: resumeDataProps?.portfolio,
                         portfolioPaddingL: resumeProperties?.portfolioPaddingL,
                         portfolioPaddingR: resumeProperties?.portfolioPaddingR,
                         portfolioPaddingT: resumeProperties?.portfolioPaddingT,

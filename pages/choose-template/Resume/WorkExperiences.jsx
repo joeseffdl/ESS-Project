@@ -93,11 +93,11 @@ function WorkExperiences({ workExperiencesProps }) {
                     {viewingResume
                         ? (<>
                             {
-                                viewWorkExperiences.length > 0
+                                viewWorkExperiences?.length > 0
                                     ? (
                                         <section className="w-full relative">
                                             <div className="text-center font-bold my-1">
-                                                {viewWorkExperiences.length > 1 ? "Work Experiences" : "Work Experience"}
+                                                {viewWorkExperiences?.length > 1 ? "Work Experiences" : "Work Experience"}
                                             </div>
                                             <div>
                                                 {viewWorkExperiences?.map((experience) => {

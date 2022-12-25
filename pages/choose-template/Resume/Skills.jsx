@@ -17,7 +17,7 @@ function Skills({ skillsProps }) {
         <>
             {viewingResume
                 ? (<>
-                    {viewSkills != "" ? (
+                    {viewSkills != "" || viewSkills != undefined ? (
                         <section className="w-full pb-5">
                             <div className="text-center font-bold my-1">
                                 Skills

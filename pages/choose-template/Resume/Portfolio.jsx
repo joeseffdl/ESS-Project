@@ -18,7 +18,7 @@ function Portfolio({ portfolioProps }) {
             {viewingResume
                 ?
                 <>
-                    {viewPortfolio != "" ? (
+                    {viewPortfolio != "" || viewPortfolio != undefined ? (
                         <section className="w-full pb-5">
                             <div className="text-center font-bold my-1">
                                 Portfolio

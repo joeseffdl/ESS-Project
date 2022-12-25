@@ -18,7 +18,7 @@ function ProfileSummary({ profileSummaryProps }) {
             {viewingResume
                 ? (
                     <>
-                        {viewProfileSummary != ""
+                        {viewProfileSummary != "" || viewProfileSummary != undefined
                             ? (
                                 <section className="w-full ">
                                     <div className="text-center font-bold my-1">
