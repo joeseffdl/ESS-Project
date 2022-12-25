@@ -1,9 +1,9 @@
+import OutputResume from "../pages/choose-template/Resume/OutputResume";
 import InputTemplate from "./InputTemplate";
 import OutputTemplate from "./OutputTemplate";
 import InputContainer from "./Resume/InputContainer";
-import OutputResume from "./Resume/OutputResume";
 
-function TemplateContainer({ children, outputChild }) {
+function TemplateContainer({ children }) {
     return (
         <div className="w-full flex flex-col xl:flex-row">
             <InputTemplate>

@@ -5,7 +5,7 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import AppNavigation from "../components/AppNavigation"
 import CustomView from "../components/CustomView"
 import OutputTemplate from "../components/OutputTemplate"
-import OutputResume from "../components/Resume/OutputResume"
+import OutputResume from "./choose-template/Resume/OutputResume"
 import { auth, db } from "../utils/firebase"
 
 function View() {
@@ -26,14 +26,14 @@ function View() {
 
     // Get user resume data
     const getResumeData = async (id) => {
-        try { 
+        try {
             const docRef = await doc(db, "resumes", id)
             const docSnap = await getDoc(docRef)
             if (docSnap.exists()) {
                 const unsubscribe = setResumeDocument(docSnap.data())
                 return unsubscribe
             }
-        } catch(err) {
+        } catch (err) {
             console.log(err)
         }
     }
@@ -46,7 +46,7 @@ function View() {
     const displayTemplate = (data) => {
         // Check the type/template of the resume document
         if (resumeDocument.type == "Resume") return (
-            <OutputResume {...resumeDocument.resumeData} {...resumeProperties} />
+            <OutputResume {...resumeDocument.resumeData} resumeProperties={resumeProperties} />
         )
     }
 
