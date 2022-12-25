@@ -11,20 +11,20 @@ function Portfolio({ portfolioProps }) {
     const userPortfolio = resumePortfolioStore(state => state.portfolio)
     
     // Props
-    const { viewPortfolio, portfolioPaddingL, portfolioPaddingR, portfolioPaddingT, portfolioPaddingB } = portfolioProps
+    const { portfolioPaddingL, portfolioPaddingR, portfolioPaddingT, portfolioPaddingB } = portfolioProps
     
     return (
         <>
             {viewingResume
                 ?
                 <>
-                    {viewPortfolio != "" || viewPortfolio != undefined ? (
+                    {portfolioProps?.viewPortfolio != "" ? (
                         <section className="w-full pb-5">
                             <div className="text-center font-bold my-1">
                                 Portfolio
                             </div>
                             <div className="mb-5 ">
-                                {viewPortfolio?.map((portfolio) => {
+                                {portfolioProps?.viewPortfolio?.map((portfolio) => {
                                     return (
                                         <ul className="flex list-disc list-inside" style={{
                                             'padding-left': portfolioPaddingL + 'rem',

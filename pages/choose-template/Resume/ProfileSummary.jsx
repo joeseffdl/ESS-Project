@@ -11,14 +11,14 @@ function ProfileSummary({ profileSummaryProps }) {
     const profileSummary = resumeProfileSummaryStore(state => state.profileSummary)
 
     // Props
-    const { viewProfileSummary, summaryMarginX, summaryMarginY, summaryLineHeight } = profileSummaryProps
+    const { summaryMarginX, summaryMarginY, summaryLineHeight } = profileSummaryProps
     
     return (
         <>
             {viewingResume
                 ? (
                     <>
-                        {viewProfileSummary != "" || viewProfileSummary != undefined
+                        {profileSummaryProps?.viewProfileSummary != ""
                             ? (
                                 <section className="w-full ">
                                     <div className="text-center font-bold my-1">
@@ -33,7 +33,7 @@ function ProfileSummary({ profileSummaryProps }) {
                                             'line-height': summaryLineHeight + 'rem',
                                         }}
                                     >
-                                        {viewProfileSummary}
+                                        {profileSummaryProps?.viewProfileSummary}
                                     </div>
                                 </section>
                             ) : null

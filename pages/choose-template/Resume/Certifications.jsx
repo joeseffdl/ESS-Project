@@ -11,19 +11,19 @@ function Certifications({ certificationsProps }) {
     const userCertifications = resumeCertificationStore(state => state.certifications)
     
     // Props
-    const { viewCertifications, certificationsPaddingL, certificationsPaddingR, certificationsPaddingT, certificationsPaddingB } = certificationsProps
+    const { certificationsPaddingL, certificationsPaddingR, certificationsPaddingT, certificationsPaddingB } = certificationsProps
     
     return (
         <>
             {viewingResume
                 ? <>
-                    {viewCertifications != "" || viewCertifications != undefined ? (
+                    {certificationsProps?.viewCertifications != "" ? (
                         <section className="w-full pb-5">
                             <div className="text-center font-bold my-1">
                                 Certifications
                             </div>
                             <div className="mb-5 ">
-                                {viewCertifications?.map((cert) => {
+                                {certificationsProps?.viewCertifications?.map((cert) => {
                                     return (
                                         <ul className="flex list-disc list-inside" style={{
                                             'padding-left': certificationsPaddingL + 'rem',

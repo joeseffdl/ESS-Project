@@ -15,7 +15,6 @@ function Education({ educationProps }) {
 
     // Props
     const { 
-        viewEducationalBackground,
         educationHeadMarginT,
         educationHeadMarginB,
         educationSubHeadMarginT,
@@ -99,13 +98,13 @@ function Education({ educationProps }) {
                     {viewingResume
                         ? (<>
                             {
-                                viewEducationalBackground?.length > 0
+                                educationProps?.viewEducationalBackground.length > 0
                                     ? <section className="w-full px-5">
                                         <div className="text-center font-bold my-1">
                                             Educational Background
                                         </div>
                                         <div>
-                                            {viewEducationalBackground?.map((education) => {
+                                            {educationProps?.viewEducationalBackground?.map((education) => {
                                                 return (
                                                     <div className="flex flex-col " key={education.institutionName}>
                                                         <div className="flex items-center justify-center">

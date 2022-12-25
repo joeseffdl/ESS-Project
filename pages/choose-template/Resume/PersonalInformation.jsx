@@ -11,7 +11,7 @@ function PersonalInformation({ personalInfoProps }) {
     const personalInformation = resumePersonalInformationStore(state => state.personalInformation)
     
     // Props
-    const { viewPersonalInformation, headerFontSize, headerLineHeight } = personalInfoProps
+    const { headerFontSize, headerLineHeight } = personalInfoProps
     
     return (
         <>
@@ -22,26 +22,26 @@ function PersonalInformation({ personalInfoProps }) {
                             'font-size': headerFontSize + 'rem',
                             'line-height': headerLineHeight + 'rem',
                         }}>
-                            {viewPersonalInformation?.firstname || viewPersonalInformation?.surname != "" ? `${viewPersonalInformation?.firstname.toUpperCase()} ${viewPersonalInformation?.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
+                            {personalInfoProps?.viewPersonalInformation?.firstname || personalInfoProps?.viewPersonalInformation?.surname != "" ? `${personalInfoProps?.viewPersonalInformation?.firstname.toUpperCase()} ${personalInfoProps?.viewPersonalInformation?.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
                         </div>
                         <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 divide-x">
-                            {viewPersonalInformation?.emailAddress != ""
+                            {personalInfoProps?.viewPersonalInformation?.emailAddress != ""
                                 ? (
                                     <div className="px-2">
-                                        {viewPersonalInformation?.emailAddress}
+                                        {personalInfoProps?.viewPersonalInformation?.emailAddress}
                                     </div>
                                 )
                                 : null}
-                            {viewPersonalInformation?.phoneNumber != ""
+                            {personalInfoProps?.viewPersonalInformation?.phoneNumber != ""
                                 ? <div className="px-2">
-                                    {viewPersonalInformation?.phoneNumber}
+                                    {personalInfoProps?.viewPersonalInformation?.phoneNumber}
                                 </div>
                                 : ``
                             }
 
-                            {viewPersonalInformation?.city || viewPersonalInformation?.country != ``
+                            {personalInfoProps?.viewPersonalInformation?.city || personalInfoProps?.viewPersonalInformation?.country != ``
                                 ? <div className="px-2">
-                                    {viewPersonalInformation?.city != "" ? `${viewPersonalInformation?.city}, ` : ``} {viewPersonalInformation?.country} {viewPersonalInformation?.postalCode}
+                                    {personalInfoProps?.viewPersonalInformation?.city != "" ? `${personalInfoProps?.viewPersonalInformation?.city}, ` : ``} {personalInfoProps?.viewPersonalInformation?.country} {personalInfoProps?.viewPersonalInformation?.postalCode}
                                 </div>
                                 : ``
                             }

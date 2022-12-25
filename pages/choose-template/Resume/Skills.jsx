@@ -11,19 +11,19 @@ function Skills({ skillsProps }) {
     const userSkills = resumeSkillsStore(state => state.skills)
     
     // Props
-    const { viewSkills, skillsPaddingL, skillsPaddingR, skillsPaddingT, skillsPaddingB, } = skillsProps
+    const { skillsPaddingL, skillsPaddingR, skillsPaddingT, skillsPaddingB, } = skillsProps
     
     return (
         <>
             {viewingResume
                 ? (<>
-                    {viewSkills != "" || viewSkills != undefined ? (
+                    {skillsProps?.viewSkills != "" ? (
                         <section className="w-full pb-5">
                             <div className="text-center font-bold my-1">
                                 Skills
                             </div>
                             <div className="grid grid-cols-2 justify-center items-center ">
-                                {viewSkills?.map((skill) => {
+                                {skillsProps?.viewSkills?.map((skill) => {
                                     return (
                                         <ul className="flex list-disc list-inside"
                                             style={{
