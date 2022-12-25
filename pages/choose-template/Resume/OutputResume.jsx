@@ -20,14 +20,14 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* PERSONAL INFORMATION SECTION */}
                     <PersonalInformation personalInfoProps={{
-                        viewPersonalInformation: resumeDataProps?.personalInformation ?? '',
+                        viewPersonalInformation: resumeDataProps?.personalInformation ?? {},
                         headerFontSize: resumeProperties?.headerFontSize ?? '',
                         headerLineHeight: resumeProperties?.headerLineHeight ?? ''
                     }} />
 
                     {/* PROFILE SUMMARY SECTION */}
                     <ProfileSummary profileSummaryProps={{
-                        viewProfileSummary: resumeDataProps?.profileSummary ?? '',
+                        viewProfileSummary: resumeDataProps?.profileSummary ?? {},
                         summaryMarginX: resumeProperties?.summaryMarginX ?? '',
                         summaryMarginY: resumeProperties?.summaryMarginY ?? '',
                         summaryLineHeight: resumeProperties?.summaryLineHeight ?? '',
@@ -35,7 +35,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* SKILLS SECTION */}
                     <Skills skillsProps={{
-                        viewSkills: resumeDataProps?.skills ?? '',
+                        viewSkills: resumeDataProps?.skills ?? {},
                         skillsPaddingL: resumeProperties?.skillsPaddingL ?? '',
                         skillsPaddingR: resumeProperties?.skillsPaddingR ?? '',
                         skillsPaddingT: resumeProperties?.skillsPaddingT ?? '',
@@ -44,7 +44,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* WORK EXPERIENCE SECTION */}
                     <WorkExperiences workExperiencesProps={{
-                        viewWorkExperiences: resumeDataProps?.workExperiences ?? '',
+                        viewWorkExperiences: resumeDataProps?.workExperiences ?? {},
                         experiencesHeadMarginT: resumeProperties?.experiencesHeadMarginT ?? '',
                         experiencesHeadMarginB: resumeProperties?.educationHeadMarginB ?? '',
                         experiencesHeadPaddingX: resumeProperties?.experiencesHeadPaddingX ?? '',
@@ -56,7 +56,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* EDUCATION SECTION */}
                     <Education educationProps={{
-                        viewEducationalBackground: resumeDataProps?.educationalBackground ?? '',
+                        viewEducationalBackground: resumeDataProps?.educationalBackground ?? {},
                         educationHeadMarginT: resumeProperties?.educationHeadMarginT ?? '',
                         educationHeadMarginB: resumeProperties?.educationHeadMarginB ?? '',
                         educationSubHeadMarginT: resumeProperties?.educationSubHeadMarginT ?? '',
@@ -70,7 +70,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* CERTIFICATION SECTION */}
                     <Certifications certificationsProps={{
-                        viewCertifications: resumeDataProps?.certifications ?? '',
+                        viewCertifications: resumeDataProps?.certifications ?? {},
                         certificationsPaddingL: resumeProperties?.certificationsPaddingL ?? '',
                         certificationsPaddingR: resumeProperties?.certificationsPaddingR ?? '',
                         certificationsPaddingT: resumeProperties?.certificationsPaddingT ?? '',
@@ -79,7 +79,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* PORTFOLIO SECTION */}
                     <Portfolio portfolioProps={{
-                        viewPortfolio: resumeDataProps?.portfolio ?? '',
+                        viewPortfolio: resumeDataProps?.portfolio ?? {},
                         portfolioPaddingL: resumeProperties?.portfolioPaddingL ?? '',
                         portfolioPaddingR: resumeProperties?.portfolioPaddingR ?? '',
                         portfolioPaddingT: resumeProperties?.portfolioPaddingT ?? '',
