@@ -11,14 +11,14 @@ function ProfileSummary({ profileSummaryProps }) {
     const profileSummary = resumeProfileSummaryStore(state => state.profileSummary)
 
     // Props
-    const { summaryMarginX, summaryMarginY, summaryLineHeight } = profileSummaryProps
+    const { viewProfileSummary, summaryMarginX, summaryMarginY, summaryLineHeight } = profileSummaryProps
     
     return (
         <>
             {viewingResume
                 ? (
                     <>
-                        {profileSummaryProps?.viewProfileSummary != ""
+                        {viewProfileSummary != ""
                             ? (
                                 <section className="w-full ">
                                     <div className="text-center font-bold my-1">
@@ -26,14 +26,14 @@ function ProfileSummary({ profileSummaryProps }) {
                                     </div>
                                     <div className="w-auto break-words text-center divide-x"
                                         style={{
-                                            'margin-left': profileSummaryProps?.summaryMarginX + 'rem',
-                                            'margin-right': profileSummaryProps?.summaryMarginX + 'rem',
-                                            'margin-top': profileSummaryProps?.summaryMarginY + 'rem',
-                                            'margin-bottom': profileSummaryProps?.summaryMarginY + 'rem',
-                                            'line-height': profileSummaryProps?.summaryLineHeight + 'rem',
+                                            'margin-left': summaryMarginX + 'rem',
+                                            'margin-right': summaryMarginX + 'rem',
+                                            'margin-top': summaryMarginY + 'rem',
+                                            'margin-bottom': summaryMarginY + 'rem',
+                                            'line-height': summaryLineHeight + 'rem',
                                         }}
                                     >
-                                        {profileSummaryProps?.viewProfileSummary}
+                                        {viewProfileSummary}
                                     </div>
                                 </section>
                             ) : null

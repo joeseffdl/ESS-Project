@@ -11,26 +11,26 @@ function Skills({ skillsProps }) {
     const userSkills = resumeSkillsStore(state => state.skills)
     
     // Props
-    const { skillsPaddingL, skillsPaddingR, skillsPaddingT, skillsPaddingB, } = skillsProps
+    const { viewSkills, skillsPaddingL, skillsPaddingR, skillsPaddingT, skillsPaddingB, } = skillsProps
     
     return (
         <>
             {viewingResume
                 ? (<>
-                    {skillsProps?.viewSkills != "" ? (
+                    {viewSkills != "" ? (
                         <section className="w-full pb-5">
                             <div className="text-center font-bold my-1">
                                 Skills
                             </div>
                             <div className="grid grid-cols-2 justify-center items-center ">
-                                {skillsProps?.viewSkills?.map((skill) => {
+                                {viewSkills?.map((skill) => {
                                     return (
                                         <ul className="flex list-disc list-inside"
                                             style={{
-                                                'padding-left': skillsProps?.skillsPaddingL + 'rem',
-                                                'padding-right': skillsProps?.skillsPaddingR + 'rem',
-                                                'padding-top': skillsProps?.skillsPaddingT + 'rem',
-                                                'padding-bottom': skillsProps?.skillsPaddingB + 'rem',
+                                                'padding-left': skillsPaddingL + 'rem',
+                                                'padding-right': skillsPaddingR + 'rem',
+                                                'padding-top': skillsPaddingT + 'rem',
+                                                'padding-bottom': skillsPaddingB + 'rem',
                                             }} key={skill}>
                                             <li>{skill}</li>
                                         </ul>

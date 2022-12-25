@@ -20,70 +20,70 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* PERSONAL INFORMATION SECTION */}
                     <PersonalInformation personalInfoProps={{
-                        viewPersonalInformation: resumeDataProps?.personalInformation ,
-                        headerFontSize: resumeProperties?.headerFontSize,
-                        headerLineHeight: resumeProperties?.headerLineHeight
+                        viewPersonalInformation: resumeDataProps?.personalInformation ?? '',
+                        headerFontSize: resumeProperties?.headerFontSize ?? '',
+                        headerLineHeight: resumeProperties?.headerLineHeight ?? ''
                     }} />
 
                     {/* PROFILE SUMMARY SECTION */}
                     <ProfileSummary profileSummaryProps={{
-                        viewProfileSummary: resumeDataProps?.profileSummary,
-                        summaryMarginX: resumeProperties?.summaryMarginX,
-                        summaryMarginY: resumeProperties?.summaryMarginY,
-                        summaryLineHeight: resumeProperties?.summaryLineHeight,
+                        viewProfileSummary: resumeDataProps?.profileSummary ?? '',
+                        summaryMarginX: resumeProperties?.summaryMarginX ?? '',
+                        summaryMarginY: resumeProperties?.summaryMarginY ?? '',
+                        summaryLineHeight: resumeProperties?.summaryLineHeight ?? '',
                     }} />
 
                     {/* SKILLS SECTION */}
                     <Skills skillsProps={{
-                        viewSkills: resumeDataProps?.skills,
-                        skillsPaddingL: resumeProperties?.skillsPaddingL,
-                        skillsPaddingR: resumeProperties?.skillsPaddingR,
-                        skillsPaddingT: resumeProperties?.skillsPaddingT,
-                        skillsPaddingB: resumeProperties?.skillsPaddingB,
+                        viewSkills: resumeDataProps?.skills ?? '',
+                        skillsPaddingL: resumeProperties?.skillsPaddingL ?? '',
+                        skillsPaddingR: resumeProperties?.skillsPaddingR ?? '',
+                        skillsPaddingT: resumeProperties?.skillsPaddingT ?? '',
+                        skillsPaddingB: resumeProperties?.skillsPaddingB ?? '',
                     }} />
 
                     {/* WORK EXPERIENCE SECTION */}
                     <WorkExperiences workExperiencesProps={{
-                        viewWorkExperiences: resumeDataProps?.workExperiences,
-                        experiencesHeadMarginT: resumeProperties?.experiencesHeadMarginT,
-                        experiencesHeadMarginB: resumeProperties?.educationHeadMarginB,
-                        experiencesHeadPaddingX: resumeProperties?.experiencesHeadPaddingX,
-                        experiencesDescriptionPaddingL: resumeProperties?.educationDescriptionPaddingL,
-                        experiencesDescriptionPaddingR: resumeProperties?.educationDescriptionPaddingR,
-                        experiencesDescriptionPaddingY: resumeProperties?.educationDescriptionPaddingY,
-                        experiencesMarginB: resumeProperties?.experiencesMarginB,
+                        viewWorkExperiences: resumeDataProps?.workExperiences ?? '',
+                        experiencesHeadMarginT: resumeProperties?.experiencesHeadMarginT ?? '',
+                        experiencesHeadMarginB: resumeProperties?.educationHeadMarginB ?? '',
+                        experiencesHeadPaddingX: resumeProperties?.experiencesHeadPaddingX ?? '',
+                        experiencesDescriptionPaddingL: resumeProperties?.educationDescriptionPaddingL ?? '',
+                        experiencesDescriptionPaddingR: resumeProperties?.educationDescriptionPaddingR ?? '',
+                        experiencesDescriptionPaddingY: resumeProperties?.educationDescriptionPaddingY ?? '',
+                        experiencesMarginB: resumeProperties?.experiencesMarginB ?? '',
                     }} />
 
                     {/* EDUCATION SECTION */}
                     <Education educationProps={{
-                        viewEducationalBackground: resumeDataProps?.educationalBackground,
-                        educationHeadMarginT: resumeProperties?.educationHeadMarginT,
-                        educationHeadMarginB: resumeProperties?.educationHeadMarginB,
-                        educationSubHeadMarginT: resumeProperties?.educationSubHeadMarginT,
-                        educationSubHeadMarginB: resumeProperties?.educationSubHeadMarginB,
-                        educationHeadPaddingX: resumeProperties?.educationHeadPaddingX,
-                        educationDescriptionPaddingL: resumeProperties?.educationDescriptionPaddingL,
-                        educationDescriptionPaddingR: resumeProperties?.educationDescriptionPaddingR,
-                        educationDescriptionPaddingY: resumeProperties?.educationDescriptionPaddingY,
-                        educationMarginB: resumeProperties?.educationHeadMarginB,
+                        viewEducationalBackground: resumeDataProps?.educationalBackground ?? '',
+                        educationHeadMarginT: resumeProperties?.educationHeadMarginT ?? '',
+                        educationHeadMarginB: resumeProperties?.educationHeadMarginB ?? '',
+                        educationSubHeadMarginT: resumeProperties?.educationSubHeadMarginT ?? '',
+                        educationSubHeadMarginB: resumeProperties?.educationSubHeadMarginB ?? '',
+                        educationHeadPaddingX: resumeProperties?.educationHeadPaddingX ?? '',
+                        educationDescriptionPaddingL: resumeProperties?.educationDescriptionPaddingL ?? '',
+                        educationDescriptionPaddingR: resumeProperties?.educationDescriptionPaddingR ?? '',
+                        educationDescriptionPaddingY: resumeProperties?.educationDescriptionPaddingY ?? '',
+                        educationMarginB: resumeProperties?.educationHeadMarginB ?? '',
                     }} />
 
                     {/* CERTIFICATION SECTION */}
                     <Certifications certificationsProps={{
-                        viewCertifications: resumeDataProps?.certifications,
-                        certificationsPaddingL: resumeProperties?.certificationsPaddingL,
-                        certificationsPaddingR: resumeProperties?.certificationsPaddingR,
-                        certificationsPaddingT: resumeProperties?.certificationsPaddingT,
-                        certificationsPaddingB: resumeProperties?.certificationsPaddingB,
+                        viewCertifications: resumeDataProps?.certifications ?? '',
+                        certificationsPaddingL: resumeProperties?.certificationsPaddingL ?? '',
+                        certificationsPaddingR: resumeProperties?.certificationsPaddingR ?? '',
+                        certificationsPaddingT: resumeProperties?.certificationsPaddingT ?? '',
+                        certificationsPaddingB: resumeProperties?.certificationsPaddingB ?? '',
                     }} />
 
                     {/* PORTFOLIO SECTION */}
                     <Portfolio portfolioProps={{
-                        viewPortfolio: resumeDataProps?.portfolio,
-                        portfolioPaddingL: resumeProperties?.portfolioPaddingL,
-                        portfolioPaddingR: resumeProperties?.portfolioPaddingR,
-                        portfolioPaddingT: resumeProperties?.portfolioPaddingT,
-                        portfolioPaddingB: resumeProperties?.portfolioPaddingB,
+                        viewPortfolio: resumeDataProps?.portfolio ?? '',
+                        portfolioPaddingL: resumeProperties?.portfolioPaddingL ?? '',
+                        portfolioPaddingR: resumeProperties?.portfolioPaddingR ?? '',
+                        portfolioPaddingT: resumeProperties?.portfolioPaddingT ?? '',
+                        portfolioPaddingB: resumeProperties?.portfolioPaddingB ?? '',
                     }} />
                 </div>
             </div>

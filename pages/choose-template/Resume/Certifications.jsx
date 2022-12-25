@@ -11,7 +11,7 @@ function Certifications({ certificationsProps }) {
     const userCertifications = resumeCertificationStore(state => state.certifications)
     
     // Props
-    const { certificationsPaddingL, certificationsPaddingR, certificationsPaddingT, certificationsPaddingB } = certificationsProps
+    const { viewCertifications, certificationsPaddingL, certificationsPaddingR, certificationsPaddingT, certificationsPaddingB } = certificationsProps
     
     return (
         <>
@@ -23,13 +23,13 @@ function Certifications({ certificationsProps }) {
                                 Certifications
                             </div>
                             <div className="mb-5 ">
-                                {certificationsProps?.viewCertifications?.map((cert) => {
+                                {viewCertifications?.map((cert) => {
                                     return (
                                         <ul className="flex list-disc list-inside" style={{
-                                            'padding-left': certificationsProps?.certificationsPaddingL + 'rem',
-                                            'padding-right': certificationsProps?.certificationsPaddingR + 'rem',
-                                            'padding-top': certificationsProps?.certificationsPaddingT + 'rem',
-                                            'padding-bottom': certificationsProps?.certificationsPaddingB + 'rem',
+                                            'padding-left': certificationsPaddingL + 'rem',
+                                            'padding-right': certificationsPaddingR + 'rem',
+                                            'padding-top': certificationsPaddingT + 'rem',
+                                            'padding-bottom': certificationsPaddingB + 'rem',
                                         }} key={cert}>
                                             <li>{cert}</li>
                                         </ul>

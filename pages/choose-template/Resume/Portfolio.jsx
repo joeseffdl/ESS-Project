@@ -11,26 +11,26 @@ function Portfolio({ portfolioProps }) {
     const userPortfolio = resumePortfolioStore(state => state.portfolio)
     
     // Props
-    const { portfolioPaddingL, portfolioPaddingR, portfolioPaddingT, portfolioPaddingB } = portfolioProps
+    const { viewPortfolio, portfolioPaddingL, portfolioPaddingR, portfolioPaddingT, portfolioPaddingB } = portfolioProps
     
     return (
         <>
             {viewingResume
                 ?
                 <>
-                    {portfolioProps?.viewPortfolio != "" ? (
+                    {viewPortfolio != "" ? (
                         <section className="w-full pb-5">
                             <div className="text-center font-bold my-1">
                                 Portfolio
                             </div>
                             <div className="mb-5 ">
-                                {portfolioProps?.viewPortfolio?.map((portfolio) => {
+                                {viewPortfolio?.map((portfolio) => {
                                     return (
                                         <ul className="flex list-disc list-inside" style={{
-                                            'padding-left': portfolioProps?.portfolioPaddingL + 'rem',
-                                            'padding-right': portfolioProps?.portfolioPaddingR + 'rem',
-                                            'padding-top': portfolioProps?.portfolioPaddingT + 'rem',
-                                            'padding-bottom': portfolioProps?.portfolioPaddingB + 'rem',
+                                            'padding-left': portfolioPaddingL + 'rem',
+                                            'padding-right': portfolioPaddingR + 'rem',
+                                            'padding-top': portfolioPaddingT + 'rem',
+                                            'padding-bottom': portfolioPaddingB + 'rem',
                                         }} key={portfolio}>
                                             <li>{portfolio}</li>
                                         </ul>

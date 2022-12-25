@@ -15,6 +15,7 @@ function WorkExperiences({ workExperiencesProps }) {
 
     // Props
     const {
+        viewWorkExperiences,
         experiencesHeadMarginT,
         experiencesHeadMarginB,
         experiencesHeadPaddingX,
@@ -92,14 +93,14 @@ function WorkExperiences({ workExperiencesProps }) {
                     {viewingResume
                         ? (<>
                             {
-                                workExperiencesProps?.viewWorkExperiences?.length > 0
+                                viewWorkExperiences?.length > 0
                                     ? (
                                         <section className="w-full relative">
                                             <div className="text-center font-bold my-1">
-                                                {workExperiencesProps?.viewWorkExperiences?.length > 1 ? "Work Experiences" : "Work Experience"}
+                                                {viewWorkExperiences?.length > 1 ? "Work Experiences" : "Work Experience"}
                                             </div>
                                             <div>
-                                                {workExperiencesProps?.viewWorkExperiences?.map((experience) => {
+                                                {viewWorkExperiences?.map((experience) => {
                                                     return (
                                                         <div className="flex flex-col " key={experience.title}>
                                                             <div className="flex items-center justify-center">
