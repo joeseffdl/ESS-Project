@@ -7,7 +7,7 @@ import Skills from "./Skills"
 import WorkExperiences from "./WorkExperiences"
 
 function OutputResume({ resumeDataProps, resumeProperties }) {
-
+    console.log(resumeDataProps?.personalInformation ?? {})
     return (
         <>
             <div className="h-full p-8">
@@ -20,14 +20,14 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* PERSONAL INFORMATION SECTION */}
                     <PersonalInformation personalInfoProps={{
-                        viewPersonalInformation: resumeDataProps?.personalInformation ?? {},
+                        viewPersonalInformation: resumeDataProps?.personalInformation ?? { viewPersonalInformation:''},
                         headerFontSize: resumeProperties?.headerFontSize ?? '',
                         headerLineHeight: resumeProperties?.headerLineHeight ?? ''
                     }} />
 
                     {/* PROFILE SUMMARY SECTION */}
                     <ProfileSummary profileSummaryProps={{
-                        viewProfileSummary: resumeDataProps?.profileSummary ?? {},
+                        viewProfileSummary: resumeDataProps?.profileSummary ?? { viewProfileSummary :''},
                         summaryMarginX: resumeProperties?.summaryMarginX ?? '',
                         summaryMarginY: resumeProperties?.summaryMarginY ?? '',
                         summaryLineHeight: resumeProperties?.summaryLineHeight ?? '',
@@ -35,7 +35,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* SKILLS SECTION */}
                     <Skills skillsProps={{
-                        viewSkills: resumeDataProps?.skills ?? {},
+                        viewSkills: resumeDataProps?.skills ?? { viewSkills :''},
                         skillsPaddingL: resumeProperties?.skillsPaddingL ?? '',
                         skillsPaddingR: resumeProperties?.skillsPaddingR ?? '',
                         skillsPaddingT: resumeProperties?.skillsPaddingT ?? '',
@@ -44,7 +44,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* WORK EXPERIENCE SECTION */}
                     <WorkExperiences workExperiencesProps={{
-                        viewWorkExperiences: resumeDataProps?.workExperiences ?? {},
+                        viewWorkExperiences: resumeDataProps?.workExperiences ?? { viewWorkExperiences :''},
                         experiencesHeadMarginT: resumeProperties?.experiencesHeadMarginT ?? '',
                         experiencesHeadMarginB: resumeProperties?.educationHeadMarginB ?? '',
                         experiencesHeadPaddingX: resumeProperties?.experiencesHeadPaddingX ?? '',
@@ -56,7 +56,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* EDUCATION SECTION */}
                     <Education educationProps={{
-                        viewEducationalBackground: resumeDataProps?.educationalBackground ?? {},
+                        viewEducationalBackground: resumeDataProps?.educationalBackground ?? { viewEducationalBackground :''},
                         educationHeadMarginT: resumeProperties?.educationHeadMarginT ?? '',
                         educationHeadMarginB: resumeProperties?.educationHeadMarginB ?? '',
                         educationSubHeadMarginT: resumeProperties?.educationSubHeadMarginT ?? '',
@@ -70,7 +70,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* CERTIFICATION SECTION */}
                     <Certifications certificationsProps={{
-                        viewCertifications: resumeDataProps?.certifications ?? {},
+                        viewCertifications: resumeDataProps?.certifications ?? { viewCertifications:''},
                         certificationsPaddingL: resumeProperties?.certificationsPaddingL ?? '',
                         certificationsPaddingR: resumeProperties?.certificationsPaddingR ?? '',
                         certificationsPaddingT: resumeProperties?.certificationsPaddingT ?? '',
@@ -79,7 +79,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
 
                     {/* PORTFOLIO SECTION */}
                     <Portfolio portfolioProps={{
-                        viewPortfolio: resumeDataProps?.portfolio ?? {},
+                        viewPortfolio: resumeDataProps?.portfolio ?? { viewPortfolio:''},
                         portfolioPaddingL: resumeProperties?.portfolioPaddingL ?? '',
                         portfolioPaddingR: resumeProperties?.portfolioPaddingR ?? '',
                         portfolioPaddingT: resumeProperties?.portfolioPaddingT ?? '',
