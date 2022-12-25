@@ -4,6 +4,10 @@ import { useEffect } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
 import { toast } from "react-toastify"
 import AppNavigation from "../../../components/AppNavigation"
+import OutputResume from "../../../components/BasicTemplate/OutputResume"
+import InputContainer from "../../../components/Resume/InputContainer"
+import InputTemplate from "../../../components/Resume/InputTemplate"
+import OutputTemplate from "../../../components/Resume/OutputTemplate"
 import ResumeCertifications from "../../../components/Resume/ResumeCertifications"
 import ResumeEducation from "../../../components/Resume/ResumeEducation"
 import ResumeExperience from "../../../components/Resume/ResumeExperience"
@@ -11,7 +15,6 @@ import ResumePortfolios from "../../../components/Resume/ResumePortfolios"
 import ResumeProfile from "../../../components/Resume/ResumeProfile"
 import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummary"
 import ResumeSkills from "../../../components/Resume/ResumeSkills"
-import TemplateContainer from "../../../components/TemplateContainer"
 import { auth, db } from "../../../utils/firebase"
 import { completedSteps, resumeDataStore } from "../../../utils/store"
 
@@ -19,7 +22,7 @@ function Resume() {
     // State Management
     const resumeData = resumeDataStore(state => state.resumeData)
     let step = completedSteps(state => state.steps)
-    
+
     // State functions
     const setResumeData = resumeDataStore(state => state.setResumeData)
     const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
@@ -50,8 +53,8 @@ function Resume() {
                     avatar: user.photoURL,
                     type: resumeType,
                     resumeData: {
-                        personalInformation:resumeData.personalInformation,
-                        workExperiences:resumeData.workExperiences,
+                        personalInformation: resumeData.personalInformation,
+                        workExperiences: resumeData.workExperiences,
                         educationalBackground: resumeData.educationalBackground,
                         skills: resumeData.skills,
                         certifications: resumeData.certifications,
@@ -74,12 +77,12 @@ function Resume() {
             const docSnap = await getDoc(docRef)
             const unsubscribe = setResumeData(docSnap.data().resumeData)
             const setInitial = setInitialResumeData(docSnap.data().resumeData)
-            return (unsubscribe,setInitial)
+            return (unsubscribe, setInitial)
         } catch (err) {
             console.log(err)
         }
     }
-    
+
     // Logged in?
     const getData = () => {
         if (loading) return;
@@ -155,15 +158,22 @@ function Resume() {
         } else {
             setCompletedSteps(1)
         }
-        
+
     }, [user, loading])
-    
+
     return (
         <>
-            <TemplateContainer>
-                {PageDisplay()}
-            </TemplateContainer>
-        </>            
+            <div className="w-full flex flex-col xl:flex-row">
+                <InputTemplate>
+                    <InputContainer>
+                        {PageDisplay()}
+                    </InputContainer>
+                </InputTemplate>
+                <OutputTemplate>
+                    <OutputResume />
+                </OutputTemplate>
+            </div>
+        </>
     )
 }
 
