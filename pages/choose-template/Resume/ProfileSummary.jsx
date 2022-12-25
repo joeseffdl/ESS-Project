@@ -26,11 +26,11 @@ function ProfileSummary({ profileSummaryProps }) {
                                     </div>
                                     <div className="w-auto break-words text-center divide-x"
                                         style={{
-                                            'margin-left': summaryMarginX + 'rem',
-                                            'margin-right': summaryMarginX + 'rem',
-                                            'margin-top': summaryMarginY + 'rem',
-                                            'margin-bottom': summaryMarginY + 'rem',
-                                            'line-height': summaryLineHeight + 'rem',
+                                            'margin-left': profileSummaryProps?.summaryMarginX + 'rem',
+                                            'margin-right': profileSummaryProps?.summaryMarginX + 'rem',
+                                            'margin-top': profileSummaryProps?.summaryMarginY + 'rem',
+                                            'margin-bottom': profileSummaryProps?.summaryMarginY + 'rem',
+                                            'line-height': profileSummaryProps?.summaryLineHeight + 'rem',
                                         }}
                                     >
                                         {profileSummaryProps?.viewProfileSummary}

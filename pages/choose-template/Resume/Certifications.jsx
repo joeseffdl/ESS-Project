@@ -26,10 +26,10 @@ function Certifications({ certificationsProps }) {
                                 {certificationsProps?.viewCertifications?.map((cert) => {
                                     return (
                                         <ul className="flex list-disc list-inside" style={{
-                                            'padding-left': certificationsPaddingL + 'rem',
-                                            'padding-right': certificationsPaddingR + 'rem',
-                                            'padding-top': certificationsPaddingT + 'rem',
-                                            'padding-bottom': certificationsPaddingB + 'rem',
+                                            'padding-left': certificationsProps?.certificationsPaddingL + 'rem',
+                                            'padding-right': certificationsProps?.certificationsPaddingR + 'rem',
+                                            'padding-top': certificationsProps?.certificationsPaddingT + 'rem',
+                                            'padding-bottom': certificationsProps?.certificationsPaddingB + 'rem',
                                         }} key={cert}>
                                             <li>{cert}</li>
                                         </ul>

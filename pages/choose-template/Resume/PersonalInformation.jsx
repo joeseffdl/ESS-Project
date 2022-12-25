@@ -19,8 +19,8 @@ function PersonalInformation({ personalInfoProps }) {
                 ? (
                     <section className="w-full ">
                         <div className="text-center font-semibold my-4 tracking-widest" style={{
-                            'font-size': headerFontSize + 'rem',
-                            'line-height': headerLineHeight + 'rem',
+                            'font-size': personalInfoProps?.headerFontSize + 'rem',
+                            'line-height': personalInfoProps?.headerLineHeight + 'rem',
                         }}>
                             {personalInfoProps?.viewPersonalInformation?.firstname || personalInfoProps?.viewPersonalInformation?.surname != "" ? `${personalInfoProps?.viewPersonalInformation?.firstname.toUpperCase()} ${personalInfoProps?.viewPersonalInformation?.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
                         </div>

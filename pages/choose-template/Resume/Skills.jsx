@@ -27,10 +27,10 @@ function Skills({ skillsProps }) {
                                     return (
                                         <ul className="flex list-disc list-inside"
                                             style={{
-                                                'padding-left': skillsPaddingL + 'rem',
-                                                'padding-right': skillsPaddingR + 'rem',
-                                                'padding-top': skillsPaddingT + 'rem',
-                                                'padding-bottom': skillsPaddingB + 'rem',
+                                                'padding-left': skillsProps?.skillsPaddingL + 'rem',
+                                                'padding-right': skillsProps?.skillsPaddingR + 'rem',
+                                                'padding-top': skillsProps?.skillsPaddingT + 'rem',
+                                                'padding-bottom': skillsProps?.skillsPaddingB + 'rem',
                                             }} key={skill}>
                                             <li>{skill}</li>
                                         </ul>

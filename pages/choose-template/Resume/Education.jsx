@@ -109,14 +109,14 @@ function Education({ educationProps }) {
                                                     <div className="flex flex-col " key={education.institutionName}>
                                                         <div className="flex items-center justify-center">
                                                             <div className="grid grid-flow-col auto-cols-max text-center divide-x" style={{
-                                                                'margin-top': educationHeadMarginT + 'rem',
-                                                                'margin-bottom': educationHeadMarginB + 'rem',
+                                                                'margin-top': educationProps?.educationHeadMarginT + 'rem',
+                                                                'margin-bottom': educationProps?.educationHeadMarginB + 'rem',
                                                             }}>
                                                                 {education.institutionName != ""
                                                                     ? (
                                                                         <div style={{
-                                                                            'padding-left': educationHeadPaddingX + 'rem',
-                                                                            'padding-right': educationHeadPaddingX + 'rem',
+                                                                            'padding-left': educationProps?.educationHeadPaddingX + 'rem',
+                                                                            'padding-right': educationProps?.educationHeadPaddingX + 'rem',
                                                                         }}>
                                                                             {education.institutionName}
                                                                         </div>
@@ -127,8 +127,8 @@ function Education({ educationProps }) {
                                                                         <>
                                                                             {education.institutionLocation != "" ?
                                                                                 <div style={{
-                                                                                    'padding-left': educationHeadPaddingX + 'rem',
-                                                                                    'padding-right': educationHeadPaddingX + 'rem',
+                                                                                    'padding-left': educationProps?.educationHeadPaddingX + 'rem',
+                                                                                    'padding-right': educationProps?.educationHeadPaddingX + 'rem',
                                                                                 }}>
                                                                                     {education.institutionLocation}
                                                                                 </div>
@@ -136,8 +136,8 @@ function Education({ educationProps }) {
                                                                             }
                                                                             {education.graduationYear || education.graduationMonth != "" ? (
                                                                                 <div style={{
-                                                                                    'padding-left': educationHeadPaddingX + 'rem',
-                                                                                    'padding-right': educationHeadPaddingX + 'rem',
+                                                                                    'padding-left': educationProps?.educationHeadPaddingX + 'rem',
+                                                                                    'padding-right': educationProps?.educationHeadPaddingX + 'rem',
                                                                                 }}>
                                                                                     {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
                                                                                 </div>
@@ -153,8 +153,8 @@ function Education({ educationProps }) {
                                                         {education.degreeType != ""
                                                             ? (
                                                                 <div className="text-center " style={{
-                                                                    'margin-top': educationSubHeadMarginT + 'rem',
-                                                                    'margin-bottom': educationSubHeadMarginB + 'rem',
+                                                                    'margin-top': educationProps?.educationSubHeadMarginT + 'rem',
+                                                                    'margin-bottom': educationProps?.educationSubHeadMarginB + 'rem',
                                                                 }}>
                                                                     <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
                                                                 </div>
@@ -163,14 +163,14 @@ function Education({ educationProps }) {
                                                         }
                                                         {education.description ? (
                                                             <div style={{
-                                                                'padding-left': educationDescriptionPaddingL + 'rem',
-                                                                'margin-bottom': educationMarginB + 'rem',
+                                                                'padding-left': educationProps?.educationDescriptionPaddingL + 'rem',
+                                                                'margin-bottom': educationProps?.educationMarginB + 'rem',
                                                             }}>
                                                                 {education.description?.map((detail) => {
                                                                     return (
                                                                         <ul className="flex list-disc list-inside" style={{
-                                                                            'padding-top': educationDescriptionPaddingY + 'rem',
-                                                                            'padding-bottom': educationDescriptionPaddingY + 'rem',
+                                                                            'padding-top': educationProps?.educationDescriptionPaddingY + 'rem',
+                                                                            'padding-bottom': educationProps?.educationDescriptionPaddingY + 'rem',
                                                                         }} key={detail}>
                                                                             <li>{detail}</li>
                                                                         </ul>
