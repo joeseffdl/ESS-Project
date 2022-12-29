@@ -15,7 +15,7 @@ export default function Home() {
           <div className="h-3/5 flex flex-col justify-end items-center 
             lg:w-1/2 lg:h-full lg:pt-0
             sm:justify-center sm:pt-24">
-            <div className="" >
+            <div className="text-neutral-focus" >
               <p className="lg:text-4xl text-4xl ">Oregen: <span className="md:text-xl text-2xl">Resume builder</span></p>
               <p className="lg:text-6xl text-5xl ">Your Professional <br />Journey Begins With Us!</p>
 
