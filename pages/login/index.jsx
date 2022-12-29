@@ -73,7 +73,7 @@ function Login({ defaultUser = {} }) {
                         </li> 
                     </ul>
             </nav>
-            <section className="w-full h-4/5 border-y-2 flex justify-center">
+            <section className="w-full h-4/5 border-t-2 md:border-y-2 flex justify-center">
                 {/* <div className="w-full h-full lg:flex hidden items-center justify-center">
                     <Image src={loginImage} alt="Login Image" className="object-cover rounded-lg" />
                 </div> */}
