@@ -3,14 +3,14 @@ import React from "react";
 function Footer() {
     return (
         <>
-            <section className="w-screen md:text-2xl font-bold">
+            <section className="w-screen text-sm md:text-xl lg:text-2xl font-bold ">
                 <div className="flex flex-cols-2">
-                    <div className="w-full flex flex-col justify-center text-primary-focus lg:p-12 md:p-8 p-4">
+                    <div className="w-full flex flex-col text-gray-900 justify-center lg:x-12 md:p-12 py-5 px-8">
                         <h3>GROUP 12</h3>
-                        <h4>Be Professional with ease over your</h4>
-                        <h4>Resume Profile</h4>
+                        <h4>Be Professional With Ease</h4>
+                        <h4>Over Your Resume Profile</h4>
                     </div>
-                    <div className="w-full flex flex-col justify-center px-5 text-accent bg-neutral-focus">
+                    <div className="w-full flex flex-col justify-center text-accent bg-neutral-focus lg:p-12 md:p-12 py-5 px-8">
                         <h3>Contact Us</h3>
                         <h4>T: 0969 420 5678</h4>
                         <h4>E: group12@test.com</h4>

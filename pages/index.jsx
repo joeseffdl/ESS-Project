@@ -6,30 +6,33 @@ import { auth } from "../utils/firebase"
 export default function Home() {
   // Handle user 
   const [user, loading] = useAuthState(auth)
-  
+
   return (
     <>
-      <main className="w-screen bg-neutral text-primary-focus p-20">
-        <section className="lg:my-12 md:my-24 my-28 md:flex md:flex-cols-2 font-bold">
-          <div className="md:w-1/2 flex flex-col justify-center"> 
-            <div >
-                <p className="lg:text-4xl text-3xl ">Oregen: <span className="md:text-2xl text-lg">Resume builder</span></p>
-                <p className="lg:text-6xl text-5xl ">Where your Professional Journey <br />begins with us!</p>
-              
-              <Link href={!user ? "/login" : "/choose-template" }>
-                  <button
-                    className="btn btn-outline btn-accent
+      <main className="w-screen text-gray-900 ">
+        {/* LANDING PAGE SECTION */}
+        <section className="lg:flex lg:flex-cols-2 h-screen font-extrabold px-10 xl:px-24">
+          <div className="h-3/5 flex flex-col justify-end items-center 
+            lg:w-1/2 lg:h-full lg:pt-0
+            sm:justify-center sm:pt-24">
+            <div className="" >
+              <p className="lg:text-4xl text-4xl ">Oregen: <span className="md:text-xl text-2xl">Resume builder</span></p>
+              <p className="lg:text-6xl text-5xl ">Your Professional <br />Journey Begins With Us!</p>
+
+              <Link href={!user ? "/login" : "/choose-template"}>
+                <button
+                  className="btn btn-outline btn-secondary
                       lg:btn-lg
                       border-4 rounded-full my-5
                       hover:bg-none hover:scale-105 transition ease-in-out hover:duration-300"
-                  >
-                    Generate now
-                  </button>
-                </Link>
-              </div>
-            </div>  
-            <div className="md:w-1/2 md:block hidden">
-              <div>
+                >
+                  Generate now
+                </button>
+              </Link>
+            </div>
+          </div>
+          <div className="h-2/5 lg:w-1/2 lg:h-full ">
+            <div className="h-full">
               {[
                 {
                   image: 'Sample',
@@ -38,16 +41,19 @@ export default function Home() {
                 }
               ].map((landing) => {
                 return (
-                  <div className="flex justify-center relative drop-shadow-xl p-5 rounded-xl my-10 bg-neutral-focus" key={landing.name}>
-                    <Image src={`/${landing.image}.jpg`} width={500} height={500} alt={`${landing.name} image`} className="object-cover rounded-lg" />        
+                  <div className="h-full flex justify-center items-center relative" key={landing.name}>
+                    {/* <Image src={`/${landing.image}.jpg`} fill alt={`${landing.name} image`} className="object-cover lg:rounded-br-full lg:rounded-bl-full lg:pb-10" /> */}
+                    <div className="w-full h-full bg-gradient-to-b from-primary-focus to-secondary-focus lg:rounded-br-full lg:rounded-bl-full lg:mb-10"></div>
                   </div>
                 )
               })}
             </div>
           </div>
         </section>
-        <section className="my-10 lg:h-screen lg:flex-row flex flex-col-reverse">
-          <div className="lg:w-1/2 lg:grid">
+
+        {/* FEATURES SECTION */}
+        <section className="bg-accent my-10 lg:h-screen lg:flex-row flex flex-col-reverse p-10 xl:pr-24 lg:py-0 lg:pl-0">
+          <div className="lg:w-1/2 carousel w-full">
             {[
               {
                 image: 'Sample',
@@ -57,89 +63,100 @@ export default function Home() {
               {
                 image: 'Sample',
                 name: 'Feature 2',
-                desc: `Generator`,
+                desc: 'Generator',
               },
             ].map((features) => {
               return (
-                <div className="card items-center drop-shadow-xl p-10 rounded-xl lg:my-5 my-10 bg-neutral-focus" key={features.name}>
-                    <div className="flex-1 relative w-full ">
-                        <Image src={`/${features.image}.jpg`} alt={`${features.name} image`} fill className="object-cover rounded-lg" />
+                <>
+                  <div id={features.name} className="carousel-item w-full " key={features.name}>
+                    {/* <Image src={`/${features.image}.jpg`} alt={`${features.name} image`} width={100} height={100} className="w-full object-cover" /> */}
+                    <div className="w-full h-full bg-gradient-to-tr from-accent-focus to-primary-focus lg:rounded-br-full lg:mb-10"></div>
+
+                    {/* <h2 className="card-title text-accent text-lg font-medium pt-8">
+                          { features.name }
+                      </h2>
+                      <p className="badge badge-secondary">
+                          { features.desc }
+                      </p> */}
                   </div>
-                  
-                    <h2 className="card-title text-accent text-lg font-medium pt-8">
-                        { features.name }
-                    </h2>
-                    <p className="badge badge-secondary">
-                        { features.desc }
-                    </p>
-                </div>
+                </>
               )
             })}
+            {/* <div className="w-full flex justify-center border-2 border-green-400 gap-2 p-2">
+              <a href="#Feature 1" className="btn btn-sm">1</a>
+              <a href="#Feature 2" className="btn btn-sm">2</a>
+            </div> */}
           </div>
           <div className="lg:w-1/2 lg:pl-20 flex flex-col justify-center">
-            <div >
-              <p className="text-secondary-focus lg:text-5xl text-4xl font-bold ">Features</p>
-              <p className="lg:text-2xl text-xl my-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga corrupti nesciunt eligendi sapiente laboriosam iusto, cum sit maxime, veniam dolorum cupiditate beatae quod. Repudiandae quod itaque saepe minus exercitationem a.</p>
-            </div>
+            <p className="text-primary-focus lg:text-5xl text-4xl font-extrabold">Features</p>
+            <p className="lg:text-2xl text-xl my-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga corrupti nesciunt eligendi sapiente laboriosam iusto, cum sit maxime, veniam dolorum cupiditate beatae quod. Repudiandae quod itaque saepe minus exercitationem a.</p>
           </div>
         </section>
-        <section className="lg:my-40 my-20">
+
+        {/* HISTORY SECTION */}
+        <section className="lg:my-40 my-20 px-10 xl:px-24">
           <div className="text-center">
-            <p className="text-3xl text-secondary-focus font-bold my-10">WHAT IS OREGEN <span className="text-base text-secondary font-semibold">A BRIEF HISTORY</span></p>
+            <p className="text-3xl text-primary-focus font-extrabold my-5">WHAT IS OREGEN <span className="text-base text-primary font-semibold">A BRIEF HISTORY</span></p>
             <p className="text-2xl ">Lorem ipsum dolor sit amet consectetur adipisicing elit. Fuga corrupti nesciunt eligendi sapiente laboriosam iusto, cum sit maxime, veniam dolorum cupiditate beatae quod. Repudiandae quod itaque saepe minus exercitationem a.</p>
-            
+
             <div className="btn-group py-5">
               <button className="btn btn-circle btn-outline ">&lt;</button>
               <button className="btn btn-circle btn-outline ">&gt;</button>
             </div>
           </div>
         </section>
-        <section className="lg:mt-40 my-20 ">
-          <p className="text-4xl text-center text-secondary-focus font-bold py-2">The Team</p>
+
+        {/* TEAM SECTION */}
+        <section className="flex flex-col justify-center bg-primary-focus lg:mt-40 mt-10 p-10 xl:px-24">
+          <p className="text-4xl text-center text-white font-extrabold py-2">The Team</p>
           <div className="lg:grid lg:grid-cols-3 gap-10">
-              {[
-                  {
-                      image: 'Sample',
-                      name: 'Lance Blas',
-                      desc: 'Developer',
-                      skills: ['Project Manager','Quality Assurance',]
-                  },
-                  {
-                      image: 'Sample',
-                      name: 'Joseph De Leon',
-                      desc: `Developer`,
-                      skills: ['Front-end','Back-end',]
-                  },
-                  {
-                      image: 'Sample',
-                      name: 'Daniel Vasquez',
-                      desc: 'Developer',
-                    skills: ['Front-end', 'Back-end',]
-                  },
-              ].map((team) => {
-                  return (
-                      <div className="card glass text-center drop-shadow-xl p-10 rounded-xl my-10 bg-neutral-focus" key={team.name}>
-                          <div className="grid place-content-center">
-                              <Image src={`/${team.image}.jpg`} width={100} height={100} alt={`${team.name} image`} className="object-cover rounded-full border-2 border-neutral/50" />
-                          </div>
-                          <p className="text-neutral text-lg font-medium pt-8 pb-2">
-                              { team.name }
-                          </p>
-                          <p className="text-slate-300 font-semibold py-2">
-                              { team.desc }
-                          </p>
-                          <ul>
-                              {team.skills.map((skill) => {
-                                  return (
-                                      <li className="badge badge-neutral text-accent font-semibold p-2 mx-1" key={skill}>
-                                          {skill}
-                                      </li>
-                                  )
-                              })}
-                          </ul>
-                      </div>
-                  )
-              })} 
+            {[
+              {
+                image: 'Sample',
+                name: 'Lance Blas',
+                desc: 'Developer',
+                skills: ['Project Manager', 'Quality Assurance',]
+              },
+              {
+                image: 'Sample',
+                name: 'Joseph De Leon',
+                desc: `Developer`,
+                skills: ['Front-end', 'Back-end',]
+              },
+              {
+                image: 'Sample',
+                name: 'Daniel Vasquez',
+                desc: 'Developer',
+                skills: ['Front-end', 'Back-end',]
+              },
+            ].map((team) => {
+              return (
+                <div className="card glass lg:flex-row bg-gray-500 p-5 my-5 duration-300 ease-in-out" key={team.name}>
+                  <div className="w-full flex justify-center items-center
+                      lg:w-1/2 lg:mr-10 lg:justify-end
+                      ">
+                    <Image src={`/${team.image}.jpg`} width={100} height={100} alt={`${team.name} image`}
+                      className="object-cover rounded-full border-2 border-gray-700 
+                        sm:rounded-xl" />
+                  </div>
+                  <div className="w-full flex flex-col items-center justify-center
+                  lg:items-start">
+                    <p className="text-neutral-focus text-2xl font-bold my-2">
+                      {team.name}
+                    </p>
+                    <ul>
+                      {team.skills.map((skill) => {
+                        return (
+                          <li className="badge badge-warning text-neutral-focus font-semibold mr-1" key={skill}>
+                            {skill}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                </div>
+              )
+            })}
           </div>
         </section>
       </main>
