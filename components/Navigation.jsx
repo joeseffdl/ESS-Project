@@ -26,7 +26,7 @@ function Navigation() {
     }, [])
     
     return (
-        <main className={`text-gray-900 fixed w-full transition-colors ease-in-out duration-150 min-h-20 z-50 
+        <main className={`text-gray-900 fixed w-full transition-colors ease-in-out duration-300 min-h-20 z-50 
                 ${scrollPosition > 0 || showNav ? 'bg-primary-focus text-white shadow-inner' : ''}`}>
             <nav className="py-8">
                 <div onClick={ () => setOpen(!open)} className="text-3xl absolute right-10 top-4 cursor-pointer md:hidden" >
@@ -44,7 +44,7 @@ function Navigation() {
                         ? (
                             <li className="hover:translate-x-2 ease-in-out duration-300 ">
                                 <Link href="/login">
-                                    <p className={`md:text-2xl text-xl text-secondary-focus font-bold ${scrollPosition > 0 ? 'text-secondary-content' : ''}`}>Login</p>
+                                    <p className={`md:text-2xl text-xl text-secondary-focus font-bold ${scrollPosition > 0 ? 'text-secondary-content ease-in-out duration-300' : ''}`}>Login</p>
                                 </Link>
                             </li>
                         )
@@ -52,7 +52,7 @@ function Navigation() {
                         (
                             <li className="hover:translate-x-2 ease-in-out duration-300 ">
                                 <Link href="/choose-template">
-                                    <p className={`md:text-2xl text-xl text-secondary-focus font-bold ${scrollPosition > 0 ? 'text-secondary-content' : ''}`}>Generate</p>
+                                    <p className={`md:text-2xl text-xl text-secondary-focus font-bold ${scrollPosition > 0 ? 'text-secondary-content ease-in-out duration-300' : ''}`}>Generate</p>
                                 </Link>
                         </li>
                         )
