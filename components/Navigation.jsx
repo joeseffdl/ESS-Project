@@ -24,8 +24,7 @@ function Navigation() {
         window.removeEventListener('scroll', handleScroll)
         }
     }, [])
-
-    console.log(scrollPosition)
+    
     return (
         <main className={`text-gray-900 fixed w-full transition-colors ease-in-out duration-150 min-h-20 z-50 
                 ${scrollPosition > 0 || showNav ? 'bg-primary-focus text-white shadow-inner' : ''}`}>
@@ -43,17 +42,17 @@ function Navigation() {
                     </li> 
                     {!user
                         ? (
-                            <li className="hover:translate-x-2 ease-in-out duration-300 font-semibold">
+                            <li className="hover:translate-x-2 ease-in-out duration-300 ">
                                 <Link href="/login">
-                                    <p className="md:text-2xl text-xl">Login</p>
+                                    <p className={`md:text-2xl text-xl text-secondary-focus font-bold ${scrollPosition > 0 ? 'text-secondary-content' : ''}`}>Login</p>
                                 </Link>
                             </li>
                         )
                         :
                         (
-                            <li className="hover:translate-x-2 ease-in-out duration-300 font-semibold">
+                            <li className="hover:translate-x-2 ease-in-out duration-300 ">
                                 <Link href="/choose-template">
-                                    <p className="md:text-2xl text-xl">Generate</p>
+                                    <p className={`md:text-2xl text-xl text-secondary-focus font-bold ${scrollPosition > 0 ? 'text-secondary-content' : ''}`}>Generate</p>
                                 </Link>
                         </li>
                         )

@@ -107,8 +107,8 @@ export default function Home() {
         </section>
 
         {/* TEAM SECTION */}
-        <section className="flex flex-col justify-center bg-primary-focus lg:mt-40 mt-10 p-10 xl:px-24">
-          <p className="text-4xl text-center text-white font-extrabold py-2">The Team</p>
+        <section className="flex flex-col justify-center bg-neutral lg:mt-40 mt-10 p-10 xl:px-24">
+          <p className="text-4xl text-center text-accent font-extrabold py-2">The Team</p>
           <div className="lg:grid lg:grid-cols-3 gap-10">
             {[
               {
@@ -131,7 +131,7 @@ export default function Home() {
               },
             ].map((team) => {
               return (
-                <div className="card glass lg:flex-row bg-gray-500 p-5 my-5 duration-300 ease-in-out" key={team.name}>
+                <div className="card glass lg:flex-row bg-neutral-focus p-5 my-5 duration-300 ease-in-out" key={team.name}>
                   <div className="w-full flex justify-center items-center
                       lg:w-1/2 lg:mr-10 lg:justify-end
                       ">
@@ -141,13 +141,13 @@ export default function Home() {
                   </div>
                   <div className="w-full flex flex-col items-center justify-center
                   lg:items-start">
-                    <p className="text-neutral-focus text-2xl font-bold my-2">
+                    <p className="text-accent-focus text-2xl font-extrabold my-2">
                       {team.name}
                     </p>
                     <ul>
                       {team.skills.map((skill) => {
                         return (
-                          <li className="badge badge-warning text-neutral-focus font-semibold mr-1" key={skill}>
+                          <li className="badge badge-accent text-neutral-focus font-semibold mr-1" key={skill}>
                             {skill}
                           </li>
                         )
