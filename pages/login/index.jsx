@@ -28,7 +28,13 @@ function Login({ defaultUser = {} }) {
     const GoogleLogin = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider)
-            router.push("/dashboard")
+            if (!loading) {
+                if (user?.metadata.createdAt == user?.metadata.lastLoginAt) {
+                    router.push("/dashboard")
+                } else {
+                    router.push("/resumes")
+                }
+            }
         }
         catch (err) {
             toast.error("Unauthenticated ☹️")
@@ -41,7 +47,13 @@ function Login({ defaultUser = {} }) {
     const GitHubLogin = async () => {
         try {
             const result = await signInWithPopup(auth, githubProvider)
-            router.push("/dashboard")
+            if (!loading) {
+                if (user?.metadata.createdAt == user?.metadata.lastLoginAt) {
+                    router.push("/dashboard")
+                } else {
+                    router.push("/resumes")
+                }
+            }
         }
         catch (err) {
             toast.error("Unauthenticated ☹️")
