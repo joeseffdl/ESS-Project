@@ -1,12 +1,15 @@
-import Image from "next/image";
+import { collection, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useAuthState } from "react-firebase-hooks/auth";
 import AppNavigation from "../../components/AppNavigation";
-import { auth } from "../../utils/firebase";
+import { auth, db } from "../../utils/firebase";
 function Account() {
     // Router
     const router = useRouter()
+
+    // States
+    const [resumeCount, setResumeCount] = useState(0) 
 
     // Handle user
     const [user, loading] = useAuthState(auth)
@@ -17,9 +20,22 @@ function Account() {
         if (!user) return router.push("/login")
     }
 
+    // Get Resume Count
+    const getResumeCount = async () => {
+        const collectionRef = collection(db, 'resumes')
+        const q = query(collectionRef, where("user", "==", user.uid), orderBy('createdOn', 'desc'))
+        const unsubscribe = onSnapshot(q, (snapshot) => { 
+            setResumeCount(snapshot.docs.length)
+        })
+        return unsubscribe
+    }
+
     // Get users data
     useEffect(() => {
         getData()
+        if (!loading) {
+            getResumeCount()
+        }
     }, [user,loading])
 
     return (
@@ -29,19 +45,9 @@ function Account() {
                 xl:w-2/5">
                 <div className="relative h-screen flex flex-col bg-white rounded-tl-full rounded-br-full border-y-8 border-secondary
                     sm:border-r-4 sm:border-y-4 sm:rounded-none ">
-                    {/* sm:mx-12 sm:rounded-none sm:border-none */}
-                    {/* xl:mx-24 xl:h-full */}
-                    <div className="h-fit w-full flex justify-center pt-10
-                        
-                        ">
-                        {/* sm:justify-end sm:h-1/3 */}
-                        <div className=" w-32 h-32 rounded-full  transparent border-4 border-secondary-focus p-1
-                            
-                            ">
-                            {/* sm:w-5/6 sm:rounded-none sm:rounded-tl-3xl sm:h-full sm:border-none sm:p-0 */}
-                            <img src={user?.photoURL} alt="Profile Picture" className="w-full rounded-full 
-                                " />
-                            {/* sm:rounded-none sm:rounded-tl-3xl sm:h-full */}
+                    <div className="h-fit w-full flex justify-center pt-10">
+                        <div className=" w-32 h-32 rounded-full  transparent border-4 border-secondary-focus p-1">
+                            <img src={user?.photoURL} alt="Profile Picture" className="w-full rounded-full " />
                         </div>
                     </div>
                     <h1 className="text-center text-neutral-focus text-3xl font-semibold mt-2 mb-1">
@@ -55,7 +61,7 @@ function Account() {
                         <div className="grid grid-rows-2 items-center justify-center font-semibold">
                             <h3 className="text-center">Resumes</h3>
                             <div className="text-center text-lg font-bold">
-                                0
+                                {resumeCount > 0 ? resumeCount : 0 }
                             </div>
                         </div>
                         <div className="grid grid-rows-2 items-center justify-center font-semibold">
