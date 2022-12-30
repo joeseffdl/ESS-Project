@@ -33,23 +33,25 @@ function Welcome() {
     }, [user, loading])
 
     return (
-        <section className="w-screen h-screen flex items-center">
-            <div className="w-full h-4/5 flex justify-center items-center">
-                <div className="lg:w-4/6 w-4/5 h-3/5 drop-shadow-lg rounded-lg bg-neutral-focus flex justify-center items-center">
-                    <div className="text-center p-5 ">
-                        <h2 className="font-bold xl:text-5xl md:text-4xl sm:text-3xl text-2xl pb-5">Welcome to Oregen!</h2>
-                        <p className="xl:text-2xl lg:px-5 md:text-xl sm:text-lg md:my-2">Lorem ipsum dolor sit amet consectetur adipisicing elit. Vel, consectetur sequi doloribus amet ratione qui iure nobis repudiandae nisi aut, sapiente excepturi dolore! Adipisci accusamus aspernatur eum vero nobis dolorem.</p>
-                        <Link href="../choose-template">
-                            <button
-                                className="btn btn-sm btn-outline btn-accent rounded-xl my-5
-                                xl:btn-lg sm:btn-md border-2 
-                                hover:scale-105 transition ease-in-out hover:duration-300"
-                            >
-                                Select a template
-                            </button>
-                        </Link>
+        <section className="bg-gradient-to-t from-neutral-content to-primary h-screen">
+            <div className="h-5/6 flex justify-center items-center">
+                <div className="w-full flex flex-col items-center justify-center">
+                    <div className="text-3xl text-white text-center font-extrabold px-6 leading-snug
+                        md:text-5xl
+                        lg:px-5 lg:text-6xl">
+                        Lorem ipsum dolor sit <br />amet consectetur adipisicing elit.
                     </div>
+                    <Link href="../choose-template">
+                        <button
+                            className="flex items-center justify-center font-bold text-sm text-neutral-focus bg-accent-focus rounded-xl mt-5 p-2
+                                md:text-lg md:mt-10 md:p-4
+                                hover:scale-105 transition ease-out hover:duration-150 hover:text-secondary-focus hover:bg-transparent hover:border-2 hover:border-secondary-focus"
+                        >
+                            Select a template
+                        </button>
+                    </Link>
                 </div>
+
             </div>
             <Confetti
                 gravity={0.2}

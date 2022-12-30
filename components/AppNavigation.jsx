@@ -18,21 +18,24 @@ function AppNavigation() {
     ];
 
     return (
-        <main className="text-primary shadow-xl w-full top-0 left-0 border-b-2 border-secondary-focus/75">
-            <nav className="flex items-center justify-between bg-neutral py-5 px-10 font-bold">
-                <div className="font-bold text-2xl cursor-pointer flex items-center">
-                    <div className="flex items-center"><Link href="/" className="text-primary hover:text-primary-focus">Oregen</Link> <span className="hidden md:block mt-2 ml-5 text-sm">Resume Template Builder</span></div>
+        <main className="text-white shadow-xl w-screen ">
+            <nav className="flex items-center justify-between bg-gradient-to-b from-neutral-content to-primary py-8 px-10 xl:px-24 font-bold">
+                <div className="font-bold h-10 text-2xl cursor-pointer flex items-end">
+                    <div className="flex items-end"><Link href="/" className="md:text-4xl text-3xl font-extrabold hover:text-neutral-focus">Oregen</Link> <span className="hidden md:block ml-2 text-sm">Resume Template Builder</span></div>
                 </div>
                 <div onClick={ () => setOpen(!open)} className="text-3xl cursor-pointer md:hidden" >
                     <span>
                         { open ? <AiOutlineClose /> : <AiOutlineMenu /> }
                     </span>
                 </div>
-                <ul className={`md:flex md:items-center md:pb-0 md:z-auto md:pl-0 md:w-auto pb-5 absolute md:static md:border-none bg-neutral left-0 w-full border-b-2 transition-all duration-150 ease-in ${ open ? "top-16 z-50" : "hidden"}`}>
+                <ul className={`h-10  pb-5 absolute left-0 w-full transition-all duration-150 ease-in
+                    md:flex md:items-end md:pb-0 md:z-auto md:pl-0 md:w-auto md:static
+                    ${open ? "top-16 z-50" : "hidden"}`}>
                     {
                         Links.map((link)=>(
-                            <li key={link.name} className='md:ml-8 text-xl md:mt-0 md:border-none md:px-0 md:pt-0 mt-5 pt-3 border-t-2 border-neutral-focus px-10'>
-                                <Link href={link.link} className='md:text-primary md:hover:text-primary-focus text-accent hover:text-accent-focus duration-150'>
+                            <li key={link.name} className='text-2xl mt-5 pt-3 px-10
+                                md:ml-8 md:mt-0 md:border-none md:px-0 md:pt-0 '>
+                                <Link href={link.link} className='md:hover:text-neutral hover:text-accent-focus duration-150'>
                                     {link.name}
                                 </Link>
                             </li>
@@ -41,15 +44,16 @@ function AppNavigation() {
                     {user
                         ? (
                             <>
-                                <li key={user} className='md:ml-8 text-xl md:mt-0 md:border-none md:px-0 md:pt-0 mt-5 pt-3 border-t-2 border-neutral-focus px-10'>
-                                    <Link href="/" className='md:text-primary md:hover:text-primary-focus text-accent hover:text-accent-focus duration-150'>
+                                <li key={user} className='text-2xl mt-5 pt-3 px-10
+                                    md:ml-8 md:mt-0 md:border-none md:px-0 md:pt-0 '>
+                                    <Link href="/" className='md:hover:text-neutral hover:text-accent-focus duration-150'>
                                         <button onClick={() => auth.signOut()}>Sign out</button>
                                     </Link>
                                 </li>
                             </>
                         )
                         : null
-                 }
+                }
                 </ul>
             </nav>
         </main>
