@@ -18,7 +18,7 @@ function Templates() {
         if (loading) return;
         if (!user) return router.push("/login")
     }
-
+    
     // Get users data
     useEffect(() => {
         getData()
@@ -37,46 +37,42 @@ function Templates() {
     ]
 
     return (
-        <section className="w-screen">
-            <section className="flex flex-col">
-                <div className="h-32 flex items-center justify-center font-bold">
-                    <h2 className="lg:text-4xl sm:text-3xl text-2xl text-secondary">Gallery - Academic Journal</h2>
+        <section className="w-screen bg-gradient-to-t from-neutral to-primary">
+            <section className="flex flex-col pb-16">
+                {/* <div className="border-4 border-accent bg-neutral-focus mx-10 pb-20 mb-20 drop-shadow-md rounded-xl
+                sm:px-10 md:mx-12 "> */}
+                <div className="h-32 flex items-center justify-center font-extrabold">
+                    <h2 className="lg:text-4xl sm:text-3xl text-2xl text-gray-900">Gallery - Academic Journal</h2>
                 </div>
-                <div className="border-4 border-primary bg-neutral mx-10 mb-20 py-10 drop-shadow-md rounded-xl
-                sm:px-10 md:mx-12 lg:py-20">
-                    <div className="
-                        w-full
-                        grid justify-items-center 
-                        gap-10 md:gap-16   
-                        sm:grid-cols-2 lg:grid-cols-3
-                        ">
-                        {templates.map((template) => {
-                            return (
-                                <>
-                                    <Link href={`${template.route}`} >
-                                        <div className="card image-full hover:border-secondary hover:border hover:scale-105 ease-in-out duration-150
-                                            mx-10 rounded-xl drop-shadow-xl
-                                            w-60 h-60 sm:w-68 sm:h-68 md:w-72 md:h-72 xl:w-80 xl:h-80"
+                <div className="w-full flex flex-wrap justify-center gap-10 
+                    lg:px-8">
+                    {templates.map((template) => {
+                        return (
+                            <>
+                                <Link href={`${template.route}`} >
+                                    <div className="mx-auto drop-shadow-xl w-72 h-96"
                                         key={template.name}>
-                                            <Image
-                                                className="object-cover rounded-xl border-2 border-secondary " 
-                                                src={`/${template.image}.jpg`}
-                                                alt={`${template.name} image`}
-                                                fill
-                                            />
+                                        {/* h-64 sm:w-68 sm:h-68 md:w-72 md:h-72 xl:w-80 xl:h-80 */}
+                                        {/* <Image
+                                            className="object-cover rounded-xl border-2 border-accent hover:border-accent-focus hover:scale-105 ease-in-out duration-150" 
+                                            src={`/${template.image}.jpg`}
+                                            alt={`${template.name} image`}
+                                            height={100}
+                                            width={75}
+                                        /> */}
+                                        <div className="w-full h-full bg-gradient-to-b from-primary-focus to-secondary-focus rounded-xl border-2 border-accent hover:border-accent-focus hover:scale-105 ease-in-out duration-150">
                                             <div className="card-body">
                                                 <h2 className="card-title justify-center">{template.name}</h2>
                                             </div>
                                         </div>
-                                    </Link>
-                                </>
-                            )
-                        })}
-                    </div>
-                    {/* <div className="mt-10 mx-auto ">
-                        <button className="btn btn-outline btn-accent">Create first project</button>
-                    </div> */}
+
+                                    </div>
+                                </Link>
+                            </>
+                        )
+                    })}
                 </div>
+                {/* </div> */}
             </section>
         </section>
     )
