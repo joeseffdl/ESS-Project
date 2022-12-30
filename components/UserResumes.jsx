@@ -2,7 +2,7 @@
 function UserResumes({ children, type, id, username, createdOn }) {
     return (
         <div className="flex justify-between md:grid md:grid-cols-3 items-center font-semibold text-sm text-neutral-focus my-2 py-2 pl-2
-            sm:text-base md:text-lg lg:text-xl hover:bg-accent/50 rounded-lg ">
+            sm:text-base md:text-lg lg:text-xl rounded-lg ">
             <div className="">{type}</div>
             <div className="col-span-2 w-1/2 md:w-full">
                 <ul className="flex justify-center items-center md:grid md:grid-cols-3 md:justify-items-center gap-1" key={id}>

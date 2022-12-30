@@ -62,39 +62,38 @@ function YourResumes() {
 
     return (
         <section className="w-full flex justify-center items-center">
-            <section className="w-1/3 h-screen hidden mx-5 my-10 p-5 bg-neutral-focus rounded-xl
-                sm:flex sm:flex-col items-center sm:mr-0
-                md:w-1/4 md:ml-10
-                lg:w-1/5"
+            <section className="hidden w-full h-screen p-5 bg-primary
+                sm:w-2/5 sm:flex sm:flex-col items-center 
+                md:w-1/3
+                lg:w-1/4
+                xl:w-1/5"
             >
-                <div className="btn btn-secondary btn-outline my-3 w-full">
+                <div className="btn btn-neutral rounded-xl border-1 border-neutral btn-outline my-3 w-full font-semibold">
                     <Link href={`${Links[0].template}`}>
                         New Resume
                     </Link>
                 </div>
-                <div className="btn btn-secondary btn-outline my-1 w-full">
+                <div className="btn btn-neutral rounded-xl border-1 border-neutral btn-outline my-1 w-full font-semibold">
                     <Link href={`${Links[0].resumes}`}>
                         All Resumes
                     </Link>
                 </div>
                 <div
                     disabled={userResumes.length == 0}
-                    className="btn btn-secondary  my-1 w-full">
+                    className="btn btn-accent rounded-xl border-1 border-neutral my-1 w-full font-semibold">
                     <Link href={`${Links[0].yourResumes}`}>
                         Your Resumes {userResumes.length >= 1 ? (`(${userResumes.length})`) : null}
                     </Link>
                 </div>
             </section>
-            <section className="w-full h-screen mx-5 my-10 p-5 bg-neutral-focus rounded-xl
-                sm:w-2/3 
-                md:3/4 md:mr-10 md:p-10
-                lg:w-4/5"
+            <section className="w-full h-screen p-5 
+                sm:w-full
+                md:p-10"
             >
-                <h2 className="text-white text-xl font-bold p-2
+                <h2 className="text-neutral-focus text-xl font-bold p-2
                     sm:text-2xl sm:mt-5
                     md:text-3xl md:mb-5
-                    lg:text-4xl"
-                >
+                    lg:text-4xl">
                     Your Resumes
                 </h2>
                 <div className="bg-white p-5 rounded-2xl divide-y-2">
