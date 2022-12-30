@@ -34,7 +34,7 @@ function Navigation() {
                         { open ? <AiOutlineClose /> : <AiOutlineMenu /> }
                     </span>
                 </div>
-                <ul className={`px-10 ${scrollPosition >= 900 ? 'md:w-full duration-300 ease-in-out' : scrollPosition <= 900 ? 'duration-300 ease-in-out' : ''} md:w-1/2 md:flex md:items-end md:justify-between xl:px-24 ${ open ? "block mt-10 md:mt-0" : "hidden"}`}>
+                <ul className={`px-10 ${scrollPosition > 900 ? 'md:w-full duration-300 ease-in-out' : 'md:w-1/2 duration-300 ease-in-out'} md:flex md:items-end md:justify-between xl:px-24 ${ open ? "block mt-10 md:mt-0" : "hidden"}`}>
                     <li className="hover:translate-x-2 md:hover:-translate-x-2 ease-in-out duration-300">
                         <Link href="/">
                             <p className="md:text-4xl text-3xl font-extrabold">Oregen</p>
