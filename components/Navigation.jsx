@@ -24,7 +24,7 @@ function Navigation() {
         window.removeEventListener('scroll', handleScroll)
         }
     }, [])
-    console.log(scrollPosition)
+    
     return (
         <main className={`text-gray-900 fixed w-full transition-colors ease-in-out duration-300 min-h-20 z-50 
                 ${scrollPosition > 0 || showNav ? 'bg-primary-focus text-white shadow-inner' : ''}`}>
