@@ -6,7 +6,7 @@ function InputResume({ children }) {
 
     return (
         <>
-            <div className="w-full h-24 flex justify-center items-center bg-neutral shadow-2xl rounded-xl border-2 border-accent-focus/75 ">
+            <div className="w-full h-24 flex justify-center items-center bg-primary-focus/75 shadow-2xl rounded-xl border-2 border-accent-focus ">
                 <ul className="steps text-xs">
                     <li className="step step-accent">🤵</li>
                     <li className={`step ${step >= 2 ? "step-accent" : null}`}>💼</li>
@@ -17,7 +17,7 @@ function InputResume({ children }) {
                     <li className={`step ${step >= 7 ? "step-accent" : null}`}>🕸️</li>
                 </ul>
             </div>
-            <div className="w-full h-full flex justify-center p-5 bg-neutral-focus shadow-2xl rounded-xl">
+            <div className="w-full h-full flex justify-center p-5 bg-primary-focus/90 border-2 border-accent-focus shadow-2xl rounded-xl">
                 {children}
             </div>
         </>

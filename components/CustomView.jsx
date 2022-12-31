@@ -788,14 +788,14 @@ function CustomView(props) {
     }
 
     return (
-        <div className="xl:w-1/3 p-5 bg-neutral-focus drop-shadow-xl">
-            <div className="w-full h-full flex flex-col justify-center bg-neutral-content rounded text-black">
+        <div className="xl:w-1/3 p-5 bg-primary border-t-2 border-l-2 border-secondary-focus drop-shadow-xl">
+            <div className="w-full h-full flex flex-col justify-center bg-primary-focus/50 rounded text-black">
                 <FormWindow formTitle={"Resume Properties"}>
                     {renderPropertiesPage()}
                 </FormWindow>
                 <div className="h-full flex items-end justify-around drop-shadow-2xl pb-6">
-                    <button disabled={propertiesPage == 1} className="btn border-2 border-primary text-primary font-bold hover:text-accent hover:border-accent" onClick={previousPage}>&#60;</button>
-                    <button disabled={propertiesPage == 3} className="btn border-2 border-primary text-primary font-bold hover:text-accent hover:border-accent" onClick={nextPage}>&#62;</button>
+                    <button disabled={propertiesPage == 1} className="btn btn-secondary border-2 border-white text-white font-bold hover:text-accent hover:border-accent" onClick={previousPage}>&#60;</button>
+                    <button disabled={propertiesPage == 3} className="btn btn-secondary border-2 border-white text-white font-bold hover:text-accent hover:border-accent" onClick={nextPage}>&#62;</button>
                 </div>
             </div>
         </div>
