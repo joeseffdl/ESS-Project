@@ -142,8 +142,8 @@ function Resume() {
             return (
                 <>
                     <div className="w-full flex flex-col gap-5">
-                        <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                        <button type="submit" className="btn btn-sm sm:btn-md btn-outline" onClick={submitResume}>{routeID ? "View Resume" : "Save Resume"}</button>
+                        <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
+                        <button type="submit" className="btn btn-sm sm:btn-md btn-accent" onClick={submitResume}>{routeID ? "View Resume" : "Save Resume"}</button>
                     </div>
                 </>
             )

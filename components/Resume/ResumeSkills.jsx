@@ -79,8 +79,8 @@ function ResumeSkills() {
                 onChange={handleChange}
             />
             <div className="w-full flex flex-col sm:justify-between gap-5">
-                <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.skills, resumeData.skills)) ? "Update" : "Continue"}</button>
+                <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
+                <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.skills, resumeData.skills)) ? "Update" : "Continue"}</button>
             </div>
         </FormWindow>
     )
