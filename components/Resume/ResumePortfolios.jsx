@@ -123,9 +123,9 @@ function ResumePortfolios() {
                 onChange={handleChange}
             />
             <div className="w-full flex flex-col sm:justify-between gap-5">
-                <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.portfolio, resumeData.portfolio)) ? "Update" : "Continue"}</button>
-                <button className=" btn btn-sm sm:btn-md btn-outline" onClick={skipSection}>Skip this Section</button>
+                <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
+                <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.portfolio, resumeData.portfolio)) ? "Update" : "Continue"}</button>
+                <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={skipSection}>Skip this Section</button>
             </div>
         </FormWindow>
     )

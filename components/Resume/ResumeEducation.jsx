@@ -467,9 +467,9 @@ function ResumeEducation() {
                     }
                 </div>
                 <div className="w-full flex flex-col sm:justify-between gap-5">
-                    <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
-                    <button className=" btn btn-sm sm:btn-md btn-outline" onClick={toSkillsSection}>Skip to Skills Section</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
+                    <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toSkillsSection}>Skip to Skills Section</button>
                 </div>
             </FormWindow>
         )
@@ -486,8 +486,8 @@ function ResumeEducation() {
                 />
 
                 <div className="w-full flex flex-col sm:justify-between gap-5">
-                    <button className="btn btn-sm sm:btn-md btn-outline" onClick={toEducationForm}>Back</button>
-                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toEducationForm}>Back</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
                 </div>
             </FormWindow>
         )
@@ -497,9 +497,9 @@ function ResumeEducation() {
             <FormWindow onSubmit={toResumeSkills} formTitle="Preview Educational Attainment" >
 
                 <div className="w-full flex flex-col sm:justify-between gap-5">
-                    <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-                    <button className="btn btn-sm sm:btn-md btn-outline" onClick={addMoreEducation}>Add Education</button>
-                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={addMoreEducation}>Add Education</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">Continue</button>
                 </div>
             </FormWindow>
         )
