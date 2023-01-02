@@ -315,8 +315,8 @@ function ResumeExperience() {
               {router.query.id
                 ? <div className="w-full flex justify-end gap-5 mt-3 px-2">
                     <button className=" btn btn-xs btn-error btn-outline" disabled={ resumeData.workExperiences.length <= 1 && resumeData.workExperiences[0].title == "" && resumeData.workExperiences[0].employer == ""} onClick={deleteIndex}>☠️</button>
-                    <button className=" btn btn-xs btn-outline" disabled={ indexValue == 0} onClick={decrementIndex}>&#60;</button>
-                    <button className=" btn btn-xs btn-outline" disabled={ indexValue == resumeData.workExperiences.length - 1 } onClick={incrementIndex}>&#62;</button>
+                  <button className=" btn btn-xs btn-outline btn-accent" disabled={ indexValue == 0} onClick={decrementIndex}>&#60;</button>
+                  <button className=" btn btn-xs btn-outline btn-accent" disabled={ indexValue == resumeData.workExperiences.length - 1 } onClick={incrementIndex}>&#62;</button>
                   </div>
                 : <>
                     {/* <div className="w-full flex justify-end gap-5 mt-3 px-2">
@@ -331,9 +331,9 @@ function ResumeExperience() {
         </div>
         
         <div className="w-full flex flex-col sm:justify-between gap-5">
-          <button className=" btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-          <button type="submit" className=" btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
-          <button className=" btn btn-sm sm:btn-md btn-outline" onClick={skipSection}>Skip to Education Section</button>
+          <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
+          <button type="submit" className=" btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
+          <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={skipSection}>Skip to Education Section</button>
         </div>
       </FormWindow>
     )
@@ -350,8 +350,8 @@ function ResumeExperience() {
           onChange={handleTextAreaChange}
         />
         <div className="w-full flex flex-col sm:justify-between gap-5">
-          <button className="btn btn-sm sm:btn-md btn-outline" onClick={toExperienceForm}>Back</button>
-          <button type="submit" className="btn btn-sm sm:btn-md btn-outline">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
+          <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toExperienceForm}>Back</button>
+          <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
         </div>
       </FormWindow>
     )
@@ -361,9 +361,9 @@ function ResumeExperience() {
       <FormWindow onSubmit={toResumeEducation} formTitle="Want to add more work experience?" >
         
         <div className="w-full flex flex-col sm:justify-between gap-5">
-          <button className="btn btn-sm sm:btn-md btn-outline" onClick={toPreviousPage}>Back</button>
-          <button className="btn btn-sm sm:btn-md btn-outline" onClick={addMoreExperience}>Add Experience</button>
-          <button type="submit" className="btn btn-sm sm:btn-md btn-outline">Continue</button>
+          <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
+          <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={addMoreExperience}>Add Experience</button>
+          <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">Continue</button>
         </div>
       </FormWindow>
     )
