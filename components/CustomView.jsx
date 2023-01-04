@@ -108,7 +108,7 @@ function CustomView(props) {
                 <div className="w-full flex flex-col gap-2 px-5 mb-5">
                     <label className="label justify-center text-sm font-semibold" >Document Formatting</label>
                     <select
-                        className="select text-xs bg-white"
+                        className="select rounded-lg text-xs bg-white"
                         name="template"
                         onChange={handleChange}
                     >
@@ -125,7 +125,7 @@ function CustomView(props) {
                     </select>
 
                     <select
-                        className="select text-xs bg-white"
+                        className="select rounded-lg text-xs bg-white"
                         name="textColor"
                         onChange={handleChange}
                     >
@@ -141,7 +141,7 @@ function CustomView(props) {
                         }
                     </select>
                     <select
-                        className="select text-xs bg-white"
+                        className="select rounded-lg text-xs bg-white"
                         name="fontFamily"
                         onChange={handleChange}
                     >
@@ -544,7 +544,7 @@ function CustomView(props) {
                         <label className="w-full relative flex items-center justify-between text-xs font-semibold">Description X:
                             <input
                                 className="absolute w-1/2 left-20 top-0.5"
-                                name="DescriptionPaddingL"
+                                name="educationDescriptionPaddingL"
                                 type="range"
                                 min="0"
                                 max="40"
@@ -788,7 +788,7 @@ function CustomView(props) {
     }
 
     return (
-        <div className="xl:w-1/3 p-5 bg-primary border-t-2 border-l-2 border-secondary-focus drop-shadow-xl">
+        <div className="xl:w-1/3 p-5 bg-primary border-t-2 border-secondary-focus drop-shadow-xl">
             <div className="w-full h-full flex flex-col justify-center bg-primary-focus/50 rounded text-black">
                 <FormWindow formTitle={"Resume Properties"}>
                     {renderPropertiesPage()}

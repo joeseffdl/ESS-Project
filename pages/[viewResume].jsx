@@ -1,12 +1,14 @@
 import { doc, getDoc } from "firebase/firestore"
 import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
+import { useEffect, useState, useRef } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
 import AppNavigation from "../components/AppNavigation"
 import CustomView from "../components/CustomView"
 import OutputTemplate from "../components/Resume/OutputTemplate"
 import OutputResume from "../components/BasicTemplate/OutputResume"
 import { auth, db } from "../utils/firebase"
+import { GrDocumentPdf } from 'react-icons/gr'
+import { useReactToPrint } from 'react-to-print'
 
 function View() {
     // Router
@@ -42,6 +44,7 @@ function View() {
     const getDataFromCustomView = (data) => {
         setResumeProperties(data)
     }
+
     // Display according to template
     const displayTemplate = (data) => {
         // Check the type/template of the resume document
@@ -50,16 +53,25 @@ function View() {
         )
     }
 
+    // Print as PDF
+    const componentRef = useRef()
+    const handlePrint = useReactToPrint({
+        content: () => componentRef.current,
+    })
+
     useEffect(() => {
         getData()
         getResumeData(routeDataID)
     }, [user, loading])
 
     return (
-        <div className="w-full flex flex-col xl:flex-row">
-            <OutputTemplate>
-                {displayTemplate()}
-            </OutputTemplate>
+        <div className="w-full flex flex-col xl:flex-row" >
+            <div className={`bg-primary border-t-2 border-secondary-focus w-full p-5 ${routeDataID ? 'flex' : 'hidden'} lg:flex justify-center`}>
+                <div className="w-[8.5in] h-[11in]  bg-white  text-black" ref={componentRef}>
+                    {displayTemplate()}
+                </div>
+            </div>
+            <button className="p-2.5 bg-secondary border-t-2 border-x-2 border-secondary-focus text-2xl font-bold hover:text-accent hover:border-x-white" onClick={handlePrint}><GrDocumentPdf /></button>
             {!loading && (user.uid == resumeDocument.user)
                 ? <CustomView dataFromCustomView={getDataFromCustomView} />
                 : ''
