@@ -1,5 +1,7 @@
 import { doc, getDoc } from "firebase/firestore"
-import { useRouter } from "next/router"
+import _ from "lodash";
+import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 import { useEffect, useState, useRef } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
 import AppNavigation from "../components/AppNavigation"
@@ -57,6 +59,8 @@ function View() {
     const componentRef = useRef()
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
+        documentTitle: 'untitled',
+        onAfterPrint: () => toast.success("File downloaded 🎉")
     })
 
     useEffect(() => {
@@ -71,7 +75,7 @@ function View() {
                     {displayTemplate()}
                 </div>
             </div>
-            <button className="p-2.5 bg-secondary border-t-2 border-x-2 border-secondary-focus text-2xl font-bold hover:text-accent hover:border-x-white" onClick={handlePrint}><GrDocumentPdf /></button>
+            <button disabled={_.isEmpty(resumeDocument)} className="p-2.5 bg-secondary border-t-2 border-x-2 border-secondary-focus text-2xl font-bold" onClick={handlePrint}><GrDocumentPdf /></button>
             {!loading && (user.uid == resumeDocument.user)
                 ? <CustomView dataFromCustomView={getDataFromCustomView} />
                 : ''
