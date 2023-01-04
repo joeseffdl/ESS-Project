@@ -45,11 +45,11 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
                     <WorkExperiences workExperiencesProps={{
                         viewWorkExperiences: resumeDataProps?.workExperiences ?? "viewWorkExperiences",
                         experiencesHeadMarginT: resumeProperties?.experiencesHeadMarginT ?? '',
-                        experiencesHeadMarginB: resumeProperties?.educationHeadMarginB ?? '',
+                        experiencesHeadMarginB: resumeProperties?.experiencesHeadMarginB ?? '',
                         experiencesHeadPaddingX: resumeProperties?.experiencesHeadPaddingX ?? '',
-                        experiencesDescriptionPaddingL: resumeProperties?.educationDescriptionPaddingL ?? '',
-                        experiencesDescriptionPaddingR: resumeProperties?.educationDescriptionPaddingR ?? '',
-                        experiencesDescriptionPaddingY: resumeProperties?.educationDescriptionPaddingY ?? '',
+                        experiencesDescriptionPaddingL: resumeProperties?.experiencesDescriptionPaddingL ?? '',
+                        experiencesDescriptionPaddingR: resumeProperties?.experiencesDescriptionPaddingR ?? '',
+                        experiencesDescriptionPaddingY: resumeProperties?.experiencesDescriptionPaddingY ?? '',
                         experiencesMarginB: resumeProperties?.experiencesMarginB ?? '',
                     }} />
 
@@ -64,7 +64,7 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
                         educationDescriptionPaddingL: resumeProperties?.educationDescriptionPaddingL ?? '',
                         educationDescriptionPaddingR: resumeProperties?.educationDescriptionPaddingR ?? '',
                         educationDescriptionPaddingY: resumeProperties?.educationDescriptionPaddingY ?? '',
-                        educationMarginB: resumeProperties?.educationHeadMarginB ?? '',
+                        educationMarginB: resumeProperties?.educationMarginB ?? '',
                     }} />
 
                     {/* CERTIFICATION SECTION */}
