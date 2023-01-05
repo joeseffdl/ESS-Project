@@ -240,7 +240,7 @@ function ResumeExperience() {
         <div className="w-full flex flex-col gap-2 mb-5
           ">
           <input
-            className={`input focus:outline-none ${router.query.id ? resumeData.workExperiences[indexValue].title == "" ? "input-warning" : "input-success" : workExp.title == "" ? "input-warning" : "input-success"}`}
+            className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.workExperiences[indexValue].title == "" ? "input-warning" : "input-success" : workExp.title == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Work Title"
             value={router.query.id ? resumeData.workExperiences[indexValue].title : workExp.title}
@@ -248,7 +248,7 @@ function ResumeExperience() {
             onChange={handleChange}
           />
           <input
-            className={`input focus:outline-none ${router.query.id ? resumeData.workExperiences[indexValue].employer == "" ? "input-warning" : "input-success" : workExp.employer == "" ? "input-warning" : "input-success"}`}
+            className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.workExperiences[indexValue].employer == "" ? "input-warning" : "input-success" : workExp.employer == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Employer"
             value={router.query.id ? resumeData.workExperiences[indexValue].employer : workExp.employer}
@@ -259,7 +259,7 @@ function ResumeExperience() {
         <div className="w-full flex flex-col gap-2 mb-5
           ">
           <input
-            className="input "
+            className="input rounded-lg focus:outline-none w-full border-2 "
             type="text"
             placeholder="City/Municipality"
             value={router.query.id ? resumeData.workExperiences[indexValue].city : workExp.city}
@@ -267,7 +267,7 @@ function ResumeExperience() {
             onChange={handleChange}
           />
           <input
-            className="input "
+            className="input rounded-lg focus:outline-none w-full border-2 "
             type="text"
             placeholder="Country"
             value={router.query.id ? resumeData.workExperiences[indexValue].country : workExp.country}
@@ -278,7 +278,7 @@ function ResumeExperience() {
         <div className="w-full flex flex-col sm:flex-row lg:flex-col gap-2 mb-5
           ">
           <input
-            className="input w-full"
+            className="input rounded-lg focus:outline-none w-full border-2"
             type="text"
             placeholder="Start Date"
             value={router.query.id ? resumeData.workExperiences[indexValue].startDate : workExp.startDate}
@@ -290,7 +290,7 @@ function ResumeExperience() {
           <div className="w-full flex flex-col ">
             <input
               disabled={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" : workExp.currentlyWorking == "Present"}
-              className="input w-full"
+              className="input rounded-lg focus:outline-none w-full border-2"
               type="text"
               placeholder="End Date"
               value={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" ? "" : resumeData.workExperiences[indexValue].endDate : workExp.currentlyWorking == "Present" ? "" : workExp.endDate}
@@ -342,7 +342,7 @@ function ResumeExperience() {
     return (
       <FormWindow onSubmit={toAddExperienceSection} formTitle="Work Experience Description" >
         <textarea
-          className="textarea h-1/3 mb-5"
+          className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
           type="text"
           placeholder="Write down your work's description."
           value={router.query.id ? resumeData.workExperiences[indexValue].description.join("\n") : description.value}

@@ -76,7 +76,7 @@ function ResumeProfile() {
             <div className="w-full flex flex-col gap-2 mb-5
                 ">
                 <input
-                    className="input w-full"
+                    className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="First Name"
                     value={router.query.id ? resumeData.personalInformation.firstname : personalInformation.firstname}
@@ -84,7 +84,7 @@ function ResumeProfile() {
                     onChange={handleChange}
                 />
                 <input
-                    className="input w-full"
+                    className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="Surname"
                     value={router.query.id ? resumeData.personalInformation.surname : personalInformation.surname}
@@ -95,7 +95,7 @@ function ResumeProfile() {
             <div className="w-full flex flex-col gap-2 mb-5
                 ">
                 <input
-                    className="input w-full"
+                    className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="City/Municipality"
                     value={router.query.id ? resumeData.personalInformation.city : personalInformation.city}
@@ -103,7 +103,7 @@ function ResumeProfile() {
                     onChange={handleChange}
                 />
                 <input
-                    className="input w-full"
+                    className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="Country"
                     value={router.query.id ? resumeData.personalInformation.country : personalInformation.country}
@@ -111,7 +111,7 @@ function ResumeProfile() {
                     onChange={handleChange}
                 />
                 <input
-                    className="input w-full"
+                    className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="Postal Code"
                     value={router.query.id ? resumeData.personalInformation.postalCode : personalInformation.postalCode}
@@ -122,7 +122,7 @@ function ResumeProfile() {
             <div className="w-full flex flex-col gap-2 mb-5
                 ">
                 <input
-                    className="input w-full"
+                    className="input rounded-lg border-0 focus:outline-none w-full"
                     type="number"
                     placeholder="Phone Number"
                     value={router.query.id ? resumeData.personalInformation.phoneNumber : personalInformation.phoneNumber}
@@ -130,7 +130,7 @@ function ResumeProfile() {
                     onChange={handleChange}
                 />
                 <input
-                    className="input w-full"
+                    className={`input rounded-lg focus:outline-none w-full border-2 ${_.isEmpty(personalInformation.emailAddress) ? "input-warning" : "input-success"}`}
                     type="email"
                     placeholder="Email Address"
                     value={router.query.id ? resumeData.personalInformation.emailAddress : personalInformation.emailAddress}

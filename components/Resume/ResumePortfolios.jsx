@@ -117,7 +117,7 @@ function ResumePortfolios() {
     return (
         <FormWindow onSubmit={toNextSection} formTitle="Website Portfolio">
             <textarea
-                className="textarea h-1/3 mb-5"
+                className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                 placeholder="Provide the link to your website portfolio"
                 value={router.query.id ? resumeData.portfolio.join("\n") : portfolio}
                 onChange={handleChange}

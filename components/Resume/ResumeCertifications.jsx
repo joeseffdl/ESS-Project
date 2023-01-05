@@ -79,7 +79,7 @@ function ResumeCertifications() {
     return (
         <FormWindow onSubmit={toNextSection} formTitle="Certifications">
             <textarea
-                className="textarea h-1/3 mb-5"
+                className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                 placeholder="Write down your certificates"
                 value={router.query.id ? resumeData.certifications.join("\n") : userCertifications}
                 onChange={handleChange}
