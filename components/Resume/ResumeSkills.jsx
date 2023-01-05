@@ -73,7 +73,7 @@ function ResumeSkills() {
     return (
         <FormWindow onSubmit={toProfileSummarySection} formTitle={router.query.id ? "Editing Resume Skills and Expertise" : "Skills and Expertise"}>
             <textarea
-                className="textarea h-1/3 mb-5"
+                className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                 placeholder="Write down your skills"
                 value={router.query.id ? resumeData.skills.join("\n") : userSkills}
                 onChange={handleChange}

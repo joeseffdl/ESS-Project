@@ -221,14 +221,14 @@ function ResumeEducation() {
                 <div className="w-full flex flex-col gap-2 mb-5
                     ">
                     <input
-                        className={`input ${router.query.id ? resumeData.educationalBackground[indexValue].institutionName == "" ? "input-warning" : "input-success" : educationField.institutionName == "" ? "input-warning" : "input-success"}`}
+                        className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.educationalBackground[indexValue].institutionName == "" ? "input-warning" : "input-success" : educationField.institutionName == "" ? "input-warning" : "input-success"}`}
                         placeholder="Institution Name"
                         value={router.query.id ? resumeData.educationalBackground[indexValue].institutionName : educationField.institutionName}
                         name="institutionName"
                         onChange={handleChange}
                     />
                     <input
-                        className="input "
+                        className="input rounded-lg focus:outline-none w-full border-2 "
                         placeholder="Institution Location"
                         value={router.query.id ? resumeData.educationalBackground[indexValue].institutionLocation : educationField.institutionLocation}
                         name="institutionLocation"
@@ -239,7 +239,7 @@ function ResumeEducation() {
                 <div className="w-full flex flex-col gap-2 mb-5
                     ">
                     <select
-                        className={`select ${router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "" ? "select-warning" : "select-success" : educationField.degreeType == "" ? "select-warning" : "select-success"}`}
+                        className={`select rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "" ? "select-warning" : "select-success" : educationField.degreeType == "" ? "select-warning" : "select-success"}`}
                         name="degreeType"
                         onChange={handleChange}
                     >
@@ -345,7 +345,7 @@ function ResumeEducation() {
                         disabled={router.query.id
                             ? resumeData.educationalBackground[indexValue].degreeType === ("") || resumeData.educationalBackground[indexValue].degreeType === ("High School Diploma") || resumeData.educationalBackground[indexValue].degreeType === ("GED") || resumeData.educationalBackground[indexValue].degreeType === ("No Degree")
                             : educationField.degreeType === ("") || educationField.degreeType === ("High School Diploma") || educationField.degreeType === ("GED") || educationField.degreeType === ("No Degree")}
-                        className="input "
+                        className="input rounded-lg focus:outline-none w-full border-2 "
                         placeholder="Field of Study"
                         value={router.query.id ? resumeData.educationalBackground[indexValue].fieldOfStudy : educationField.fieldOfStudy}
                         name="fieldOfStudy"
@@ -355,7 +355,7 @@ function ResumeEducation() {
                 <div className="w-full flex flex-col gap-2 mb-5
                     ">
                     <select
-                        className="select "
+                        className="select rounded-lg focus:outline-none w-full border-2"
                         name="graduationMonth"
                         onChange={handleChange}
                     >
@@ -440,7 +440,7 @@ function ResumeEducation() {
                         </option>
                     </select>
                     <select
-                        className="select "
+                        className="select rounded-lg focus:outline-none w-full border-2"
                         name="graduationYear"
                         onChange={handleChange}
                     >
@@ -478,7 +478,7 @@ function ResumeEducation() {
         return (
             <FormWindow onSubmit={toAddEducationSection} formTitle="Education Description">
                 <textarea
-                    className="textarea h-1/3 mb-5 "
+                    className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                     placeholder="Education Description"
                     value={router.query.id ? resumeData.educationalBackground[indexValue].description.join("\n") : description.value}
                     name="description"

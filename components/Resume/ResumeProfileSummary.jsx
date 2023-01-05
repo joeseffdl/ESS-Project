@@ -79,7 +79,7 @@ function ResumeProfileSummary() {
     return (
         <FormWindow onSubmit={toSubmit} formTitle="Resume Profile Summary">
             <textarea
-                className="textarea h-1/3 mb-5"
+                className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                 placeholder="Write down your skills"
                 value={router.query.id ? resumeData.profileSummary : profileSummary}
                 name="value"
