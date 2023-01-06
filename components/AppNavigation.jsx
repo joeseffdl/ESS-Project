@@ -28,9 +28,9 @@ function AppNavigation() {
                         { open ? <AiOutlineClose /> : <AiOutlineMenu /> }
                     </span>
                 </div>
-                <ul className={`h-10  pb-5 absolute left-0 w-full transition-all duration-150 ease-in
+                <ul className={`h-10 pb-5 absolute left-0 w-full
                     md:flex md:items-end md:pb-0 md:z-auto md:pl-0 md:w-auto md:static
-                    ${open ? "top-16 z-50" : "hidden"}`}>
+                    ${open ? "top-16 z-50 h-1/4 border-b-2 border-accent bg-gradient-to-b from-primary to-neutral-content md:bg-none md:border-none" : "hidden"}`}>
                     {
                         Links.map((link)=>(
                             <li key={link.name} className='text-2xl mt-5 pt-3 px-10
