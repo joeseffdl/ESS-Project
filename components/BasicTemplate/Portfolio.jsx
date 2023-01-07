@@ -27,10 +27,10 @@ function Portfolio({ portfolioProps }) {
                                 {viewPortfolio?.map((portfolio) => {
                                     return (
                                         <ul className="flex list-disc list-inside" style={{
-                                            'padding-left': portfolioPaddingL + 'rem',
-                                            'padding-right': portfolioPaddingR + 'rem',
-                                            'padding-top': portfolioPaddingT + 'rem',
-                                            'padding-bottom': portfolioPaddingB + 'rem',
+                                            'paddingLeft': portfolioPaddingL + 'rem',
+                                            'paddingRight': portfolioPaddingR + 'rem',
+                                            'paddingTop': portfolioPaddingT + 'rem',
+                                            'paddingBottom': portfolioPaddingB + 'rem',
                                         }} key={portfolio}>
                                             <li>{portfolio}</li>
                                         </ul>

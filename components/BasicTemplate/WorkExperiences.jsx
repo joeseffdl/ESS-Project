@@ -106,16 +106,16 @@ function WorkExperiences({ workExperiencesProps }) {
                                                             <div className="flex items-center justify-center">
                                                                 <div className="grid grid-flow-col auto-cols-max text-center divide-x"
                                                                     style={{
-                                                                        'margin-top': experiencesHeadMarginT + 'rem',
-                                                                        'margin-bottom': experiencesHeadMarginB + 'rem',
+                                                                        'marginTop': experiencesHeadMarginT + 'rem',
+                                                                        'marginBottom': experiencesHeadMarginB + 'rem',
                                                                     }}
                                                                 >
                                                                     {experience.title != ""
                                                                         ? (
                                                                             <div className="font-bold"
                                                                                 style={{
-                                                                                    'padding-left': experiencesHeadPaddingX + 'rem',
-                                                                                    'padding-right': experiencesHeadPaddingX + 'rem',
+                                                                                    'paddingLeft': experiencesHeadPaddingX + 'rem',
+                                                                                    'paddingRight': experiencesHeadPaddingX + 'rem',
                                                                                 }}>
                                                                                 {experience.title}
                                                                             </div>
@@ -124,8 +124,8 @@ function WorkExperiences({ workExperiencesProps }) {
                                                                     {experience.employer != ""
                                                                         ? (
                                                                             <div style={{
-                                                                                'padding-left': experiencesHeadPaddingX + 'rem',
-                                                                                'padding-right': experiencesHeadPaddingX + 'rem',
+                                                                                'paddingLeft': experiencesHeadPaddingX + 'rem',
+                                                                                'paddingRight': experiencesHeadPaddingX + 'rem',
                                                                             }}>
                                                                                 {experience.employer} {
                                                                                     experience.city && experience.country != ""
@@ -139,8 +139,8 @@ function WorkExperiences({ workExperiencesProps }) {
                                                                     {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
                                                                         ? (
                                                                             <div style={{
-                                                                                'padding-left': experiencesHeadPaddingX + 'rem',
-                                                                                'padding-right': experiencesHeadPaddingX + 'rem',
+                                                                                'paddingLeft': experiencesHeadPaddingX + 'rem',
+                                                                                'paddingRight': experiencesHeadPaddingX + 'rem',
                                                                             }}>
                                                                                 {experience.startDate} {
                                                                                     (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
@@ -156,14 +156,14 @@ function WorkExperiences({ workExperiencesProps }) {
                                                             {experience.description ? (
                                                                 <div className="mb-5"
                                                                     style={{
-                                                                        'padding-left': experiencesDescriptionPaddingL + 'rem',
-                                                                        'margin-bottom': experiencesMarginB + 'rem',
+                                                                        'paddingLeft': experiencesDescriptionPaddingL + 'rem',
+                                                                        'marginBottom': experiencesMarginB + 'rem',
                                                                     }}>
                                                                     {experience.description?.map((desc) => {
                                                                         return (
                                                                             <ul className="flex list-disc list-inside" style={{
-                                                                                'padding-top': experiencesDescriptionPaddingY + 'rem',
-                                                                                'padding-bottom': experiencesDescriptionPaddingY + 'rem',
+                                                                                'paddingTop': experiencesDescriptionPaddingY + 'rem',
+                                                                                'paddingBottom': experiencesDescriptionPaddingY + 'rem',
                                                                             }} key={desc}>
                                                                                 <li>{desc}</li>
                                                                             </ul>

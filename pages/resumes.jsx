@@ -126,32 +126,30 @@ function Resumes() {
                     </div>
                     <div>
                         {allResumes.map((resume) => (
-                            <>
-                                <ResumesCollection {...resume} key={resume.id}>
-                                    {user.uid == resume.user
-                                        ? (
-                                            <div className="flex gap-1">
-                                                <Link href={{pathname:`/${resume.id}`}}>
-                                                    <button className="hover:scale-110 hover:text-sky-600" ><AiFillEye /></button>
-                                                </Link>
-                                                <Link href={{ pathname: `${Links[0].template}/${resume.type}/${[query.id]}`, query: { id: resume.id }  }}>
-                                                    <button className="hover:scale-110 hover:text-amber-600" ><AiFillEdit /></button>
-                                                </Link>
-                                                <Link href={`${Links[0].resumes}`}>
-                                                    <button className="hover:scale-110 hover:text-red-600" onClick={() => deleteResume(resume.id)}><AiFillDelete /></button>
-                                                </Link>
-                                            </div>
-                                        )
-                                        : (
-                                            <div className="flex gap-1">
-                                                <Link href={{pathname:`/${resume.id}`}}>
-                                                    <button className="hover:scale-110 hover:text-sky-600"><AiFillEye /></button>
-                                                </Link>
-                                            </div>
-                                        )
-                                    }
-                                </ResumesCollection>
-                            </>
+                            <ResumesCollection {...resume} key={resume.id}>
+                                {user.uid == resume.user
+                                    ? (
+                                        <div className="flex gap-1">
+                                            <Link href={{pathname:`/${resume.id}`}}>
+                                                <button className="hover:scale-110 hover:text-sky-600" ><AiFillEye /></button>
+                                            </Link>
+                                            <Link href={{ pathname: `${Links[0].template}/${resume.type}/${[query.id]}`, query: { id: resume.id }  }}>
+                                                <button className="hover:scale-110 hover:text-amber-600" ><AiFillEdit /></button>
+                                            </Link>
+                                            <Link href={`${Links[0].resumes}`}>
+                                                <button className="hover:scale-110 hover:text-red-600" onClick={() => deleteResume(resume.id)}><AiFillDelete /></button>
+                                            </Link>
+                                        </div>
+                                    )
+                                    : (
+                                        <div className="flex gap-1">
+                                            <Link href={{pathname:`/${resume.id}`}}>
+                                                <button className="hover:scale-110 hover:text-sky-600"><AiFillEye /></button>
+                                            </Link>
+                                        </div>
+                                    )
+                                }
+                            </ResumesCollection>
                         ))}
                     </div>
                 </div>

@@ -1,54 +1,7 @@
 import { useState } from "react";
 import FormWindow from "./FormWindow";
 
-function CustomView(props) {
-    // State
-    const [resumeFormat, setResumeFormat] = useState({
-        template: "",
-        fontFamily: "Segoe UI",
-        fontSize: 0.75,
-        textColor: "black",
-
-        headerFontSize: 1.875,
-        headerLineHeight: 1.25,
-        
-        summaryMarginX: 2.5,
-        summaryMarginY: 0.75,
-        summaryLineHeight: 1,
-        
-        skillsPaddingL: 2.5,
-        skillsPaddingR: 2.5,
-        skillsPaddingT: 0,
-        skillsPaddingB: 0,
-
-        experiencesHeadMarginT: 0.75,
-        experiencesHeadMarginB: 0.25,
-        experiencesHeadPaddingX: 0.5,
-        experiencesDescriptionPaddingL: 2.5,
-        experiencesDescriptionPaddingR: 2.5,
-        experiencesDescriptionPaddingY: 0,
-        experiencesMarginB: 1.25,
-        
-        educationHeadMarginT: 0.75,
-        educationHeadMarginB: 0,
-        educationSubHeadMarginT: 0.25,
-        educationSubHeadMarginB: 0.25,
-        educationHeadPaddingX: 0.5,
-        educationDescriptionPaddingL: 1.25,
-        educationDescriptionPaddingR: 1.25,
-        educationDescriptionPaddingY: 0,
-        educationMarginB: 1.25,
-        
-        certificationsPaddingL: 2.5,
-        certificationsPaddingR: 2.5,
-        certificationsPaddingT: 0,
-        certificationsPaddingB: 0,
-        
-        portfolioPaddingL: 2.5,
-        portfolioPaddingR: 2.5,
-        portfolioPaddingT: 0,
-        portfolioPaddingB: 0,
-    })
+function CustomView({resumeFormat, setResumeFormat}) {
     let [propertiesPage, setPropertiesPage] = useState(1)
 
     // Resume Properties
@@ -100,7 +53,7 @@ function CustomView(props) {
         const { name, value } = e.target
         setResumeFormat({ ...resumeFormat, [name]: value })
     }
-    props.dataFromCustomView(resumeFormat)
+    // props.dataFromCustomView(resumeFormat)
 
     const renderPropertiesPage = () => {
         if (propertiesPage == 1) {
@@ -111,14 +64,12 @@ function CustomView(props) {
                         className="select rounded-lg text-xs bg-white"
                         name="template"
                         onChange={handleChange}
+                        defaultValue="Resume Template"
                     >
-                        <option value="template" disabled selected>Resume Template</option>
+                        <option disabled >Resume Template</option>
                         {
                             resumeTemplatesArray.map((template) =>
-                                <option
-                                    value={template}
-                                    key={template}
-                                >
+                                <option value={template} key={template}>
                                     {template}
                                 </option>)
                         }
@@ -128,14 +79,12 @@ function CustomView(props) {
                         className="select rounded-lg text-xs bg-white"
                         name="textColor"
                         onChange={handleChange}
+                        defaultValue="Text Color"
                     >
-                        <option value="textColor" disabled selected>Text Color</option>
+                        <option disabled>Text Color</option>
                         {
                             textColorArray.map((textColor) =>
-                                <option
-                                    value={textColor}
-                                    key={textColor}
-                                >
+                                <option value={textColor} key={textColor}>
                                     {textColor}
                                 </option>)
                         }
@@ -144,14 +93,12 @@ function CustomView(props) {
                         className="select rounded-lg text-xs bg-white"
                         name="fontFamily"
                         onChange={handleChange}
+                        defaultValue="Font Family"
                     >
-                        <option value="fontFamily" disabled selected>Font Family</option>
+                        <option disabled >Font Family</option>
                         {
                             fontFamilyArray.map((fontFamily) =>
-                                <option
-                                    value={fontFamily}
-                                    key={fontFamily}
-                                >
+                                <option value={fontFamily} key={fontFamily}>
                                     {fontFamily}
                                 </option>)
                         }

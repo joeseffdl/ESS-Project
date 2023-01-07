@@ -53,39 +53,8 @@ export default function Home() {
 
         {/* FEATURES SECTION */}
         <section className="bg-accent my-10 lg:h-screen lg:flex-row flex flex-col-reverse p-10 xl:pr-24 lg:py-0 lg:pl-0">
-          <div className="lg:w-1/2 carousel w-full">
-            {[
-              {
-                image: 'Sample',
-                name: 'Feature 1',
-                desc: 'Template',
-              },
-              {
-                image: 'Sample',
-                name: 'Feature 2',
-                desc: 'Generator',
-              },
-            ].map((features) => {
-              return (
-                <>
-                  <div id={features.name} className="carousel-item w-full " key={features.name}>
-                    {/* <Image src={`/${features.image}.jpg`} alt={`${features.name} image`} width={100} height={100} className="w-full object-cover" /> */}
-                    <div className="w-full h-full bg-gradient-to-tr from-accent-focus to-primary-focus lg:rounded-br-full lg:mb-10"></div>
-
-                    {/* <h2 className="card-title text-accent text-lg font-medium pt-8">
-                          { features.name }
-                      </h2>
-                      <p className="badge badge-secondary">
-                          { features.desc }
-                      </p> */}
-                  </div>
-                </>
-              )
-            })}
-            {/* <div className="w-full flex justify-center border-2 border-green-400 gap-2 p-2">
-              <a href="#Feature 1" className="btn btn-sm">1</a>
-              <a href="#Feature 2" className="btn btn-sm">2</a>
-            </div> */}
+          <div className="lg:w-1/2 w-full">
+            <div className="w-full h-full bg-gradient-to-tr from-accent-focus to-primary-focus lg:rounded-br-full lg:mb-10"></div>
           </div>
           <div className="lg:w-1/2 lg:pl-20 flex flex-col justify-center">
             <p className="text-primary-focus lg:text-5xl text-4xl font-extrabold">Features</p>
