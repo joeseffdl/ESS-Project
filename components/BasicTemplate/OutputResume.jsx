@@ -12,8 +12,8 @@ function OutputResume({ resumeDataProps, resumeProperties }) {
             <div className="h-full p-8">
                 <div className="h-full text-xs divide-y-2 divide-blue-900"
                     style={{
-                        'font-family': resumeProperties?.fontFamily,
-                        'font-size': resumeProperties?.fontSize + 'rem',
+                        'fontFamily': resumeProperties?.fontFamily,
+                        'fontSize': resumeProperties?.fontSize + 'rem',
                         'color': resumeProperties?.textColor,
                     }}>
 

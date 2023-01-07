@@ -1,4 +1,3 @@
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect } from "react"
@@ -39,8 +38,6 @@ function Templates() {
     return (
         <section className="w-screen bg-gradient-to-t from-neutral to-primary">
             <section className="flex flex-col pb-16">
-                {/* <div className="border-4 border-accent bg-neutral-focus mx-10 pb-20 mb-20 drop-shadow-md rounded-xl
-                sm:px-10 md:mx-12 "> */}
                 <div className="h-32 flex items-center justify-center font-extrabold">
                     <h2 className="lg:text-4xl sm:text-3xl text-2xl text-gray-900">Gallery - Academic Journal</h2>
                 </div>
@@ -48,10 +45,8 @@ function Templates() {
                     lg:px-8">
                     {templates.map((template) => {
                         return (
-                            <>
-                                <Link href={`${template.route}`} >
-                                    <div className="mx-auto drop-shadow-xl w-72 h-96"
-                                        key={template.name}>
+                                <Link href={`${template.route}`} key={template.name}>
+                                    <div className="mx-auto drop-shadow-xl w-72 h-96">
                                         {/* h-64 sm:w-68 sm:h-68 md:w-72 md:h-72 xl:w-80 xl:h-80 */}
                                         {/* <Image
                                             className="object-cover rounded-xl border-2 border-accent hover:border-accent-focus hover:scale-105 ease-in-out duration-150" 
@@ -65,14 +60,11 @@ function Templates() {
                                                 <h2 className="card-title justify-center">{template.name}</h2>
                                             </div>
                                         </div>
-
                                     </div>
                                 </Link>
-                            </>
                         )
                     })}
                 </div>
-                {/* </div> */}
             </section>
         </section>
     )
