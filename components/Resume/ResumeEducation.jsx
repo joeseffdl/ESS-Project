@@ -52,9 +52,9 @@ function ResumeEducation() {
     // Handle change
     const handleChange = (e) => {
         const { name, value } = e.target
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             addEducation({[name]: value})
-        } else {
+        } else if (router.query.id) {
             updateResumeEducation(indexValue, {[name]: value})
         }
     }
@@ -62,10 +62,10 @@ function ResumeEducation() {
     // Handle Text Area changes
     const handleTextAreaChange = (e) => {
         const { value } = e.target
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             addEducationDetailsArray(value.split("\n"))
             updateEducationField()
-        } else {
+        } else if (router.query.id) {
             updateResumeEducationDetailsArray(indexValue, value.split("\n"))
         }
     }
@@ -87,7 +87,7 @@ function ResumeEducation() {
     // Change state of fillingForm to false
     const fillingFormState = async (e) => {
         e.preventDefault()
-        if (!router.query.id && _.isEmpty(educationField.institutionName && educationField.degreeType)) {
+        if (_.isUndefined(router.query.id) && _.isEmpty(educationField.institutionName && educationField.degreeType)) {
             toast.error("Please enter all required fields 😞")
             return
         } else if (router.query.id && _.isEmpty(resumeData.educationalBackground[indexValue].institutionName && resumeData.educationalBackground[indexValue].degreeType)) {
@@ -166,7 +166,7 @@ function ResumeEducation() {
     // Add More Education 
     const addMoreEducation = (e) => {
         e.preventDefault()
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             clearEducationField()
         } else {
             clearResumeEducationField()
@@ -480,10 +480,11 @@ function ResumeEducation() {
                 <textarea
                     className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                     placeholder="Education Description"
-                    value={router.query.id ? resumeData.educationalBackground[indexValue].description.join("\n") : description.value}
                     name="description"
                     onChange={handleTextAreaChange}
-                />
+                >
+                    {router.query.id ? resumeData.educationalBackground[indexValue].description.join("\n") : description.value}
+                </textarea>
 
                 <div className="w-full flex flex-col sm:justify-between gap-5">
                     <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toEducationForm}>Back</button>

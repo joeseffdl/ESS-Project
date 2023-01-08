@@ -46,9 +46,9 @@ function ResumePortfolios() {
     // Handle change 
     const handleChange = (e) => {
         const { value } = e.target
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             addPortfolio(value.split("\n"))
-        } else {
+        } else if (router.query.id) {
             updateResumePortfolio(value.split("\n"))
         }
     }
@@ -62,10 +62,10 @@ function ResumePortfolios() {
     // Continue to next section
     const toNextSection = async (e) => {
         e.preventDefault()
-        if (!router.query.id && _.isEmpty(portfolio)) {
+        if (_.isUndefined(router.query.id) && _.isEmpty(portfolio)) {
             toast.error("Please enter a portfolio 😞")
             return
-        } else if (!router.query.id) {
+        } else if (_.isUndefined(router.query.id)) {
             setResumeData({
                 personalInformation,
                 workExperiences,
@@ -75,7 +75,7 @@ function ResumePortfolios() {
                 certifications,
                 portfolio,
             })
-        } else if (!_.isEqual(initialResumeData.portfolio, resumeData.portfolio)) {
+        } else if (router.query.id && !_.isEqual(initialResumeData.portfolio, resumeData.portfolio)) {
             try {
                 const docRef = doc(db, "resumes", router.query.id)
                 const docSnap = await getDoc(docRef)
@@ -100,7 +100,7 @@ function ResumePortfolios() {
     // Skip Section
     const skipSection = (e) => {
         e.preventDefault()
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             setResumeData({
                 personalInformation,
                 workExperiences,
@@ -119,9 +119,10 @@ function ResumePortfolios() {
             <textarea
                 className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                 placeholder="Provide the link to your website portfolio"
-                value={router.query.id ? resumeData.portfolio.join("\n") : portfolio}
                 onChange={handleChange}
-            />
+            >
+                {router.query.id ? resumeData.portfolio.join("\n") : portfolio}
+            </textarea>
             <div className="w-full flex flex-col sm:justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
                 <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.portfolio, resumeData.portfolio)) ? "Update" : "Continue"}</button>
