@@ -29,9 +29,9 @@ function ResumeProfileSummary() {
     // Handle change 
     const handleChange = (e) => {
         const { value } = e.target
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             setProfileSummary(value)
-        } else {
+        } else if (router.query.id) {
             updateResumeProfileSummary(value)
         }
     }
@@ -45,10 +45,10 @@ function ResumeProfileSummary() {
     // Continue to Submit section
     const toSubmit = async (e) => {
         e.preventDefault()
-        if (!router.query.id && _.isEmpty(profileSummary)) {
+        if (_.isUndefined(router.query.id) && _.isEmpty(profileSummary)) {
             toast.error("Please enter your profile summary😞")
             return
-        } else if (!_.isEqual(initialResumeData.profileSummary, resumeData.profileSummary)) {
+        } else if (router.query.id && !_.isEqual(initialResumeData.profileSummary, resumeData.profileSummary)) {
             try {
                 const docRef = doc(db, "resumes", router.query.id)
                 const docSnap = await getDoc(docRef)
@@ -81,10 +81,11 @@ function ResumeProfileSummary() {
             <textarea
                 className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                 placeholder="Write down your skills"
-                value={router.query.id ? resumeData.profileSummary : profileSummary}
                 name="value"
                 onChange={handleChange}
-            />
+            >
+                {router.query.id ? resumeData.profileSummary : profileSummary}
+            </textarea>
             <div className="w-full flex flex-col sm:justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
                 <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.profileSummary, resumeData.profileSummary)) ? "Update" : "Continue"}</button>

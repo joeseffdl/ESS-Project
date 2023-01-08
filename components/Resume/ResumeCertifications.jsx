@@ -29,9 +29,9 @@ function ResumeCertifications() {
     // Handle change 
     const handleChange = (e) => {
         const { value } = e.target
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             addCertifications(value.split("\n"))
-        } else {
+        } else if (router.query.id) {
             updateResumeCertifications(value.split("\n"))
         }
     }
@@ -41,11 +41,11 @@ function ResumeCertifications() {
         e.preventDefault()
         decrementStep()
     }
-
+    
     // Continue to next section
     const toNextSection = async (e) => {
         e.preventDefault()
-        if (!router.query.id && _.isEmpty(userCertifications)) {
+        if (_.isUndefined(router.query.id) && _.isEmpty(userCertifications)) {
             toast.error("Please enter a certificate 😞")
             return
         } else if (!_.isEqual(initialResumeData.certifications, resumeData.certifications)) {
@@ -81,9 +81,10 @@ function ResumeCertifications() {
             <textarea
                 className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                 placeholder="Write down your certificates"
-                value={router.query.id ? resumeData.certifications.join("\n") : userCertifications}
                 onChange={handleChange}
-            />
+            >
+                {router.query.id ? resumeData.certifications.join("\n") : userCertifications}
+            </textarea>
             <div className="w-full flex flex-col sm:justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
                 <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.certifications, resumeData.certifications)) ? "Update" : "Continue"}</button>

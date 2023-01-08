@@ -45,9 +45,9 @@ function ResumeExperience() {
   // Handle change 
   const handleChange = (e) => {
     const { name, value } = e.target
-    if (!router.query.id) {
+    if (_.isUndefined(router.query.id)) {
       addWorkExp({[name]: value})
-    } else {
+    } else if (router.query.id) {
       updateResumeWorkExp(indexValue, { [name]: value })
     }
   }
@@ -55,14 +55,14 @@ function ResumeExperience() {
   // Handle checkbox 
   const handleCheckbox = (e) => {
     const { name, value, checked } = e.target
-    if (!router.query.id) {
+    if (_.isUndefined(router.query.id)) {
       if (checked) {
         addWorkExp({[name]: value })
       } else {
         addWorkExp({ [name]: "" })
       }
     }
-    else {
+    else if (router.query.id) {
       if (checked) {
         updateResumeWorkExp(indexValue, { [name]: value })
       } else {
@@ -74,10 +74,10 @@ function ResumeExperience() {
   // Handle Text Area changes
   const handleTextAreaChange = (e) => {
     const { value } = e.target
-    if (!router.query.id) {
+    if (_.isUndefined(router.query.id)) {
       addWorkDetailsArray(value.split("\n"))
       updateWorkExpField()
-    } else {
+    } else if (router.query.id) {
       updateResumeWorkDetailsArray(indexValue,value.split("\n"))
     }
   }
@@ -99,7 +99,7 @@ function ResumeExperience() {
   // Change state of fillingForm to false
   const fillingFormState = async (e) => {
     e.preventDefault()
-    if (!router.query.id && _.isEmpty(workExp.title && workExp.employer)) {
+    if (_.isUndefined(router.query.id) && _.isEmpty(workExp.title && workExp.employer)) {
       toast.error(`Please enter all required fields 😞`)
       return
     } else if (router.query.id && _.isEmpty(resumeData.workExperiences[indexValue].title && resumeData.workExperiences[indexValue].employer)) { 
@@ -177,7 +177,7 @@ function ResumeExperience() {
   // Add More Experience
   const addMoreExperience = (e) => {
     e.preventDefault()
-    if (!router.query.id) {
+    if (_.isUndefined(router.query.id)) {
       clearWorkExpField()
     } else {
       clearResumeWorkExpField()
@@ -226,13 +226,11 @@ function ResumeExperience() {
       if (resumeData.workExperiences.length === 0) {
         clearResumeWorkExpField()
       }
-    } else if (!router.query.id) {
-      toast.success(workExperiences)
+    } else if (_.isUndefined(router.query.id)) {
+      console.log(workExperiences)
     }
     
   }
-
-  console.log(workExperiences)
 
   if (fillingFormValue && !modalSectionValue) {
     return (
@@ -345,10 +343,11 @@ function ResumeExperience() {
           className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
           type="text"
           placeholder="Write down your work's description."
-          value={router.query.id ? resumeData.workExperiences[indexValue].description.join("\n") : description.value}
           name="description"
           onChange={handleTextAreaChange}
-        />
+        >
+          {router.query.id ? resumeData.workExperiences[indexValue].description.join("\n") : description.value}
+        </textarea>
         <div className="w-full flex flex-col sm:justify-between gap-5">
           <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toExperienceForm}>Back</button>
           <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>

@@ -29,9 +29,9 @@ function ResumeSkills() {
     // Handle change 
     const handleChange = (e) => {
         const { value } = e.target
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             addSkills(value.split("\n"))
-        } else {
+        } else if (router.query.id){
             updateResumeSkills(value.split("\n"))
         }
     }
@@ -45,7 +45,7 @@ function ResumeSkills() {
     // Continue to Profile Summary section
     const toProfileSummarySection = async (e) => {
         e.preventDefault()
-        if (!router.query.id && _.isEmpty(userSkills)) {
+        if (_.isUndefined(router.query.id) && _.isEmpty(userSkills)) {
             toast.error("Please enter a skill 😞")
             return
         } else if (!_.isEqual(initialResumeData.skills, resumeData.skills)) {
@@ -69,15 +69,16 @@ function ResumeSkills() {
         }
         incrementStep()
     }
-
+    
     return (
         <FormWindow onSubmit={toProfileSummarySection} formTitle={router.query.id ? "Editing Resume Skills and Expertise" : "Skills and Expertise"}>
             <textarea
                 className="textarea h-1/3 mb-5 rounded-lg focus:outline-none w-full border-2"
                 placeholder="Write down your skills"
-                value={router.query.id ? resumeData.skills.join("\n") : userSkills}
                 onChange={handleChange}
-            />
+            >
+                {router.query.id ? resumeData.skills.join("\n") : userSkills}
+            </textarea>
             <div className="w-full flex flex-col sm:justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
                 <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.skills, resumeData.skills)) ? "Update" : "Continue"}</button>

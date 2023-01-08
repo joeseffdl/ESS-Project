@@ -29,9 +29,9 @@ function ResumeProfile() {
     // Handle change 
     const handleChange = (e) => {
         const { name, value } = e.target
-        if (!router.query.id) {
+        if (_.isUndefined(router.query.id)) {
             updatePersonalInformation({ [name]: value } )
-        } else {
+        } else if (router.query.id) {
             updateResumePersonalInformation({ [name]: value } )
         }
         
@@ -46,10 +46,10 @@ function ResumeProfile() {
     // Continue to Experience section
     const toResumeExperience = async (e) => {
         e.preventDefault()
-        if (!router.query.id && _.isEmpty(personalInformation.emailAddress)) {
+        if (_.isUndefined(router.query.id) && _.isEmpty(personalInformation.emailAddress)) {
             toast.error("Please enter an Email Address😞")
             return
-        } else if (!_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) {
+        } else if (router.query.id && !_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) {
             try {
                 const docRef = doc(db, "resumes", router.query.id)
                 const docSnap = await getDoc(docRef)
