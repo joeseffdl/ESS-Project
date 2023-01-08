@@ -110,7 +110,7 @@ function YourResumes() {
                     </div>
                     <div>
                         {userResumes.map((resume) => (
-                            <UserResumes {...resume} key={resume.id}>
+                            <UserResumes {...resume} key={resume.id}> 
                                 <div className="flex gap-1">
                                     <Link href={{
                                         pathname: `/${resume.id}`}}>

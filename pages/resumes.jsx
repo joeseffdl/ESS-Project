@@ -126,7 +126,7 @@ function Resumes() {
                     </div>
                     <div>
                         {allResumes.map((resume) => (
-                            <ResumesCollection {...resume} key={resume.id}>
+                            <ResumesCollection {...resume} key={resume.id}> 
                                 {user.uid == resume.user
                                     ? (
                                         <div className="flex gap-1">
