@@ -2,7 +2,7 @@ import { useState } from "react";
 import FormWindow from "./FormWindow";
 
 function CustomView({resumeFormat, setResumeFormat}) {
-    let [propertiesPage, setPropertiesPage] = useState(1)
+    let [propertiesPage, setPropertiesPage] = useState(1) 
 
     // Resume Properties
     const resumeTemplatesArray = [

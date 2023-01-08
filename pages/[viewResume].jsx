@@ -101,7 +101,7 @@ function View() {
     const handlePrint = useReactToPrint({
         content: () => componentRef.current,
         documentTitle: `${user?.displayName} Resume`,
-        // onAfterPrint: () => toast.success("File downloaded 🎉")
+        // onAfterPrint: () => toast.success("File downloaded 🎉") 
     })
 
     useEffect(() => {
