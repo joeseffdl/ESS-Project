@@ -40,19 +40,19 @@ function Resumes() {
                 lg:w-1/4
                 xl:w-1/5"
             >
-                <div className="btn btn-neutral rounded-xl border-1 border-neutral btn-outline my-3 w-full font-semibold">
+                <div className="btn btn-neutral hover:bg-accent hover:text-gray-900 rounded-xl border-1 border-neutral btn-outline my-3 w-full font-semibold">
                     <Link href={`${Links[0].template}`}>
                         New Resume
                     </Link>
                 </div>
-                <div className="btn btn-accent rounded-xl border-1 border-neutral my-1 w-full font-semibold">
+                <div className="btn btn-accent hover:text-gray-900 hover:border-gray-900 rounded-xl border-1 border-neutral my-1 w-full font-semibold">
                     <Link href={`${Links[0].resumes}`}>
                         All Resumes
                     </Link>
                 </div>
                 <div
                     // disabled={userResumes.length == 0}
-                    className="btn btn-neutral rounded-xl border-1 border-neutral btn-outline my-1 w-full font-semibold">
+                    className="btn btn-neutral hover:bg-accent hover:text-gray-900 rounded-xl border-1 border-neutral btn-outline my-1 w-full font-semibold">
                     <Link href={`${Links[0].yourResumes}`}>
                         Your Resumes
                         {/* {userResumes.length >= 1 ? (`(${userResumes.length})`) : null} */}

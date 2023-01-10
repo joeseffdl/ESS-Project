@@ -1,5 +1,5 @@
 import Link from 'next/link'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useAuthState } from "react-firebase-hooks/auth"
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import { auth } from "../utils/firebase"
@@ -10,6 +10,7 @@ function AppNavigation() {
 
     // States
     let [open, setOpen] = useState(false)
+    let [windowWidth, setWindowWidth] = useState(false)
 
     // Links
     let Links =[
@@ -17,9 +18,22 @@ function AppNavigation() {
       {name:"Account",link:"/dashboard/account"},
     ];
 
+    const handleWindowResize = () => {
+        const width = window.innerWidth
+        setWindowWidth(width)
+    }
+
+    useEffect(() => {
+        window.addEventListener("resize", handleWindowResize)
+
+        return () => {
+            window.removeEventListener("resize", handleWindowResize)
+        }
+    }, [])
+    
     return (
         <main className="text-white shadow-xl w-screen ">
-            <nav className={`flex items-center justify-between bg-gradient-to-b from-neutral-content to-primary ${open ? "bg-gradient-to-b from-primary via-primary " : ""} py-5 px-10 xl:px-24 font-bold`}>
+            <nav className={`flex items-center justify-between bg-gradient-to-b from-neutral-content to-primary ${open && windowWidth <= 768 ? "bg-gradient-to-b from-primary via-primary " : ""} py-5 px-10 xl:px-24 font-bold`}>
                 <div className="font-bold h-10 text-2xl cursor-pointer flex items-end">
                     <div className="flex items-end"><Link href="/" className="md:text-4xl text-3xl font-extrabold hover:text-secondary-focus">Oregen</Link> <span className="hidden md:block ml-2 text-sm">Resume Template Builder</span></div>
                 </div>
