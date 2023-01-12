@@ -35,8 +35,6 @@ function AppNavigation() {
             window.removeEventListener("resize", handleWindowResize)
         }
     }, [])
-
-    console.log(open, windowWidth )
     
     return (
         <main className="text-white shadow-xl w-screen ">
