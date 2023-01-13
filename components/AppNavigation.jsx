@@ -10,7 +10,7 @@ function AppNavigation() {
 
     // States
     let [open, setOpen] = useState(false)
-    let [windowWidth, setWindowWidth] = useState(false)
+    let [windowWidth, setWindowWidth] = useState()
 
     // Links
     let Links =[
