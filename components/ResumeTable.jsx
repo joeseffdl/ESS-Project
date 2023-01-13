@@ -94,14 +94,14 @@ function ResumeTable({ user, Links }) {
                     <div className="w-full md:h-9 lg:w-192 flex gap-1 ">
                         <input
                             disabled
-                            className="w-full border-2 border-accent-focus pl-1 disabled:cursor-not-allowed"
+                            className="w-full border-2 border-black disabled:border-gray-300 focus:border-accent-focus pl-1 disabled:cursor-not-allowed"
                             type="search"
                             placeholder="Search"
                             value={search}
                             onChange={(e) => { e.preventDefault(), setSearch(e.target.value) }}
                         />
                         <select
-                            className="w-full xl:w-2/5 border-2 border-accent-focus pl-1 text-xs bg-white cursor-pointer"
+                            className="w-full xl:w-2/5 border-2 border-black focus:border-accent-focus pl-1 text-xs bg-white cursor-pointer"
                             name="sortBy"
                             onChange={handleSorting}
                             defaultValue="Sort By"
