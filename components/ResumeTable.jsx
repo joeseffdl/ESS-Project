@@ -1,7 +1,7 @@
 import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import { AiFillDelete, AiFillEdit, AiFillEye } from 'react-icons/ai';
 import { db } from "../utils/firebase";
 import { toast } from "react-toastify";
@@ -18,6 +18,21 @@ function ResumeTable({ user, Links }) {
         field: "createdOn",
         order: "desc",
     })
+
+    // Filter searched resumes
+    const filteredAllResume = useMemo(() => {
+        return (allResumes?.filter(resume => (
+            resume.type.toLowerCase().includes(search.toLowerCase()) ||
+            resume.username.toLowerCase().includes(search.toLowerCase()) ||
+            new Date(resume.createdOn.toMillis()).toDateString().split(' ').slice(1).join(' ').toLowerCase().includes(search.toLowerCase())
+        )))
+    }, [allResumes,search])
+
+    const filteredUserResume = (userResumes?.filter(resume => (
+        resume.type.toLowerCase().includes(search.toLowerCase()) ||
+        resume.username.toLowerCase().includes(search.toLowerCase()) ||
+        new Date(resume.createdOn.toMillis()).toDateString().split(' ').slice(1).join(' ').toLowerCase().includes(search.toLowerCase())
+    )))
 
     // Sorting Type
     const sortBy = [
@@ -76,9 +91,12 @@ function ResumeTable({ user, Links }) {
     }
     
     useEffect(() => {
-        if(!user) return
-        getResumes()
-        getUserResumes()
+        if (!user) return
+        if (router.pathname == Links[0].resumes) {
+            getResumes()
+        } else if (router.pathname == Links[0].yourResumes) {
+            getUserResumes()
+        }
     }, [user, sorting])
 
     return (
@@ -93,12 +111,12 @@ function ResumeTable({ user, Links }) {
                     </h2>
                     <div className="w-full md:h-9 lg:w-192 flex gap-1 ">
                         <input
-                            disabled
+                            // disabled
                             className="w-full border-2 border-black disabled:border-gray-300 focus:border-accent-focus pl-1 disabled:cursor-not-allowed"
                             type="search"
                             placeholder="Search"
                             value={search}
-                            onChange={(e) => { e.preventDefault(), setSearch(e.target.value) }}
+                            onChange={(e) => {setSearch(e.target.value) }}
                         />
                         <select
                             className="w-full xl:w-2/5 border-2 border-black focus:border-accent-focus pl-1 text-xs bg-white cursor-pointer"
@@ -132,7 +150,7 @@ function ResumeTable({ user, Links }) {
                     <tbody>
                         {router.pathname == Links[0].yourResumes
                             ? <>
-                                {userResumes.map((resume) => (
+                                    {filteredUserResume?.map((resume) => (
                                     <tr className="text-center even:bg-white odd:bg-gray-300" key={resume.id}>
                                         <td className="p-4 text-sm text-gray-700 whitespace-nowrap font-semibold tracking-wide">{resume.type}</td>
                                         <td className="p-4 text-sm text-gray-700 whitespace-nowrap font-semibold tracking-wide">{resume.username}</td>
@@ -155,7 +173,7 @@ function ResumeTable({ user, Links }) {
                             </>
                             : router.pathname == Links[0].resumes
                                 ? <>
-                                    {allResumes.map((resume) => (
+                                        {filteredAllResume?.map((resume) => (
                                         <React.Fragment key={resume.id}>
                                             <tr className="text-center even:bg-white odd:bg-gray-300" >
                                             {user.uid == resume.user
