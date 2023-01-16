@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where, limit } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState, useMemo } from "react";
@@ -57,7 +57,7 @@ function ResumeTable({ user, Links }) {
     // Get Resume Data
     const getResumes = async () => {
         const collectionRef = collection(db, 'resumes')
-        const q = query(collectionRef, orderBy(`${sorting.field}`, `${sorting.order}`))
+        const q = query(collectionRef, orderBy(`${sorting.field}`, `${sorting.order}`), limit(3))
         const unsubscribe = onSnapshot(q, (snapshot) => {
             setAllResumes(snapshot.docs.map((doc) => ({
                 ...doc.data(),
@@ -111,7 +111,6 @@ function ResumeTable({ user, Links }) {
                     </h2>
                     <div className="w-full md:h-9 lg:w-192 flex gap-1 ">
                         <input
-                            // disabled
                             className="w-full border-2 border-black disabled:border-gray-300 focus:border-accent-focus pl-1 disabled:cursor-not-allowed"
                             type="search"
                             placeholder="Search"
