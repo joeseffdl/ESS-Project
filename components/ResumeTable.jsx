@@ -1,4 +1,4 @@
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where, limit } from "firebase/firestore";
+import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where, limit, startAfter } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { useEffect, useState, useMemo } from "react";
@@ -18,6 +18,7 @@ function ResumeTable({ user, Links }) {
         field: "createdOn",
         order: "desc",
     })
+    // let [latestDoc, setLatestDoc] = useState(0)
 
     // Filter searched resumes
     const filteredAllResume = useMemo(() => {
@@ -58,7 +59,7 @@ function ResumeTable({ user, Links }) {
     const getResumes = async () => {
         const collectionRef = collection(db, 'resumes')
         const q = query(collectionRef, orderBy(`${sorting.field}`, `${sorting.order}`), limit(3))
-        const unsubscribe = onSnapshot(q, (snapshot) => {
+        const unsubscribe = await onSnapshot(q, (snapshot) => {
             setAllResumes(snapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
@@ -66,12 +67,30 @@ function ResumeTable({ user, Links }) {
         })
         return unsubscribe
     }
+    
+    // Load more
+    const loadMore = async () => {
+        let latestDoc = allResumes[allResumes.length - 1]
+        console.log(latestDoc)
+        const collectionRef = collection(db, 'resumes')
+        const q = query(collectionRef, orderBy(`${sorting.field}`, `${sorting.order}`), startAfter(latestDoc), limit(3), )
+        const unsubscribe = await onSnapshot(q, (snapshot) => {
+            console.log(snapshot.docs.map((doc) => (doc.data())))
+            // setAllResumes(snapshot.docs.map((doc) => ({
+            //     ...allResumes,
+            //     ...doc.data(),
+            //     id: doc.id
+            // })))
+        })
+        return unsubscribe
+    }
+
 
     // Get Logged In User Resumes
     const getUserResumes = async () => {
         const collectionRef = collection(db, 'resumes')
         const q = query(collectionRef, where("user", "==", user.uid), orderBy(`${sorting.field}`, `${sorting.order}`))
-        const unsubscribe = onSnapshot(q, (snapshot) => {
+        const unsubscribe = await onSnapshot(q, (snapshot) => {
             setUserResumes(snapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
@@ -87,7 +106,6 @@ function ResumeTable({ user, Links }) {
             await deleteDoc(docRef)
             toast.success("Deleted successfully 🗑️")
         }
-        
     }
     
     useEffect(() => {
@@ -215,6 +233,20 @@ function ResumeTable({ user, Links }) {
                         }
                     </tbody>
                     </table>
+                    {
+                        router.pathname == Links[0].resumes ? (
+                            <div className="flex justify-center text-white text-lg tracking-wider font-semibold p-2 ">
+                                <button
+                                    disabled
+                                    className="border-2 border-accent bg-slate-700 rounded-lg p-2 
+                                        disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:border-accent
+                                        hover:scale-105 hover:border-accent-focus ease-in-out duration-150"
+                                    onClick={loadMore}>Load more
+                                </button>
+                            </div>
+                        ) : null
+                    }
+                    
                 </div>
             </section>
         </>
