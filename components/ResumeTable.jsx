@@ -1,10 +1,10 @@
-import { collection, deleteDoc, doc, onSnapshot, orderBy, query, where, limit, startAfter } from "firebase/firestore";
+import { collection, deleteDoc, doc, getCountFromServer, limit, onSnapshot, orderBy, query, where } from "firebase/firestore";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import { AiFillDelete, AiFillEdit, AiFillEye } from 'react-icons/ai';
-import { db } from "../utils/firebase";
 import { toast } from "react-toastify";
+import { db } from "../utils/firebase";
 
 function ResumeTable({ user, Links }) {
     // Router
@@ -18,7 +18,9 @@ function ResumeTable({ user, Links }) {
         field: "createdOn",
         order: "desc",
     })
-    // let [latestDoc, setLatestDoc] = useState(0)
+    const [queryLimit, setQueryLimit] = useState(1)
+    const [fetchingStatus, setFetchingStatus] = useState(false)
+    const [isSnapshotEmpty, setIsSnapshotEmpty] = useState(false)
 
     // Filter searched resumes
     const filteredAllResume = useMemo(() => {
@@ -57,41 +59,36 @@ function ResumeTable({ user, Links }) {
 
     // Get Resume Data
     const getResumes = async () => {
+        setFetchingStatus(true)
         const collectionRef = collection(db, 'resumes')
-        const q = query(collectionRef, orderBy(`${sorting.field}`, `${sorting.order}`), limit(3))
+        const totalDocuments = (await getCountFromServer(collectionRef)).data().count
+        const q = query(collectionRef, orderBy(`${sorting.field}`, `${sorting.order}`), limit(`${queryLimit}`))
         const unsubscribe = await onSnapshot(q, (snapshot) => {
             setAllResumes(snapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
             })))
+            setFetchingStatus(false)
+
+            if (snapshot.size === totalDocuments) {
+                setIsSnapshotEmpty(true)
+            }
         })
         return unsubscribe
     }
     
     // Load more
-    const loadMore = async () => {
-        let latestDoc = allResumes[allResumes.length - 1]
-        console.log(latestDoc)
-        const collectionRef = collection(db, 'resumes')
-        const q = query(collectionRef, orderBy(`${sorting.field}`, `${sorting.order}`), startAfter(latestDoc), limit(3), )
-        const unsubscribe = await onSnapshot(q, (snapshot) => {
-            console.log(snapshot.docs.map((doc) => (doc.data())))
-            // setAllResumes(snapshot.docs.map((doc) => ({
-            //     ...allResumes,
-            //     ...doc.data(),
-            //     id: doc.id
-            // })))
-        })
-        return unsubscribe
+    const loadMore = () => {
+        if(isSnapshotEmpty) return
+        setQueryLimit((prev) => (prev + 10) )
     }
-
 
     // Get Logged In User Resumes
     const getUserResumes = async () => {
         const collectionRef = collection(db, 'resumes')
         const q = query(collectionRef, where("user", "==", user.uid), orderBy(`${sorting.field}`, `${sorting.order}`))
         const unsubscribe = await onSnapshot(q, (snapshot) => {
-            setUserResumes(snapshot.docs.map((doc) => ({
+                setUserResumes(snapshot.docs.map((doc) => ({
                 ...doc.data(),
                 id: doc.id
             })))
@@ -115,14 +112,14 @@ function ResumeTable({ user, Links }) {
         } else if (router.pathname == Links[0].yourResumes) {
             getUserResumes()
         }
-    }, [user, sorting])
+    }, [user, sorting, queryLimit])
 
     return (
         <>
             <section className="w-full min-h-screen p-5
                 md:p-10">
                 <div className="w-full flex flex-col lg:flex-row items-end justify-between gap-y-2 my-5">
-                    <h2 className="w-full text-neutral-focus text-2xl font-extrabold leading-none
+                    <h2 className="w-full text-slate-900 text-2xl font-extrabold leading-none
                         lg:text-4xl"
                     >
                         Resumes Overview
@@ -235,14 +232,18 @@ function ResumeTable({ user, Links }) {
                     </table>
                     {
                         router.pathname == Links[0].resumes ? (
-                            <div className="flex justify-center text-white text-lg tracking-wider font-semibold p-2 ">
-                                <button
-                                    disabled
-                                    className="border-2 border-accent bg-slate-700 rounded-lg p-2 
-                                        disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:border-accent
-                                        hover:scale-105 hover:border-accent-focus ease-in-out duration-150"
-                                    onClick={loadMore}>Load more
-                                </button>
+                            <div className={`flex justify-center text-white text-lg tracking-wider font-semibold p-2 ${isSnapshotEmpty ? "bg-slate-700" : ""}`}>
+                                {isSnapshotEmpty ? null : 
+                                    (
+                                    <button
+                                        disabled={fetchingStatus || isSnapshotEmpty}
+                                        className="border-2 border-accent bg-slate-700 rounded-lg p-2 
+                                            disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:border-accent
+                                            hover:scale-95 hover:border-accent-focus ease-in-out duration-150"
+                                        onClick={loadMore}>{ fetchingStatus ? "Fetching data" : "Load more" }
+                                    </button>    
+                                )}
+                                
                             </div>
                         ) : null
                     }
