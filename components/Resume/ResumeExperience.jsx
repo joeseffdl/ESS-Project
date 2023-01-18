@@ -18,11 +18,12 @@ function ResumeExperience() {
   // Edit State Functions
   const updateResumeWorkExp = resumeDataStore(state => state.updateResumeWorkExp)
   const updateResumeWorkDetailsArray = resumeDataStore(state => state.updateResumeWorkDetailsArray)
+  const deleteResumeWorkExp = resumeDataStore(state => state.deleteResumeWorkExp)
   const clearResumeWorkExpField = resumeDataStore(state => state.clearResumeWorkExpField)
   const incrementIndexValue = resumeDataExperienceIndexStore(state => state.incrementIndexValue)
   const decrementIndexValue = resumeDataExperienceIndexStore(state => state.decrementIndexValue)
   const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
-
+  
   // States
   const workExperiences = resumeExperienceStore(state => state.workExperiences)
   const workExp = resumeExperienceStore(state => state.workExp)
@@ -41,7 +42,7 @@ function ResumeExperience() {
   const setFillingForm = fillingForm(state => state.setFillingForm)
   const setModalSection = modalSection(state => state.setModalSection)
   const setAddingDetails = addingDetails(state => state.setAddingDetails)
-
+  
   // Handle change 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -102,7 +103,7 @@ function ResumeExperience() {
     if (_.isUndefined(router.query.id) && _.isEmpty(workExp.title && workExp.employer)) {
       toast.error(`Please enter all required fields 😞`)
       return
-    } else if (router.query.id && _.isEmpty(resumeData.workExperiences[indexValue].title && resumeData.workExperiences[indexValue].employer)) { 
+    } else if (router.query.id && _.isEmpty(resumeData.workExperiences[indexValue]?.title && resumeData.workExperiences[indexValue]?.employer)) { 
       toast.error(`Please enter all required fields 😞`)
       return
     } else if (router.query.id && !_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) {
@@ -219,18 +220,18 @@ function ResumeExperience() {
   const deleteIndex = (e) => {
     e.preventDefault()
     if (router.query.id) {
-      resumeData.workExperiences.splice(indexValue, 1)
-      decrementStep()
-      setAddingDetails(false)
-
-      if (resumeData.workExperiences.length === 0) {
-        clearResumeWorkExpField()
+      deleteResumeWorkExp(indexValue)
+      if (indexValue > 0) {
+        decrementIndexValue()
       }
+      // if (resumeData.workExperiences.length === 0) {
+      //   clearResumeWorkExpField()
+      // }
     } else if (_.isUndefined(router.query.id)) {
       console.log(workExperiences)
     }
-    
   }
+  console.log(resumeData)
 
   if (fillingFormValue && !modalSectionValue) {
     return (
@@ -238,18 +239,18 @@ function ResumeExperience() {
         <div className="w-full flex flex-col gap-2 mb-5
           ">
           <input
-            className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.workExperiences[indexValue].title == "" ? "input-warning" : "input-success" : workExp.title == "" ? "input-warning" : "input-success"}`}
+            className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.workExperiences[indexValue]?.title == "" ? "input-warning" : "input-success" : workExp.title == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Work Title"
-            value={router.query.id ? resumeData.workExperiences[indexValue].title : workExp.title}
+            value={router.query.id ? resumeData.workExperiences[indexValue]?.title ?? "" : workExp.title}
             name="title"
             onChange={handleChange}
           />
           <input
-            className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.workExperiences[indexValue].employer == "" ? "input-warning" : "input-success" : workExp.employer == "" ? "input-warning" : "input-success"}`}
+            className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.workExperiences[indexValue]?.employer == "" ? "input-warning" : "input-success" : workExp.employer == "" ? "input-warning" : "input-success"}`}
             type="text"
             placeholder="Employer"
-            value={router.query.id ? resumeData.workExperiences[indexValue].employer : workExp.employer}
+            value={router.query.id ? resumeData.workExperiences[indexValue]?.employer ?? "" : workExp.employer}
             name="employer"
             onChange={handleChange}
           />
@@ -260,7 +261,7 @@ function ResumeExperience() {
             className="input rounded-lg focus:outline-none w-full border-2 "
             type="text"
             placeholder="City/Municipality"
-            value={router.query.id ? resumeData.workExperiences[indexValue].city : workExp.city}
+            value={router.query.id ? resumeData.workExperiences[indexValue]?.city ?? "" : workExp.city}
             name="city"
             onChange={handleChange}
           />
@@ -268,7 +269,7 @@ function ResumeExperience() {
             className="input rounded-lg focus:outline-none w-full border-2 "
             type="text"
             placeholder="Country"
-            value={router.query.id ? resumeData.workExperiences[indexValue].country : workExp.country}
+            value={router.query.id ? resumeData.workExperiences[indexValue]?.country ?? "" : workExp.country}
             name="country"
             onChange={handleChange}
           />
@@ -279,7 +280,7 @@ function ResumeExperience() {
             className="input rounded-lg focus:outline-none w-full border-2"
             type="text"
             placeholder="Start Date"
-            value={router.query.id ? resumeData.workExperiences[indexValue].startDate : workExp.startDate}
+            value={router.query.id ? resumeData.workExperiences[indexValue]?.startDate ?? "" : workExp.startDate}
             name="startDate"
             onChange={handleChange}
             onFocus={(e) => (e.target.type = "month")}
@@ -287,11 +288,11 @@ function ResumeExperience() {
           />
           <div className="w-full flex flex-col ">
             <input
-              disabled={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" : workExp.currentlyWorking == "Present"}
+              disabled={router.query.id ? resumeData.workExperiences[indexValue]?.currentlyWorking ?? "" == "Present" : workExp.currentlyWorking == "Present"}
               className="input rounded-lg focus:outline-none w-full border-2"
               type="text"
               placeholder="End Date"
-              value={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" ? "" : resumeData.workExperiences[indexValue].endDate : workExp.currentlyWorking == "Present" ? "" : workExp.endDate}
+              value={router.query.id ? resumeData.workExperiences[indexValue]?.currentlyWorking ?? "" == "Present" ? "" : resumeData.workExperiences[indexValue]?.endDate ?? "" : workExp.currentlyWorking == "Present" ? "" : workExp.endDate}
               name="endDate"
               onChange={handleChange}
               onFocus={(e) => (e.target.type = "month")}
@@ -302,7 +303,7 @@ function ResumeExperience() {
                 <span className="font-semibold">Currently Working</span>
                 <input
                   className="checkbox "
-                  checked={router.query.id ? resumeData.workExperiences[indexValue].currentlyWorking == "Present" : workExp.currentlyWorking == "Present"}
+                  checked={router.query.id ? resumeData.workExperiences[indexValue]?.currentlyWorking ?? "" == "Present" : workExp.currentlyWorking == "Present"}
                   type="checkbox"
                   value="Present" 
                   name="currentlyWorking"
@@ -312,9 +313,9 @@ function ResumeExperience() {
               </label>
               {router.query.id
                 ? <div className="w-full flex justify-end gap-5 mt-3 px-2">
-                    <button className=" btn btn-xs btn-error btn-outline" disabled={ resumeData.workExperiences.length <= 1 && resumeData.workExperiences[0].title == "" && resumeData.workExperiences[0].employer == ""} onClick={deleteIndex}>☠️</button>
-                  <button className=" btn btn-xs btn-outline btn-accent" disabled={ indexValue == 0} onClick={decrementIndex}>&#60;</button>
-                  <button className=" btn btn-xs btn-outline btn-accent" disabled={ indexValue == resumeData.workExperiences.length - 1 } onClick={incrementIndex}>&#62;</button>
+                    <button className=" btn btn-xs btn-error btn-outline" disabled={ resumeData.workExperiences.length < 1 } onClick={deleteIndex}>☠️</button>
+                    <button className=" btn btn-xs btn-outline btn-accent" disabled={ indexValue == 0} onClick={decrementIndex}>&#60;</button>
+                    <button className=" btn btn-xs btn-outline btn-accent" disabled={ indexValue >= resumeData.workExperiences.length - 1 } onClick={incrementIndex}>&#62;</button>
                   </div>
                 : <>
                     {/* <div className="w-full flex justify-end gap-5 mt-3 px-2">
@@ -329,9 +330,9 @@ function ResumeExperience() {
         </div>
         
         <div className="w-full flex flex-col sm:justify-between gap-5">
-          <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
-          <button type="submit" className=" btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
-          <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={skipSection}>Skip to Education Section</button>
+          <button className=" btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={toPreviousPage}>Back</button>
+          <button type="submit" className=" btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
+          <button className=" btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={skipSection}>Skip to Education Section</button>
         </div>
       </FormWindow>
     )
@@ -346,11 +347,11 @@ function ResumeExperience() {
           name="description"
           onChange={handleTextAreaChange}
         >
-          {router.query.id ? resumeData.workExperiences[indexValue].description.join("\n") : description.value}
+          {router.query.id ? resumeData.workExperiences[indexValue].description?.join("\n") : description.value}
         </textarea>
         <div className="w-full flex flex-col sm:justify-between gap-5">
-          <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toExperienceForm}>Back</button>
-          <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
+          <button className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={toExperienceForm}>Back</button>
+          <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg">{router.query.id && (!_.isEqual(initialResumeData.workExperiences, resumeData.workExperiences)) ? "Update" : "Continue"}</button>
         </div>
       </FormWindow>
     )
@@ -360,9 +361,9 @@ function ResumeExperience() {
       <FormWindow onSubmit={toResumeEducation} formTitle="Want to add more work experience?" >
         
         <div className="w-full flex flex-col sm:justify-between gap-5">
-          <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
-          <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={addMoreExperience}>Add Experience</button>
-          <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">Continue</button>
+          <button className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={toPreviousPage}>Back</button>
+          <button className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={addMoreExperience}>Add Experience</button>
+          <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg">Continue</button>
         </div>
       </FormWindow>
     )

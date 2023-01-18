@@ -53,7 +53,7 @@ function PersonalInformation({ personalInfoProps }) {
                         <div className="text-center text-3xl font-semibold my-4 tracking-widest">
                             {router.query.id
                                 ? <>
-                                    {resumeData.personalInformation.firstname || resumeData.personalInformation.surname != "" ? `${resumeData.personalInformation.firstname?.toUpperCase()} ${resumeData.personalInformation.surname?.toUpperCase()}` : ""}
+                                    {resumeData.personalInformation.firstname || resumeData.personalInformation.surname != "" ? `${resumeData.personalInformation.firstname?.toUpperCase() ?? "Fetching"  } ${resumeData.personalInformation.surname?.toUpperCase() ?? "data"} ` : ""}
                                 </>
                                 : <>
                                     {personalInformation.firstname || personalInformation.surname != "" ? `${personalInformation.firstname.toUpperCase()} ${personalInformation.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
@@ -67,12 +67,12 @@ function PersonalInformation({ personalInfoProps }) {
                                     {resumeData.personalInformation.emailAddress != ""
                                         ? (
                                             <div className="px-2">
-                                                {resumeData.personalInformation.emailAddress}
+                                                {resumeData.personalInformation.emailAddress ?? ""}
                                             </div>
                                         )
                                         : ``}
 
-                                    {resumeData.personalInformation.phoneNumber != ""
+                                    {resumeData.personalInformation.phoneNumber
                                         ? <div className="px-2">
                                             {resumeData.personalInformation.phoneNumber}
                                         </div>
@@ -81,9 +81,9 @@ function PersonalInformation({ personalInfoProps }) {
 
                                     {resumeData.personalInformation.city || resumeData.personalInformation.country != ``
                                         ? <div className="px-2">
-                                            {resumeData.personalInformation.city != "" ? `${resumeData.personalInformation.city}, ` : ``} {resumeData.personalInformation.country} {resumeData.personalInformation.postalCode}
+                                            {resumeData.personalInformation.city != "" ? `${resumeData.personalInformation.city ?? ""} ${resumeData.personalInformation.city ? ",": ``} ` : ``} {resumeData.personalInformation.country} {resumeData.personalInformation.postalCode}
                                         </div>
-                                        : ``
+                                        : null
                                     }
                                 </>
                                 : <>

@@ -197,6 +197,12 @@ export let resumeDataStore = create((set) => ({
             ...state.resumeData.workExperiences[indexValue].description = [...expDetails]
         }
     })),
+    deleteResumeWorkExp: (indexValue) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            workExperiences: state.resumeData.workExperiences.filter((_, i) => i !== indexValue)
+        }
+    })),
     clearResumeWorkExpField: () => set((state) => ({ 
         resumeData: {
             ...state.resumeData,

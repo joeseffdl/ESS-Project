@@ -79,7 +79,7 @@ function ResumeProfile() {
                     className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="First Name"
-                    value={router.query.id ? resumeData.personalInformation.firstname : personalInformation.firstname}
+                    value={router.query.id ? resumeData.personalInformation.firstname ?? "Fetching data": personalInformation.firstname}
                     name="firstname"
                     onChange={handleChange}
                 />
@@ -87,7 +87,7 @@ function ResumeProfile() {
                     className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="Surname"
-                    value={router.query.id ? resumeData.personalInformation.surname : personalInformation.surname}
+                    value={router.query.id ? resumeData.personalInformation.surname ?? "Fetching data" : personalInformation.surname}
                     name="surname"
                     onChange={handleChange}
                 />
@@ -98,7 +98,7 @@ function ResumeProfile() {
                     className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="City/Municipality"
-                    value={router.query.id ? resumeData.personalInformation.city : personalInformation.city}
+                    value={router.query.id ? resumeData.personalInformation.city ?? "Fetching data" : personalInformation.city}
                     name="city"
                     onChange={handleChange}
                 />
@@ -106,7 +106,7 @@ function ResumeProfile() {
                     className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="Country"
-                    value={router.query.id ? resumeData.personalInformation.country : personalInformation.country}
+                    value={router.query.id ? resumeData.personalInformation.country ?? "Fetching data" : personalInformation.country}
                     name="country"
                     onChange={handleChange}
                 />
@@ -114,7 +114,7 @@ function ResumeProfile() {
                     className="input rounded-lg focus:outline-none w-full"
                     type="text"
                     placeholder="Postal Code"
-                    value={router.query.id ? resumeData.personalInformation.postalCode : personalInformation.postalCode}
+                    value={router.query.id ? resumeData.personalInformation.postalCode ?? "Fetching data" : personalInformation.postalCode}
                     name="postalCode"
                     onChange={handleChange}
                 />
@@ -125,7 +125,7 @@ function ResumeProfile() {
                     className="input rounded-lg border-0 focus:outline-none w-full"
                     type="number"
                     placeholder="Phone Number"
-                    value={router.query.id ? resumeData.personalInformation.phoneNumber : personalInformation.phoneNumber}
+                    value={router.query.id ? resumeData.personalInformation.phoneNumber ?? "" : personalInformation.phoneNumber}
                     name="phoneNumber"
                     onChange={handleChange}
                 />
@@ -133,15 +133,15 @@ function ResumeProfile() {
                     className={`input rounded-lg focus:outline-none w-full border-2 ${_.isEmpty(personalInformation.emailAddress) ? "input-warning" : "input-success"}`}
                     type="email"
                     placeholder="Email Address"
-                    value={router.query.id ? resumeData.personalInformation.emailAddress : personalInformation.emailAddress}
+                    value={router.query.id ? resumeData.personalInformation.emailAddress ?? "Fetching data" : personalInformation.emailAddress}
                     name="emailAddress"
                     onChange={handleChange}
                 />
             </div>
 
             <div className="w-full flex flex-col sm:flex-row justify-between gap-5">
-                <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toResumeTemplates}>Back</button>
-                <button type="submit" disabled={router.query.id && _.isEmpty(resumeData.personalInformation)} className="btn btn-sm sm:btn-md btn-outline btn-accent">{ router.query.id && (!_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) ? "Update" : "Continue" }</button>
+                <button className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={toResumeTemplates}>Back</button>
+                <button type="submit" disabled={router.query.id && _.isEmpty(resumeData.personalInformation)} className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg">{ router.query.id && (!_.isEqual(initialResumeData.personalInformation, resumeData.personalInformation)) ? "Update" : "Continue" }</button>
             </div>
         </FormWindow>
     )
