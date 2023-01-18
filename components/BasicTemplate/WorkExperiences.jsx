@@ -203,25 +203,25 @@ function WorkExperiences({ workExperiencesProps }) {
                                                                                 </div>
                                                                             ) : null
                                                                         }
-                                                                        {experience.employer != ""
+                                                                        {experience.employer != undefined || experience.employer != ""
                                                                             ? (
                                                                                 <div className="px-2">
                                                                                     {experience.employer} {
-                                                                                        experience.city && experience.country != ""
-                                                                                            ? `${`- ${experience.city}, `} ${experience.country}`
+                                                                                        experience.city != "" && experience.country != ""
+                                                                                            ? `${`- ${experience.city}${experience.country ? `,` : ``} `} ${experience.country ?? ""}`
                                                                                             : `${experience.country != "" ? `- ${experience.country}` : ``} `
                                                                                     }
                                                                                 </div>
                                                                             )
                                                                             : null
                                                                         }
-                                                                        {experience.startDate || (experience.currentlyWorking || experience.endDate) != ""
+                                                                        {(experience.startDate != "") || (experience.currentlyWorking != "" || experience.endDate != "")
                                                                             ? (
                                                                                 <div className="px-2">
                                                                                     {experience.startDate} {
-                                                                                        (experience.startDate && experience.currentlyWorking) || (experience.startDate && experience.endDate) != ""
-                                                                                            ? `- ${!experience.currentlyWorking ? experience.endDate : experience.currentlyWorking}`
-                                                                                            : `${!experience.currentlyWorking ? `${`${experience.endDate}` != "" ? `End Date: ${experience.endDate}` : ``}` : experience.currentlyWorking}`
+                                                                                        (experience.startDate && experience.currentlyWorking) != "" || (experience.startDate && experience.endDate) != ""
+                                                                                            ? `- ${!experience.currentlyWorking ? experience.endDate ?? "" : experience.currentlyWorking}`
+                                                                                            : `${!experience.currentlyWorking ? `${`${experience.endDate ?? ""}` != "" ? `End Date: ${experience.endDate ?? ""}` : ``}` : experience.currentlyWorking}`
                                                                                     }
                                                                                 </div>
                                                                             )
