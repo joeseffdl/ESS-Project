@@ -231,7 +231,6 @@ function ResumeExperience() {
       console.log(workExperiences)
     }
   }
-  console.log(resumeData)
 
   if (fillingFormValue && !modalSectionValue) {
     return (

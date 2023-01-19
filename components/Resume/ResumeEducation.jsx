@@ -18,6 +18,7 @@ function ResumeEducation() {
     // Edit States Functions
     const updateResumeEducation = resumeDataStore(state => state.updateResumeEducation)
     const updateResumeEducationDetailsArray = resumeDataStore(state => state.updateResumeEducationDetailsArray)
+    const deleteResumeEducation = resumeDataStore(state => state.deleteResumeEducation)
     const clearResumeEducationField = resumeDataStore(state => state.clearResumeEducationField)
     const incrementIndexValue = resumeDataEducationalBackgroundIndexStore(state => state.incrementIndexValue)
     const decrementIndexValue = resumeDataEducationalBackgroundIndexStore(state => state.decrementIndexValue)
@@ -90,7 +91,7 @@ function ResumeEducation() {
         if (_.isUndefined(router.query.id) && _.isEmpty(educationField.institutionName && educationField.degreeType)) {
             toast.error("Please enter all required fields 😞")
             return
-        } else if (router.query.id && _.isEmpty(resumeData.educationalBackground[indexValue].institutionName && resumeData.educationalBackground[indexValue].degreeType)) {
+        } else if (router.query.id && _.isEmpty(resumeData.educationalBackground[indexValue]?.institutionName && resumeData.educationalBackground[indexValue]?.degreeType)) {
             toast.error("Please enter all required fields 😞")
             return
         } else if (router.query.id && !_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) {
@@ -207,12 +208,17 @@ function ResumeEducation() {
     // Delete Index Item
     const deleteIndex = (e) => {
         e.preventDefault()
-        resumeData.educationalBackground.splice(indexValue, 1)
-        decrementStep()
-        setAddingDetails(false)
-        if (resumeData.educationalBackground.length === 0) {
-            clearResumeEducationField()
+        if (router.query.id) {
+            deleteResumeEducation(indexValue)
+            if(indexValue > 0) {
+                decrementIndexValue()
+            }
+        } else { 
+            console.log(educationalBackground)
         }
+        // if (resumeData.educationalBackground.length === 0) {
+        //     clearResumeEducationField()
+        // }
     }
 
     if (fillingFormValue && !modalSectionValue) {
@@ -221,16 +227,16 @@ function ResumeEducation() {
                 <div className="w-full flex flex-col gap-2 mb-5
                     ">
                     <input
-                        className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.educationalBackground[indexValue].institutionName == "" ? "input-warning" : "input-success" : educationField.institutionName == "" ? "input-warning" : "input-success"}`}
+                        className={`input rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.educationalBackground[indexValue]?.institutionName == "" ? "input-warning" : "input-success" : educationField.institutionName == "" ? "input-warning" : "input-success"}`}
                         placeholder="Institution Name"
-                        value={router.query.id ? resumeData.educationalBackground[indexValue].institutionName : educationField.institutionName}
+                        value={router.query.id ? resumeData.educationalBackground[indexValue]?.institutionName ?? "" : educationField.institutionName}
                         name="institutionName"
                         onChange={handleChange}
                     />
                     <input
                         className="input rounded-lg focus:outline-none w-full border-2 "
                         placeholder="Institution Location"
-                        value={router.query.id ? resumeData.educationalBackground[indexValue].institutionLocation : educationField.institutionLocation}
+                        value={router.query.id ? resumeData.educationalBackground[indexValue]?.institutionLocation ?? "" : educationField.institutionLocation}
                         name="institutionLocation"
                         onChange={handleChange}
                     />
@@ -239,115 +245,115 @@ function ResumeEducation() {
                 <div className="w-full flex flex-col gap-2 mb-5
                     ">
                     <select
-                        className={`select rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "" ? "select-warning" : "select-success" : educationField.degreeType == "" ? "select-warning" : "select-success"}`}
+                        className={`select rounded-lg focus:outline-none w-full border-2 ${router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType == "" ? "select-warning" : "select-success" : educationField.degreeType == "" ? "select-warning" : "select-success"}`}
                         name="degreeType"
                         onChange={handleChange}
                     >
-                        <option value="" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "" : educationField.degreeType == ""}>Degree Type</option>
+                        <option value="" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "" : educationField.degreeType == ""}>Degree Type</option>
                         <option
                             value="High School Diploma"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "High School Diploma" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "High School Diploma" : ``}
                         >
                             High School Diploma
                         </option>
                         <option
                             value="GED"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "GED" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "GED" : ``}
                         >
                             GED
                         </option>
                         <option
                             value="Associate of Arts"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Associate of Arts" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Associate of Arts" : ``}
                         >
                             Associate of Arts
                         </option>
                         <option
                             value="Associate of Science"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Associate of Science" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Associate of Science" : ``}
                         >
                             Associate of Science
                         </option>
                         <option
                             value="Associate of Applied Science"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Associate of Science" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Associate of Science" : ``}
                         >
                             Associate of Applied Science
                         </option>
                         <option
                             value="Bachelor of Arts"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Bachelor of Arts" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Bachelor of Arts" : ``}
                         >
                             Bachelor of Arts
                         </option>
                         <option
                             value="Bachelor of Science"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Bachelor of Science" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Bachelor of Science" : ``}
                         >
                             Bachelor of Science
                         </option>
                         <option
                             value="BBA"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "BBA" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "BBA" : ``}
                         >
                             BBA
                         </option>
                         <option
                             value="Master of Arts"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Master of Arts" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Master of Arts" : ``}
                         >
                             Master of Arts
                         </option>
                         <option
                             value="Master of Science"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Master of Science" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Master of Science" : ``}
                         >
                             Master of Science
                         </option>
                         <option
                             value="MBA"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "MBA" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "MBA" : ``}
                         >
                             MBA
                         </option>
                         <option
                             value="J.D."
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "J.D." : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "J.D." : ``}
                         >
                             J.D.
                         </option>
                         <option
                             value="M.D."
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "M.D." : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "M.D." : ``}
                         >
                             M.D.
                         </option>
                         <option
                             value="Ph.D."
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Ph.D." : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Ph.D." : ``}
                         >
                             Ph.D.
                         </option>
                         <option
                             value="No Degree"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "No Degree" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "No Degree" : ``}
                         >
                             Some College (No Degree)
                         </option>
                         <option
                             value="Degree"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].degreeType == "Degree" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.degreeType ?? "" == "Degree" : ``}
                         >
                             Enter a different degree
                         </option>
                     </select>
                     <input
                         disabled={router.query.id
-                            ? resumeData.educationalBackground[indexValue].degreeType === ("") || resumeData.educationalBackground[indexValue].degreeType === ("High School Diploma") || resumeData.educationalBackground[indexValue].degreeType === ("GED") || resumeData.educationalBackground[indexValue].degreeType === ("No Degree")
+                            ? resumeData.educationalBackground[indexValue]?.degreeType === ("") || resumeData.educationalBackground[indexValue]?.degreeType === ("High School Diploma") || resumeData.educationalBackground[indexValue]?.degreeType === ("GED") || resumeData.educationalBackground[indexValue]?.degreeType === ("No Degree")
                             : educationField.degreeType === ("") || educationField.degreeType === ("High School Diploma") || educationField.degreeType === ("GED") || educationField.degreeType === ("No Degree")}
                         className="input rounded-lg focus:outline-none w-full border-2 "
                         placeholder="Field of Study"
-                        value={router.query.id ? resumeData.educationalBackground[indexValue].fieldOfStudy : educationField.fieldOfStudy}
+                        value={router.query.id ? resumeData.educationalBackground[indexValue]?.fieldOfStudy ?? "" : educationField.fieldOfStudy}
                         name="fieldOfStudy"
                         onChange={handleChange}
                     />
@@ -359,82 +365,82 @@ function ResumeEducation() {
                         name="graduationMonth"
                         onChange={handleChange}
                     >
-                        <option value="" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "" : educationField.graduationMonth == ""}>Graduation Month</option>
+                        <option value="" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "" : educationField.graduationMonth == ""}>Graduation Month</option>
                         <option
                             value=""
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "" : ``}
                         >
                             I don&apos;t know the month
                         </option>
                         <option
                             value="Jan"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Jan" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Jan" : ``}
                         >
                             Jan
                         </option>
                         <option
                             value="Feb"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Feb" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Feb" : ``}
                         >
                             Feb
                         </option>
                         <option
                             value="Mar"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Mar" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Mar" : ``}
                         >
                             Mar
                         </option>
                         <option
                             value="Apr"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Apr" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Apr" : ``}
                         >
                             Apr
                         </option>
                         <option
                             value="May"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "May" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "May" : ``}
                         >
                             May
                         </option>
                         <option
                             value="Jun"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Jun" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Jun" : ``}
                         >
                             Jun
                         </option>
                         <option
                             value="Jul"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Jul" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Jul" : ``}
                         >
                             Jul
                         </option>
                         <option
                             value="Aug"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Aug" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Aug" : ``}
                         >
                             Aug
                         </option>
                         <option
                             value="Sep"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Sep" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Sep" : ``}
                         >
                             Sep
                         </option>
                         <option
                             value="Oct"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Oct" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Oct" : ``}
                         >
                             Oct
                         </option>
                         <option
                             value="Nov"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Nov" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Nov" : ``}
                         >
                             Nov
                         </option>
                         <option
                             value="Dec"
-                            selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationMonth == "Dec" : ``}
+                            selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationMonth ?? "" == "Dec" : ``}
                         >
                             Dec
                         </option>
@@ -444,14 +450,14 @@ function ResumeEducation() {
                         name="graduationYear"
                         onChange={handleChange}
                     >
-                        <option value="graduationYear" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationYear == "" : educationField.graduationYear == ""}>Graduation Year</option>
+                        <option value="graduationYear" disabled selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationYear == "" : educationField.graduationYear == ""}>Graduation Year</option>
                         <option >{yearsOptionArray[1]}</option>
                         {
                             yearsOptionArray.map((year) =>
                                 <option
                                     value={year}
                                     key={year}
-                                    selected={router.query.id ? resumeData.educationalBackground[indexValue].graduationYear == year : ``}
+                                    selected={router.query.id ? resumeData.educationalBackground[indexValue]?.graduationYear == year : ``}
                                 >
                                     {year}
                                 </option>)
@@ -459,17 +465,17 @@ function ResumeEducation() {
                     </select>
                     {router.query.id
                         ? <div className="w-full flex justify-end gap-5 mt-3 px-2">
-                            <button className=" btn btn-xs btn-error btn-outline" disabled={resumeData.workExperiences.length <= 1 && resumeData.workExperiences[0].title == "" && resumeData.workExperiences[0].employer == ""} onClick={deleteIndex}>☠️</button>
+                            <button className=" btn btn-xs btn-error btn-outline" disabled={resumeData.workExperiences.length < 1 } onClick={deleteIndex}>☠️</button>
                             <button className=" btn btn-xs btn-outline" disabled={indexValue == 0} onClick={decrementIndex}>&#60;</button>
-                            <button className=" btn btn-xs btn-outline" disabled={indexValue == resumeData.workExperiences.length - 1} onClick={incrementIndex}>&#62;</button>
+                            <button className=" btn btn-xs btn-outline" disabled={indexValue >= resumeData.workExperiences.length - 1} onClick={incrementIndex}>&#62;</button>
                         </div>
                         : ``
                     }
                 </div>
                 <div className="w-full flex flex-col sm:justify-between gap-5">
-                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
-                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
-                    <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toSkillsSection}>Skip to Skills Section</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={toPreviousPage}>Back</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
+                    <button className=" btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={toSkillsSection}>Skip to Skills Section</button>
                 </div>
             </FormWindow>
         )
@@ -483,12 +489,12 @@ function ResumeEducation() {
                     name="description"
                     onChange={handleTextAreaChange}
                 >
-                    {router.query.id ? resumeData.educationalBackground[indexValue].description.join("\n") : description.value}
+                    {router.query.id ? resumeData.educationalBackground[indexValue].description?.join("\n") : description.value}
                 </textarea>
 
                 <div className="w-full flex flex-col sm:justify-between gap-5">
-                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toEducationForm}>Back</button>
-                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={toEducationForm}>Back</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg">{router.query.id && (!_.isEqual(initialResumeData.educationalBackground, resumeData.educationalBackground)) ? "Update" : "Continue"}</button>
                 </div>
             </FormWindow>
         )
@@ -498,9 +504,9 @@ function ResumeEducation() {
             <FormWindow onSubmit={toResumeSkills} formTitle="Preview Educational Attainment" >
 
                 <div className="w-full flex flex-col sm:justify-between gap-5">
-                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
-                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={addMoreEducation}>Add Education</button>
-                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">Continue</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={toPreviousPage}>Back</button>
+                    <button className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg" onClick={addMoreEducation}>Add Education</button>
+                    <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent rounded-lg">Continue</button>
                 </div>
             </FormWindow>
         )
