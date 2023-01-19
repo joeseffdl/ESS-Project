@@ -236,6 +236,18 @@ export let resumeDataStore = create((set) => ({
             ...state.resumeData.educationalBackground[indexValue].description = [...educationDetails]
         }
     })),
+    deleteResumeWorkExp: (indexValue) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            workExperiences: state.resumeData.workExperiences.filter((_, i) => i !== indexValue)
+        }
+    })),
+    deleteResumeEducation: (indexValue) => set((state) => ({
+        resumeData: {
+            ...state.resumeData,
+            educationalBackground: state.resumeData.educationalBackground.filter((_, i) => i !== indexValue)
+        }
+    })),
     clearResumeEducationField: () => set((state) => ({ 
         resumeData: {
             ...state.resumeData,
