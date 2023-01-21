@@ -349,7 +349,7 @@ function ResumeEducation() {
                     </select>
                     <input
                         disabled={router.query.id
-                            ? resumeData.educationalBackground[indexValue]?.degreeType === ("") || resumeData.educationalBackground[indexValue]?.degreeType === ("High School Diploma") || resumeData.educationalBackground[indexValue]?.degreeType === ("GED") || resumeData.educationalBackground[indexValue]?.degreeType === ("No Degree")
+                            ? resumeData.educationalBackground[indexValue]?.degreeType === ("") || resumeData.educationalBackground[indexValue]?.degreeType === ("High School Diploma") || resumeData.educationalBackground[indexValue]?.degreeType === ("GED") || resumeData.educationalBackground[indexValue]?.degreeType === ("No Degree") || resumeData.educationalBackground[indexValue]?.degreeType === undefined
                             : educationField.degreeType === ("") || educationField.degreeType === ("High School Diploma") || educationField.degreeType === ("GED") || educationField.degreeType === ("No Degree")}
                         className="input rounded-lg focus:outline-none w-full border-2 "
                         placeholder="Field of Study"
@@ -465,9 +465,9 @@ function ResumeEducation() {
                     </select>
                     {router.query.id
                         ? <div className="w-full flex justify-end gap-5 mt-3 px-2">
-                            <button className=" btn btn-xs btn-error btn-outline" disabled={resumeData.workExperiences.length < 1 } onClick={deleteIndex}>☠️</button>
+                            <button className=" btn btn-xs btn-error btn-outline" disabled={resumeData.educationalBackground.length < 1 } onClick={deleteIndex}>☠️</button>
                             <button className=" btn btn-xs btn-outline" disabled={indexValue == 0} onClick={decrementIndex}>&#60;</button>
-                            <button className=" btn btn-xs btn-outline" disabled={indexValue >= resumeData.workExperiences.length - 1} onClick={incrementIndex}>&#62;</button>
+                            <button className=" btn btn-xs btn-outline" disabled={indexValue >= resumeData.educationalBackground.length - 1} onClick={incrementIndex}>&#62;</button>
                         </div>
                         : ``
                     }
