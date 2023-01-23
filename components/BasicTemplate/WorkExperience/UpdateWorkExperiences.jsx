@@ -1,7 +1,7 @@
 import { useRouter } from "next/router"
 import { addingDetails, completedSteps, resumeDataStore, resumeExperienceStore } from "../../../utils/store"
 
-function WorkExperiencesUpdate() {
+function UpdateWorkExperiences() {
     // Router
     const router = useRouter()
 
@@ -334,4 +334,4 @@ function WorkExperiencesUpdate() {
     )
 }
 
-export default WorkExperiencesUpdate;
+export default UpdateWorkExperiences;

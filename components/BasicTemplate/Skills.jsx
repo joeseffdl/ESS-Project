@@ -1,85 +1,23 @@
 import { useRouter } from "next/router"
-import { resumeDataStore, resumeSkillsStore } from "../../utils/store"
+import CreateSkills from "./Skills/CreateSkills"
+import ReadSkills from "./Skills/ReadSkills"
+import UpdateSkills from "./Skills/UpdateSkills"
 
 function Skills({ skillsProps }) {
     // Router
     const router = useRouter()
-    const viewingResume = router.query.viewResume
-
-    // State Management
-    const resumeData = resumeDataStore(state => state.resumeData)
-    const userSkills = resumeSkillsStore(state => state.skills)
-
-    // Props
-    const { viewSkills, skillsPaddingL, skillsPaddingR, skillsPaddingT, skillsPaddingB, } = skillsProps
-
+    const viewingResume = router.query.viewResume 
+    
     return (
         <>
             {viewingResume
-                ? (<>
-                    {viewSkills != "" ? (
-                        <section className="w-full pb-5">
-                            <div className="text-center font-bold my-1">
-                                Skills
-                            </div>
-                            <div className="grid grid-cols-2 justify-center items-center ">
-                                {viewSkills?.map((skill) => {
-                                    return (
-                                        <ul className="flex list-disc list-inside"
-                                            style={{
-                                                'paddingLeft': skillsPaddingL + 'rem',
-                                                'paddingRight': skillsPaddingR + 'rem',
-                                                'paddingTop': skillsPaddingT + 'rem',
-                                                'paddingBottom': skillsPaddingB + 'rem',
-                                            }} key={skill}>
-                                            <li>{skill}</li>
-                                        </ul>
-                                    )
-                                })}
-                            </div>
-                        </section>
-                    ) : null}
-                </>)
-                : (<>
+                ? <ReadSkills skillsProps={skillsProps} />
+                : <>
                     {router.query.id
-                        ? <>
-                            {resumeData.skills != "" ? (
-                                <section className="w-full pb-5">
-                                    <div className="text-center font-bold my-1">
-                                        Skills
-                                    </div>
-                                    <div className="grid grid-cols-2 justify-center items-center ">
-                                        {resumeData.skills?.map((skill) => {
-                                            return (
-                                                <ul className="flex list-disc list-inside px-10" key={skill}>
-                                                    <li>{skill}</li>
-                                                </ul>
-                                            )
-                                        })}
-                                    </div>
-                                </section>
-                            ) : null}
-                        </>
-                        : <>
-                            {userSkills != "" ? (
-                                <section className="w-full pb-5">
-                                    <div className="text-center font-bold my-1">
-                                        Skills
-                                    </div>
-                                    <div className="grid grid-cols-2 justify-center items-center ">
-                                        {userSkills?.map((skill) => {
-                                            return (
-                                                <ul className="flex list-disc list-inside px-10" key={skill}>
-                                                    <li>{skill}</li>
-                                                </ul>
-                                            )
-                                        })}
-                                    </div>
-                                </section>
-                            ) : null}
-                        </>
+                        ? <UpdateSkills />
+                        : <CreateSkills />
                     }
-                </>)
+                </>
             }
         </>
     )
