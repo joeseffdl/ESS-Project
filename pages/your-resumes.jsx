@@ -33,8 +33,8 @@ function YourResumes() {
     }, [user, loading])
 
     return (
-        <section className="w-full min-h-screen flex justify-center items-center">
-            <section className="hidden min-h-screen p-5 bg-primary
+        <section className="w-full min-h-screen flex">
+            <section className="hidden w-full p-5 bg-primary
                 sm:w-2/5 sm:flex sm:flex-col items-center 
                 md:w-1/3
                 lg:w-1/4
