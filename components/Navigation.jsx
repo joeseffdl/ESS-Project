@@ -27,9 +27,9 @@ function Navigation() {
     
     return (
         <main className={`text-gray-900 fixed w-full transition-colors ease-in-out duration-300 min-h-20 z-50 
-                ${scrollPosition > 0 || showNav ? 'bg-primary-focus text-white shadow-inner' : ''}`}>
+                ${scrollPosition > 0 || showNav ? 'bg-primary-focus shadow-inner' :''}`}>
             <nav className="">
-                <div onClick={ () => setOpen(!open)} className="text-3xl absolute right-10 top-4 cursor-pointer md:hidden" >
+                <div onClick={() => setOpen(!open)} className={`text-3xl absolute right-10 top-4 cursor-pointer md:hidden ${scrollPosition >= 1680 || showNav ? 'text-white ease-in-out duration-100' : 'text-black ease-in-out duration-100'}`} >
                     <span>
                         { open ? <AiOutlineClose /> : <AiOutlineMenu /> }
                     </span>
