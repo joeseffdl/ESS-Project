@@ -1,5 +1,4 @@
 import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
-import Image from "next/image"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -7,7 +6,6 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import { AiOutlineClose, AiOutlineGithub, AiOutlineMenu } from 'react-icons/ai'
 import { FcGoogle } from "react-icons/fc"
 import { toast } from "react-toastify"
-import loginImage from "../../public/Sample.jpg"
 import { auth } from "../../utils/firebase"
 function Login({ defaultUser = {} }) {
     // Router
