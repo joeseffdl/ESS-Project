@@ -7,6 +7,7 @@ import { AiOutlineClose, AiOutlineGithub, AiOutlineMenu } from 'react-icons/ai'
 import { FcGoogle } from "react-icons/fc"
 import { toast } from "react-toastify"
 import { auth } from "../../utils/firebase"
+
 function Login({ defaultUser = {} }) {
     // Router
     const router = useRouter()
@@ -15,18 +16,12 @@ function Login({ defaultUser = {} }) {
     // NavBar State
     let [open, setOpen] = useState(false)
 
-    // Functions
-    const onSubmit = formValues => {
-        console.log(formValues)
-        router.push("/dashboard")
-    }
-
     // Sign in with Google
     const googleProvider = new GoogleAuthProvider()
     const GoogleLogin = async () => {
         try {
             const result = await signInWithPopup(auth, googleProvider)
-            if (!loading) {
+            if (user) {
                 if (user?.metadata.createdAt == user?.metadata.lastLoginAt) {
                     router.push("/dashboard")
                 } else {
@@ -35,7 +30,7 @@ function Login({ defaultUser = {} }) {
             }
         }
         catch (err) {
-            toast.error("Unauthenticated ☹️")
+            toast.error("There was an error while signing in with your Google account ☹️")
             console.log(err)
         }
     }
@@ -45,25 +40,24 @@ function Login({ defaultUser = {} }) {
     const GitHubLogin = async () => {
         try {
             const result = await signInWithPopup(auth, githubProvider)
-            if (!loading) {
-                if (user?.metadata.createdAt == user?.metadata.lastLoginAt) {
-                    router.push("/dashboard")
-                } else {
-                    router.push("/resumes")
-                }
-            }
         }
         catch (err) {
-            toast.error("Unauthenticated ☹️")
+            toast.error("There was an error while signing in with your GitHub account ☹️")
             console.log(err)
         }
     }
 
     useEffect(() => {
-        {
-            user
-                ? router.push("../dashboard")
-                : console.log("No user logged in")
+        if (user) {
+            if (user?.metadata.createdAt == user?.metadata.lastLoginAt) {
+                router.push("/dashboard")
+                toast.success("Welcome to Oregen 🎉")
+            } else {
+                router.push("/resumes")
+                toast.success("Welcome back to Oregen 🎉")
+            }
+        } else {
+            console.log("No user logged in")
         }
     }, [user])
 
@@ -84,9 +78,6 @@ function Login({ defaultUser = {} }) {
                     </ul>
             </nav>
             <section className="w-full h-4/5 border-t-2 md:border-y-2 flex justify-center">
-                {/* <div className="w-full h-full lg:flex hidden items-center justify-center">
-                    <Image src={loginImage} alt="Login Image" className="object-cover rounded-lg" />
-                </div> */}
                 <div className="container w-full">
                     <div className="h-full flex flex-col gap-3 justify-center items-center p-10">
                         <div>

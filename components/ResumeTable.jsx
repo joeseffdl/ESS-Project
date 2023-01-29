@@ -86,7 +86,7 @@ function ResumeTable({ user, Links }) {
     // Get Logged In User Resumes
     const getUserResumes = async () => {
         const collectionRef = collection(db, 'resumes')
-        const q = query(collectionRef, where("user", "==", user.uid), orderBy(`${sorting.field}`, `${sorting.order}`))
+        const q = query(collectionRef, where("user", "==", user?.uid), orderBy(`${sorting.field}`, `${sorting.order}`))
         const unsubscribe = await onSnapshot(q, (snapshot) => {
                 setUserResumes(snapshot.docs.map((doc) => ({
                 ...doc.data(),
@@ -190,7 +190,7 @@ function ResumeTable({ user, Links }) {
                                         {filteredAllResume?.map((resume) => (
                                         <React.Fragment key={resume.id}>
                                             <tr className="text-center even:bg-white odd:bg-gray-300" >
-                                            {user.uid == resume.user
+                                            {user?.uid == resume.user
                                                     ? (
                                                         <>
                                                             <td className="p-4 text-sm text-gray-700 whitespace-nowrap font-semibold tracking-wide">{resume.type}</td>

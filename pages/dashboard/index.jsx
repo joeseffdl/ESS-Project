@@ -20,7 +20,7 @@ function Welcome() {
 
     // Confetti
     const [pieces, setPieces] = useState(200)
- 
+
     const stopConfetti = () => {
         setTimeout(() => {
             setPieces(0)
