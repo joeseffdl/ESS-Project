@@ -1,9 +1,9 @@
-import { GithubAuthProvider, GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
 import { useAuthState } from "react-firebase-hooks/auth"
-import { AiOutlineClose, AiOutlineGithub, AiOutlineMenu } from 'react-icons/ai'
+import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import { FcGoogle } from "react-icons/fc"
 import { toast } from "react-toastify"
 import { auth } from "../../utils/firebase"
@@ -31,18 +31,6 @@ function Login({ defaultUser = {} }) {
         }
         catch (err) {
             toast.error("There was an error while signing in with your Google account ☹️")
-            console.log(err)
-        }
-    }
-
-    // Sign in with Google
-    const githubProvider = new GithubAuthProvider()
-    const GitHubLogin = async () => {
-        try {
-            const result = await signInWithPopup(auth, githubProvider)
-        }
-        catch (err) {
-            toast.error("There was an error while signing in with your GitHub account ☹️")
             console.log(err)
         }
     }
@@ -91,25 +79,14 @@ function Login({ defaultUser = {} }) {
                         
                         <div className="w-full flex flex-col gap-2 justify-center items-center
                             md:flex-row">
-                            <div>
-                                <div className="flex justify-center items-center w-fit" >
-                                    <button onClick={GoogleLogin} className="w-full flex items-center justify-center font-semibold text-sm md:text-lg p-2 rounded-md bg-white text-gray-900 ">
-                                        <FcGoogle className="text-2xl md:text-3xl mr-2" />
-                                        Sign In with Google
-                                    </button>
-                                </div>
-                            </div> 
-                            <div>
-                                <div className="flex justify-center items-center w-fit" >
-                                    <button onClick={GitHubLogin} className="w-full flex items-center justify-center font-semibold text-sm md:text-lg p-2 rounded-md bg-slate-700 border-slate-700 text-white">
-                                        <AiOutlineGithub className="text-2xl md:text-3xl mr-2" />
-                                        Sign In with GitHub
-                                    </button>
-                                </div> 
+                            <div className="flex justify-center items-center w-fit" >
+                                <button onClick={GoogleLogin} className="w-full flex items-center justify-center font-semibold text-sm md:text-lg p-2 rounded-md bg-white text-gray-900 ">
+                                    <FcGoogle className="text-2xl md:text-3xl mr-2" />
+                                    Sign In with Google
+                                </button>
                             </div>
                         </div>
-                    </div>
-                            
+                    </div>     
                 </div>
             </section>
         </main>

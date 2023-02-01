@@ -42,7 +42,6 @@ export default function Home() {
               ].map((landing) => {
                 return (
                   <div className="h-full flex justify-center items-center relative" key={landing.name}>
-                    {/* <Image src={`/${landing.image}.jpg`} fill alt={`${landing.name} image`} className="object-cover lg:rounded-br-full lg:rounded-bl-full lg:pb-10" /> */}
                     <div className="w-full h-full bg-gradient-to-b from-primary-focus to-secondary-focus lg:rounded-br-full lg:rounded-bl-full lg:mb-10"></div>
                   </div>
                 )
