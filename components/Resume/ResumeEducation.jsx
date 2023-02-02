@@ -216,9 +216,6 @@ function ResumeEducation() {
         } else { 
             console.log(educationalBackground)
         }
-        // if (resumeData.educationalBackground.length === 0) {
-        //     clearResumeEducationField()
-        // }
     }
 
     if (fillingFormValue && !modalSectionValue) {
