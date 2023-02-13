@@ -5,28 +5,28 @@ import ReadWorkExperiences from "./WorkExperience/ReadWorkExperiences"
 import UpdateWorkExperiences from "./WorkExperience/UpdateWorkExperiences"
 
 function WorkExperiences({ workExperiencesProps }) {
-    // Router
-    const router = useRouter()
-    const viewingResume = router.query.viewResume
+    const { query } = useRouter();
+    const { workExp, workExperiences } = resumeExperienceStore(state => ({
+        workExp: state.workExp,
+        workExperiences: state.workExperiences,
+    }));
 
-    // State Management
-    const workExp = resumeExperienceStore(state => state.workExp)
-    const workExperiences = resumeExperienceStore(state => state.workExperiences)
+    const hasNoWorkExperiences = workExperiences.length === 0;
+    const isEmptyWorkExp = (workExp.title || workExp.employer) === '';
+    const isCreating = hasNoWorkExperiences && isEmptyWorkExp && !query.id;
+    const isViewingResume = query.viewResume;
 
     return (
         <>
-            {(workExperiences.length == 0) &&
-                (workExp.title || workExp.employer) !== '' && !router.query.id
-                ? <CreateWorkExperiences />
-                : <>
-                    {viewingResume
-                        ? <ReadWorkExperiences workExperiencesProps={workExperiencesProps} />
-                        : <UpdateWorkExperiences />
-                    }
-                </>
-            }
+            {isCreating ? (
+                <CreateWorkExperiences />
+            ) : isViewingResume ? (
+                <ReadWorkExperiences workExperiencesProps={workExperiencesProps} />
+            ) : (
+                <UpdateWorkExperiences />
+            )}
         </>
-    )
+    );
 }
 
 export default WorkExperiences;

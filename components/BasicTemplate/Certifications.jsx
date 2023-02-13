@@ -4,23 +4,18 @@ import ReadCertifications from "./Certifications/ReadCertifications"
 import UpdateCertifications from "./Certifications/UpdateCertifications"
 
 function Certifications({ certificationsProps }) {
-    // Router
-    const router = useRouter()
-    const viewingResume = router.query.viewResume
+    const { query: { viewResume, id } } = useRouter();
+
     return (
         <>
-            {viewingResume
+            {viewResume
                 ? <ReadCertifications certificationsProps={certificationsProps} />
-                : <>
-                    {router.query.id
-                        ? <UpdateCertifications />
-                        : <CreateCertifications />
-                    }
-
-                </>
+                : id
+                    ? <UpdateCertifications />
+                    : <CreateCertifications />
             }
         </>
-    )
+    );
 }
 
 export default Certifications;

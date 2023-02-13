@@ -1,4 +1,4 @@
-import { GoogleAuthProvider, signInWithPopup } from "firebase/auth"
+import { GoogleAuthProvider, signInWithPopup, signInWithRedirect } from "firebase/auth"
 import Link from "next/link"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
@@ -8,7 +8,7 @@ import { FcGoogle } from "react-icons/fc"
 import { toast } from "react-toastify"
 import { auth } from "../../utils/firebase"
 
-function Login({ defaultUser = {} }) {
+function Login() {
     // Router
     const router = useRouter()
     const [user, loading] = useAuthState(auth)
@@ -20,7 +20,7 @@ function Login({ defaultUser = {} }) {
     const googleProvider = new GoogleAuthProvider()
     const GoogleLogin = async () => {
         try {
-            const result = await signInWithPopup(auth, googleProvider)
+            const result = await signInWithRedirect(auth, googleProvider)
             if (user) {
                 if (user?.metadata.createdAt == user?.metadata.lastLoginAt) {
                     router.push("/dashboard")
