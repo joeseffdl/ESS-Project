@@ -1,12 +1,11 @@
 import { resumeDataStore } from "../../../utils/store"
 
 function UpdateSkills() {
-  // State Management
   const resumeData = resumeDataStore(state => state.resumeData)
 
   return (
     <>
-      {resumeData.skills != ""
+      {Array.isArray(resumeData.skills) && resumeData.skills.length > 0
         ? (
           <section className="w-full pb-5">
             <div className="text-center font-bold my-1">
@@ -22,8 +21,7 @@ function UpdateSkills() {
               })}
             </div>
           </section>
-        ) : null
-      }
+        ) : null}
     </>
   )
 }

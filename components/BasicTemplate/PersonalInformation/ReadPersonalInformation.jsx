@@ -1,39 +1,34 @@
 function ReadPersonalInformation({ personalInfoProps }) {
-    // Props
-    const { viewPersonalInformation, headerFontSize, headerLineHeight } = personalInfoProps
+    const { viewPersonalInformation, headerFontSize, headerLineHeight } = personalInfoProps;
+    const { firstname, surname, emailAddress, phoneNumber, city, country, postalCode } = viewPersonalInformation;
 
     return (
         <section className="w-full ">
             <div className="text-center font-semibold my-4 tracking-widest" style={{
-                'fontSize': headerFontSize + 'rem',
-                'lineHeight': headerLineHeight + 'rem',
+                'fontSize': `${headerFontSize}rem`,
+                'lineHeight': `${headerLineHeight}rem`,
             }}>
-                {viewPersonalInformation.firstname || viewPersonalInformation.surname != "" ? `${viewPersonalInformation.firstname.toUpperCase()} ${viewPersonalInformation.surname.toUpperCase()}` : "FIRST NAME SURNAME"}
+                {firstname || surname ? `${firstname.toUpperCase()} ${surname.toUpperCase()}` : "FIRST NAME SURNAME"}
             </div>
             <div className="grid grid-flow-col auto-cols-max justify-center text-center mb-6 divide-x">
-                {viewPersonalInformation.emailAddress != ""
-                    ? (
-                        <div className="px-2">
-                            {viewPersonalInformation.emailAddress}
-                        </div>
-                    )
-                    : null}
-                {viewPersonalInformation.phoneNumber != ""
-                    ? <div className="px-2">
-                        {viewPersonalInformation.phoneNumber}
+                {emailAddress && (
+                    <div className="px-2">
+                        {emailAddress}
                     </div>
-                    : ``
-                }
-
-                {viewPersonalInformation.city || viewPersonalInformation.country != ``
-                    ? <div className="px-2">
-                        {viewPersonalInformation.city != "" ? `${viewPersonalInformation.city}, ` : ``} {viewPersonalInformation.country} {viewPersonalInformation.postalCode}
+                )}
+                {phoneNumber && (
+                    <div className="px-2">
+                        {phoneNumber}
                     </div>
-                    : ``
-                }
+                )}
+                {(city || country) && (
+                    <div className="px-2">
+                        {`${city}, ${country} ${postalCode}`}
+                    </div>
+                )}
             </div>
         </section>
-    )
+    );
 }
 
 export default ReadPersonalInformation;

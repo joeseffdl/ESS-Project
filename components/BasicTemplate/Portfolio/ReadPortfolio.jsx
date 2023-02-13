@@ -1,17 +1,14 @@
-function ReadPortfolio({ portfolioProps }) {
-    // Props
-    const { viewPortfolio, portfolioPaddingL, portfolioPaddingR, portfolioPaddingT, portfolioPaddingB } = portfolioProps
-
+function ReadPortfolio({ viewPortfolio, portfolioPaddingL, portfolioPaddingR, portfolioPaddingT, portfolioPaddingB }) {
     return (
         <>
-            {viewPortfolio != ""
+            {Array.isArray(viewPortfolio) && viewPortfolio.length > 0
                 ? (
                     <section className="w-full pb-5">
                         <div className="text-center font-bold my-1">
                             Portfolio
                         </div>
                         <div className="mb-5 ">
-                            {viewPortfolio?.map((portfolio) => {
+                            {viewPortfolio.map((portfolio) => {
                                 return (
                                     <ul className="flex list-disc list-inside" style={{
                                         'paddingLeft': portfolioPaddingL + 'rem',

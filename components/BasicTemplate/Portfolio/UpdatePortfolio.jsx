@@ -1,19 +1,18 @@
 import { resumeDataStore } from "../../../utils/store";
 
 function UpdatePortfolio() {
-  // State Management
   const resumeData = resumeDataStore(state => state.resumeData)
 
   return (
     <>
-      {resumeData.portfolio != ""
+      {Array.isArray(resumeData.portfolio) && resumeData.portfolio.length > 0
         ? (
           <section className="w-full px-10 pb-5">
             <div className="text-center font-bold my-1">
               Portfolio
             </div>
             <div className="mb-5 ">
-              {resumeData.portfolio?.map((portfolio) => {
+              {resumeData.portfolio.map((portfolio) => {
                 return (
                   <ul className="flex list-disc list-inside" key={portfolio}>
                     <li>{portfolio}</li>
@@ -22,8 +21,7 @@ function UpdatePortfolio() {
               })}
             </div>
           </section>
-        ) : null
-      }
+        ) : null}
     </>
   )
 }
