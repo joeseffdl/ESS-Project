@@ -4,23 +4,21 @@ import ReadSkills from "./Skills/ReadSkills"
 import UpdateSkills from "./Skills/UpdateSkills"
 
 function Skills({ skillsProps }) {
-    // Router
-    const router = useRouter()
-    const viewingResume = router.query.viewResume 
-    
+    const { query } = useRouter();
+    const isViewingResume = query.viewResume;
+    const isUpdating = query.id;
+
     return (
         <>
-            {viewingResume
-                ? <ReadSkills skillsProps={skillsProps} />
-                : <>
-                    {router.query.id
-                        ? <UpdateSkills />
-                        : <CreateSkills />
-                    }
-                </>
-            }
+            {isViewingResume ? (
+                <ReadSkills skillsProps={skillsProps} />
+            ) : isUpdating ? (
+                <UpdateSkills />
+            ) : (
+                <CreateSkills />
+            )}
         </>
-    )
+    );
 }
 
 export default Skills;
