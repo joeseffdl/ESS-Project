@@ -4,19 +4,16 @@ import ReadPortfolio from "./Portfolio/ReadPortfolio"
 import UpdatePortfolio from "./Portfolio/UpdatePortfolio"
 
 function Portfolio({ portfolioProps }) {
-    const { query } = useRouter();
-    const isViewingResume = query.viewResume;
-    const isUpdating = query.id;
+    const { query: { viewResume, id } } = useRouter();
 
     return (
         <>
-            {isViewingResume ? (
-                <ReadPortfolio portfolioProps={portfolioProps} />
-            ) : isUpdating ? (
-                <UpdatePortfolio />
-            ) : (
-                <CreatePortfolio />
-            )}
+            {viewResume
+                ? <ReadPortfolio portfolioProps={portfolioProps} />
+                : id
+                    ? <UpdatePortfolio />
+                    : <CreatePortfolio />
+            }
         </>
     );
 }

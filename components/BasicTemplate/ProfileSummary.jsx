@@ -4,19 +4,16 @@ import ReadProfileSummary from "./ProfileSummary/ReadProfileSummary"
 import UpdateProfileSummary from "./ProfileSummary/UpdateProfileSummary"
 
 function ProfileSummary({ profileSummaryProps }) {
-    const { query } = useRouter();
-    const isViewingResume = query.viewResume;
-    const isUpdating = query.id;
+    const { query: { viewResume, id } } = useRouter();
 
     return (
         <>
-            {isViewingResume ? (
-                <ReadProfileSummary profileSummaryProps={profileSummaryProps} />
-            ) : isUpdating ? (
-                <UpdateProfileSummary />
-            ) : (
-                <CreateProfileSummary />
-            )}
+            {viewResume
+                ? <ReadProfileSummary profileSummaryProps={profileSummaryProps} />
+                : id
+                    ? <UpdateProfileSummary />
+                    : <CreateProfileSummary />
+            }
         </>
     );
 }

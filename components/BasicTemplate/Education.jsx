@@ -5,24 +5,16 @@ import ReadEducation from "./Education/ReadEducation"
 import UpdateEducation from "./Education/UpdateEducation"
 
 function Education({ educationProps }) {
-    const { query } = useRouter();
-    const isViewingResume = query.viewResume;
-    const educationField = resumeEducationStore(state => state.educationField);
-
+    const { query: { viewResume, id } } = useRouter();
+    
     return (
         <>
-            {isViewingResume ? (
-                <ReadEducation educationProps={educationProps} />
-            ) : (
-                <>
-                    {educationField.institutionName &&
-                        educationField.degreeType ? (
-                        <CreateEducation />
-                    ) : (
-                        <UpdateEducation />
-                    )}
-                </>
-            )}
+            {viewResume
+                ? <ReadEducation educationProps={educationProps} />
+                : id
+                    ? <UpdateEducation />
+                    : <CreateEducation />
+            }
         </>
     );
 }
