@@ -9,7 +9,7 @@ function Skills({ skillsProps }) {
     return (
         <>
             {viewResume
-                ? <ReadSkills skillsProps={skillsProps} />
+                ? <ReadSkills {...skillsProps} />
                 : id
                     ? <UpdateSkills />
                     : <CreateSkills />

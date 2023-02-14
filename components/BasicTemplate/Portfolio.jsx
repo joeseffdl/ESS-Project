@@ -9,7 +9,7 @@ function Portfolio({ portfolioProps }) {
     return (
         <>
             {viewResume
-                ? <ReadPortfolio portfolioProps={portfolioProps} />
+                ? <ReadPortfolio {...portfolioProps} />
                 : id
                     ? <UpdatePortfolio />
                     : <CreatePortfolio />

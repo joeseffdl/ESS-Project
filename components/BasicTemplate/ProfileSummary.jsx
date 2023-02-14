@@ -9,7 +9,7 @@ function ProfileSummary({ profileSummaryProps }) {
     return (
         <>
             {viewResume
-                ? <ReadProfileSummary profileSummaryProps={profileSummaryProps} />
+                ? <ReadProfileSummary {...profileSummaryProps} />
                 : id
                     ? <UpdateProfileSummary />
                     : <CreateProfileSummary />

@@ -1,18 +1,17 @@
 
-function ReadEducation({ educationProps }) {
-    // Props
-    const {
-        viewEducationalBackground,
-        educationHeadMarginT,
-        educationHeadMarginB,
-        educationSubHeadMarginT,
-        educationSubHeadMarginB,
-        educationHeadPaddingX,
-        educationDescriptionPaddingL,
-        educationDescriptionPaddingR,
-        educationDescriptionPaddingY,
-        educationMarginB,
-    } = educationProps
+function ReadEducation({
+    viewEducationalBackground,
+    educationHeadMarginT,
+    educationHeadMarginB,
+    educationSubHeadMarginT,
+    educationSubHeadMarginB,
+    educationHeadPaddingX,
+    educationDescriptionPaddingL,
+    educationDescriptionPaddingR,
+    educationDescriptionPaddingY,
+    educationMarginB,
+}) {
+    
     return (
         <>
             {
