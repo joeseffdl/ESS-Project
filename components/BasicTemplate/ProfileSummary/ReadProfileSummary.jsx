@@ -1,5 +1,4 @@
-function ReadProfileSummary({ profileSummaryProps }) {
-    const { viewProfileSummary, summaryMarginX, summaryMarginY, summaryLineHeight } = profileSummaryProps
+function ReadProfileSummary({ viewProfileSummary, summaryMarginX, summaryMarginY, summaryLineHeight }) {
 
     return viewProfileSummary ? (
         <section className="w-full">

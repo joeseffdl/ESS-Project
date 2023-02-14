@@ -1,4 +1,5 @@
 function ReadSkills({ viewSkills, skillsPaddingL, skillsPaddingR, skillsPaddingT, skillsPaddingB }) {
+    console.log("viewskills",viewSkills)
     return (
         <>
             {Array.isArray(viewSkills) && viewSkills.length > 0 ? (

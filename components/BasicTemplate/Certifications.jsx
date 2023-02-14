@@ -9,7 +9,7 @@ function Certifications({ certificationsProps }) {
     return (
         <>
             {viewResume
-                ? <ReadCertifications certificationsProps={certificationsProps} />
+                ? <ReadCertifications {...certificationsProps} />
                 : id
                     ? <UpdateCertifications />
                     : <CreateCertifications />
