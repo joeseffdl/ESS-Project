@@ -5,11 +5,11 @@ import UpdateWorkExperiences from "./WorkExperience/UpdateWorkExperiences"
 
 function WorkExperiences({ workExperiencesProps }) {
     const { query: { viewResume, id } } = useRouter();
-    
+
     return (
         <>
             {viewResume
-                ? <ReadWorkExperiences workExperiencesProps={workExperiencesProps} />
+                ? <ReadWorkExperiences {...workExperiencesProps} />
                 : id
                     ? <UpdateWorkExperiences />
                     : <CreateWorkExperiences />
