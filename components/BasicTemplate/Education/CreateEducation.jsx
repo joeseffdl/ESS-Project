@@ -1,7 +1,6 @@
 import { resumeEducationStore } from "../../../utils/store"
 
 function CreateEducation() {
-    // State Management
     const educationField = resumeEducationStore(state => state.educationField)
 
     return (
@@ -15,23 +14,22 @@ function CreateEducation() {
                         <div className="flex flex-col " key={education.institutionName}>
                             <div className="flex items-center justify-center">
                                 <div className="grid grid-flow-col auto-cols-max text-center divide-x mt-3">
-                                    {education.institutionName != ""
-                                        ? (
+                                    {education.institutionName && (
                                             <div className="px-2">
                                                 {education.institutionName}
                                             </div>
-                                        ) : null
+                                        )
                                     }
-                                    {education.institutionLocation || education.graduationYear || education.graduationMonth != ""
+                                    {education.institutionLocation.length > 0 || education.graduationYear.length > 0 || education.graduationMonth.length > 0
                                         ? (
                                             <>
-                                                {education.institutionLocation != "" ?
+                                                {education.institutionLocation && (
                                                     <div className="px-2">
                                                         {education.institutionLocation}
                                                     </div>
-                                                    : null
+                                                    )
                                                 }
-                                                {education.graduationYear || education.graduationMonth != "" ? (
+                                                {education.graduationYear.length > 0 || education.graduationMonth.length > 0 ? (
                                                     <div className="px-2">
                                                         {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
                                                     </div>
@@ -44,26 +42,22 @@ function CreateEducation() {
                                     }
                                 </div>
                             </div>
-                            {education.degreeType != ""
-                                ? (
+                            {education.degreeType && (
                                     <div className="text-center my-3">
                                         <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
                                     </div>
                                 )
-                                : null
                             }
-                            {education.description ? (
+                            {Array.isArray(education.description) && education.description.length > 0 && (
                                 <div className="px-5 mb-5">
-                                    {education.description?.map((detail) => {
-                                        return (
-                                            <ul className="flex list-disc list-inside" key={detail}>
-                                                <li>{detail}</li>
-                                            </ul>
-                                        )
-                                    })}
+                                    {education.description.map((detail) => (
+                                        <ul className="flex list-disc list-inside" key={detail}>
+                                            <li>{detail}</li>
+                                        </ul>
+                                    ))}
                                 </div>
-                            ) : null
-                            }
+                            )}
+
                         </div>
                     )
                 })}

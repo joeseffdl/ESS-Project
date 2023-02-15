@@ -26,35 +26,34 @@ function ReadEducation({
                                     <div className="flex flex-col " key={education.institutionName}>
                                         <div className="flex items-center justify-center">
                                             <div className="grid grid-flow-col auto-cols-max text-center divide-x" style={{
-                                                'marginTop': educationHeadMarginT + 'rem',
-                                                'marginBottom': educationHeadMarginB + 'rem',
+                                                'marginTop': `${educationHeadMarginT}rem`,
+                                                'marginBottom': `${educationHeadMarginB}rem`,
                                             }}>
-                                                {education.institutionName != ""
-                                                    ? (
+                                                {education.institutionName && (
                                                         <div style={{
-                                                            'paddingLeft': educationHeadPaddingX + 'rem',
-                                                            'paddingRight': educationHeadPaddingX + 'rem',
+                                                            'paddingLeft': `${educationHeadPaddingX}rem`,
+                                                            'paddingRight': `${educationHeadPaddingX}rem`,
                                                         }}>
                                                             {education.institutionName}
                                                         </div>
-                                                    ) : null
+                                                    )
                                                 }
                                                 {education.institutionLocation || (education.graduationYear || education.graduationMonth) != ""
                                                     ? (
                                                         <>
-                                                            {education.institutionLocation != "" ?
+                                                            {education.institutionLocation && (
                                                                 <div style={{
-                                                                    'paddingLeft': educationHeadPaddingX + 'rem',
-                                                                    'paddingRight': educationHeadPaddingX + 'rem',
+                                                                    'paddingLeft': `${educationHeadPaddingX}rem`,
+                                                                    'paddingRight': `${educationHeadPaddingX}rem`,
                                                                 }}>
                                                                     {education.institutionLocation}
                                                                 </div>
-                                                                : null
+                                                                )
                                                             }
-                                                            {education.graduationYear || education.graduationMonth != "" ? (
+                                                            {education.graduationYear.length > 0 || education.graduationMonth.length > 0 ? (
                                                                 <div style={{
-                                                                    'paddingLeft': educationHeadPaddingX + 'rem',
-                                                                    'paddingRight': educationHeadPaddingX + 'rem',
+                                                                    'paddingLeft': `${educationHeadPaddingX}rem`,
+                                                                    'paddingRight': `${educationHeadPaddingX}rem`,
                                                                 }}>
                                                                     {education.graduationYear > new Date().getFullYear() ? "Expected Graduation Date - " : null}{education.graduationMonth} {education.graduationYear}
                                                                 </div>
@@ -67,34 +66,32 @@ function ReadEducation({
                                                 }
                                             </div>
                                         </div>
-                                        {education.degreeType != ""
-                                            ? (
-                                                <div className="text-center " style={{
-                                                    'marginTop': educationSubHeadMarginT + 'rem',
-                                                    'marginBottom': educationSubHeadMarginB + 'rem',
+                                        {education.degreeType && (
+                                            <div className="text-center " style={{
+                                                'marginTop': `${educationSubHeadMarginT}rem`,
+                                                'marginBottom': `${educationSubHeadMarginB}rem`,
                                                 }}>
                                                     <span className="font-bold">{education.degreeType}{(education.degreeType == "High School Diploma" || education.degreeType == "GED" || education.degreeType == "No Degree") ? "" : ":"}</span> {education.fieldOfStudy}
                                                 </div>
                                             )
-                                            : null
                                         }
-                                        {education.description ? (
+                                        {Array.isArray(education.description) && education.description.length > 0 && (
                                             <div style={{
-                                                'paddingLeft': educationDescriptionPaddingL + 'rem',
-                                                'marginBottom': educationMarginB + 'rem',
+                                                'paddingLeft': `${educationDescriptionPaddingL}rem`,
+                                                'marginBottom': `${educationMarginB}rem`,
                                             }}>
                                                 {education.description?.map((detail) => {
                                                     return (
                                                         <ul className="flex list-disc list-inside" style={{
-                                                            'paddingTop': educationDescriptionPaddingY + 'rem',
-                                                            'paddingBottom': educationDescriptionPaddingY + 'rem',
+                                                            'paddingTop': `${educationDescriptionPaddingY}rem`,
+                                                            'paddingBottom': `${educationDescriptionPaddingY}rem`,
                                                         }} key={detail}>
                                                             <li>{detail}</li>
                                                         </ul>
                                                     )
                                                 })}
                                             </div>
-                                        ) : null
+                                            )
                                         }
                                     </div>
                                 )
