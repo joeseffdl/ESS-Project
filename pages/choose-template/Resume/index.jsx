@@ -83,8 +83,7 @@ function Resume() {
         }
     }
 
-    // Logged in?
-    const getData = () => {
+    const getUser = () => {
         if (loading) return;
         if (!user) return router.push("/login")
     }
@@ -152,7 +151,7 @@ function Resume() {
 
     // Get users data
     useEffect(() => {
-        getData()
+        getUser()
         if (routeID) {
             editingDocument()
         } else {

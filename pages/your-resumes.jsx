@@ -22,14 +22,13 @@ function YourResumes() {
         }
     ]
     
-    // Logged in?
-    const getData = async () => {
+    const getUser = async () => {
         if (loading) return;
         if (!user) return router.push("/login")
     }
 
     useEffect(() => {
-        getData()
+        getUser()
     }, [user, loading])
 
     return (
