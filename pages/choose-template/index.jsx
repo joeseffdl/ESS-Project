@@ -6,21 +6,16 @@ import AppNavigation from "../../components/AppNavigation"
 import { auth } from "../../utils/firebase"
 
 function Templates() {
-    // Router
     const router = useRouter()
-
-    // Handle user
     const [user, loading] = useAuthState(auth)
     
-    // Logged in?
-    const getData = async () => {
+    const getUser = async () => {
         if (loading) return;
         if (!user) return router.push("/login")
     }
     
-    // Get users data
     useEffect(() => {
-        getData()
+        getUser()
     }, [user,loading])
 
     const templates = [

@@ -68,8 +68,7 @@ function View() {
         portfolioPaddingB: 0,
     })
 
-    // Logged in?
-    const getData = async () => {
+    const getUser = async () => {
         if (loading) return;
         if (!user) return router.push("/login")
     }
@@ -105,7 +104,7 @@ function View() {
     })
 
     useEffect(() => {
-        getData()
+        getUser()
         getResumeData(routeDataID)
     }, [user, loading,])
 

@@ -6,14 +6,9 @@ import { useAuthState } from "react-firebase-hooks/auth"
 import AppNavigation from "../../components/AppNavigation"
 import { auth } from "../../utils/firebase"
 function Welcome() {
-    // Router
     const router = useRouter()
-
-    // Handle user
     const [user, loading] = useAuthState(auth)
-    
-    // Logged in?
-    const getData = async () => {
+    const getUser = async () => {
         if (loading) return;
         if (!user) return router.push("/login")
     }
@@ -28,7 +23,7 @@ function Welcome() {
     }
     
     useEffect(() => {
-        getData()
+        getUser()
         stopConfetti()
     }, [user, loading])
 

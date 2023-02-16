@@ -14,8 +14,7 @@ function Account() {
     // Handle user
     const [user, loading] = useAuthState(auth)
     
-    // Logged in?
-    const getData = async () => {
+    const getUser = async () => {
         if (loading) return;
         if (!user) return router.push("/login")
     }
@@ -32,7 +31,7 @@ function Account() {
 
     // Get users data
     useEffect(() => {
-        getData()
+        getUser()
         if (!loading) {
             getResumeCount()
         }
