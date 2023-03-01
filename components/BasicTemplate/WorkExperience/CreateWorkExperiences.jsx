@@ -2,7 +2,7 @@ import { resumeExperienceStore } from "../../../utils/store"
 
 function CreateWorkExperiences() {
     const workExp = resumeExperienceStore(state => state.workExp)
-    console.log([workExp])
+    
     return (
         <>
             {workExp.title && (<section section className="w-full relative" >
