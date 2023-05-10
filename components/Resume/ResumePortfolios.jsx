@@ -121,11 +121,11 @@ function ResumePortfolios() {
                 placeholder="Provide the link to your website portfolio"
                 onChange={handleChange}
             >
-                {router.query.id ? resumeData.portfolio.join("\n") : portfolio}
+                {/* {router.query.id ? resumeData.portfolio.join("\n") : portfolio} */}
             </textarea>
             <div className="w-full flex flex-col sm:justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
-                <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.portfolio, resumeData.portfolio)) ? "Update" : "Continue"}</button>
+                <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent" disabled={_.isEqual(initialResumeData.portfolio, resumeData.portfolio)}>{router.query.id && (!_.isEqual(initialResumeData.portfolio, resumeData.portfolio)) ? "Update" : "Continue"}</button>
                 <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={skipSection}>Skip this Section</button>
             </div>
         </FormWindow>
