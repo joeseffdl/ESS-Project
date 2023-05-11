@@ -88,7 +88,7 @@ function ResumeProfileSummary() {
             </textarea>
             <div className="w-full flex flex-col sm:justify-between gap-5">
                 <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
-                <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent">{router.query.id && (!_.isEqual(initialResumeData.profileSummary, resumeData.profileSummary)) ? "Update" : "Continue"}</button>
+                <button type="submit" className="btn btn-sm sm:btn-md btn-outline btn-accent" disabled={_.isEqual(initialResumeData.profileSummary, resumeData.profileSummary)}>{router.query.id && (!_.isEqual(initialResumeData.profileSummary, resumeData.profileSummary)) ? "Update" : "Continue"}</button>
                 <button className=" btn btn-sm sm:btn-md btn-outline btn-accent" onClick={skipSection}>Skip this Section</button>
             </div>
         </FormWindow>
