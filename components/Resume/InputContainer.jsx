@@ -14,7 +14,7 @@ function InputResume({ children }) {
     useEffect(() => {
         setCurrentStep(step)
     }, [step])
-    console.log(step, currentStep)
+    
     return (
         <>
             <div className="w-full h-24 flex justify-center items-center bg-primary-focus/75 shadow-2xl rounded-xl border-2 border-accent-focus ">
