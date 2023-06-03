@@ -1,8 +1,8 @@
-import Head from 'next/head'
-import '../styles/globals.css'
-import Layout from '../components/Layout'
-import { ToastContainer } from "react-toastify"
-import 'react-toastify/dist/ReactToastify.css'
+import Head from "next/head";
+import "../styles/globals.css";
+import Layout from "../components/Layout";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function MyApp({ Component, pageProps }) {
   if (Component.getLayout) {
@@ -16,9 +16,9 @@ function MyApp({ Component, pageProps }) {
         <ToastContainer draggable={false} limit={1} autoClose={1500} />
         <Component {...pageProps} />
       </>
-    )
+    );
   }
-  
+
   return (
     <>
       <Head>
@@ -31,7 +31,7 @@ function MyApp({ Component, pageProps }) {
         <Component {...pageProps} />
       </Layout>
     </>
-  )
+  );
 }
 
-export default MyApp
+export default MyApp;

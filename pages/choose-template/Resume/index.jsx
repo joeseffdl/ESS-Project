@@ -1,188 +1,187 @@
-import { addDoc, collection, doc, getDoc, serverTimestamp } from "firebase/firestore"
-import { useRouter } from "next/router"
-import { useEffect } from "react"
-import { useAuthState } from "react-firebase-hooks/auth"
-import { toast } from "react-toastify"
-import AppNavigation from "../../../components/AppNavigation"
-import OutputResume from "../../../components/BasicTemplate/OutputResume"
-import InputContainer from "../../../components/Resume/InputContainer"
-import InputTemplate from "../../../components/Resume/InputTemplate"
-import OutputTemplate from "../../../components/Resume/OutputTemplate"
-import ResumeCertifications from "../../../components/Resume/ResumeCertifications"
-import ResumeEducation from "../../../components/Resume/ResumeEducation"
-import ResumeExperience from "../../../components/Resume/ResumeExperience"
-import ResumePortfolios from "../../../components/Resume/ResumePortfolios"
-import ResumeProfile from "../../../components/Resume/ResumeProfile"
-import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummary"
-import ResumeSkills from "../../../components/Resume/ResumeSkills"
-import { auth, db } from "../../../utils/firebase"
-import { completedSteps, resumeDataStore } from "../../../utils/store"
+import {
+  addDoc,
+  collection,
+  doc,
+  getDoc,
+  serverTimestamp,
+} from "firebase/firestore";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
+import { useAuthState } from "react-firebase-hooks/auth";
+import { toast } from "react-toastify";
+import AppNavigation from "../../../components/AppNavigation";
+import OutputResume from "../../../components/BasicTemplate/OutputResume";
+import InputContainer from "../../../components/Resume/InputContainer";
+import InputTemplate from "../../../components/Resume/InputTemplate";
+import OutputTemplate from "../../../components/Resume/OutputTemplate";
+import ResumeCertifications from "../../../components/Resume/ResumeCertifications";
+import ResumeEducation from "../../../components/Resume/ResumeEducation";
+import ResumeExperience from "../../../components/Resume/ResumeExperience";
+import ResumePortfolios from "../../../components/Resume/ResumePortfolios";
+import ResumeProfile from "../../../components/Resume/ResumeProfile";
+import ResumeProfileSummary from "../../../components/Resume/ResumeProfileSummary";
+import ResumeSkills from "../../../components/Resume/ResumeSkills";
+import { auth, db } from "../../../utils/firebase";
+import { completedSteps, resumeDataStore } from "../../../utils/store";
 
 function Resume() {
-    // State Management
-    const resumeData = resumeDataStore(state => state.resumeData)
-    let step = completedSteps(state => state.steps)
+  // State Management
+  const resumeData = resumeDataStore((state) => state.resumeData);
+  let step = completedSteps((state) => state.steps);
 
-    // State functions
-    const setResumeData = resumeDataStore(state => state.setResumeData)
-    const setInitialResumeData = resumeDataStore(state => state.setInitialResumeData)
-    const setCompletedSteps = completedSteps(state => state.setCompletedSteps)
-    const decrementStep = completedSteps(state => state.decrementStep)
+  // State functions
+  const setResumeData = resumeDataStore((state) => state.setResumeData);
+  const setInitialResumeData = resumeDataStore(
+    (state) => state.setInitialResumeData
+  );
+  const setCompletedSteps = completedSteps((state) => state.setCompletedSteps);
+  const decrementStep = completedSteps((state) => state.decrementStep);
 
-    // Router
-    const router = useRouter()
-    const routeID = router.query.id
-    const resumeType = router.route.slice(17)
+  // Router
+  const router = useRouter();
+  const routeID = router.query.id;
+  const resumeType = router.route.slice(17);
 
-    // Handle user
-    const [user, loading] = useAuthState(auth)
+  // Handle user
+  const [user, loading] = useAuthState(auth);
 
-    // Submit Resume
-    const submitResume = async (e) => {
-        e.preventDefault()
-        try {
-            if (routeID) {
-                router.push(`/${routeID}`)
-            }
-            else {
-                const collectionRef = collection(db, "resumes")
-                await addDoc(collectionRef, {
-                    createdOn: serverTimestamp(),
-                    user: user.uid,
-                    username: user.displayName,
-                    avatar: user.photoURL,
-                    type: resumeType,
-                    resumeData: {
-                        personalInformation: resumeData.personalInformation,
-                        workExperiences: resumeData.workExperiences,
-                        educationalBackground: resumeData.educationalBackground,
-                        skills: resumeData.skills,
-                        certifications: resumeData.certifications,
-                        portfolio: resumeData.portfolio,
-                        profileSummary: resumeData.profileSummary,
-                    }
-                })
-                toast.success("Successfully saved to database 🚀")
-                router.push("/resumes")
-            }
-        } catch (err) {
-            console.log(err)
-        }
+  // Submit Resume
+  const submitResume = async (e) => {
+    e.preventDefault();
+    try {
+      if (routeID) {
+        router.push(`/${routeID}`);
+      } else {
+        const collectionRef = collection(db, "resumes");
+        await addDoc(collectionRef, {
+          createdOn: serverTimestamp(),
+          user: user.uid,
+          username: user.displayName,
+          avatar: user.photoURL,
+          type: resumeType,
+          resumeData: {
+            personalInformation: resumeData.personalInformation,
+            workExperiences: resumeData.workExperiences,
+            educationalBackground: resumeData.educationalBackground,
+            skills: resumeData.skills,
+            certifications: resumeData.certifications,
+            portfolio: resumeData.portfolio,
+            profileSummary: resumeData.profileSummary,
+          },
+        });
+        toast.success("Successfully saved to database 🚀");
+        router.push("/resumes");
+      }
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    // Get user resume data
-    const getResumeData = async (id) => {
-        try {
-            const docRef = doc(db, 'resumes', id)
-            const docSnap = await getDoc(docRef)
-            const unsubscribe = setResumeData(docSnap.data().resumeData)
-            const setInitial = setInitialResumeData(docSnap.data().resumeData)
-            return (unsubscribe, setInitial)
-        } catch (err) {
-            console.log(err)
-        }
+  // Get user resume data
+  const getResumeData = async (id) => {
+    try {
+      const docRef = doc(db, "resumes", id);
+      const docSnap = await getDoc(docRef);
+      const unsubscribe = setResumeData(docSnap.data().resumeData);
+      const setInitial = setInitialResumeData(docSnap.data().resumeData);
+      return unsubscribe, setInitial;
+    } catch (err) {
+      console.log(err);
     }
+  };
 
-    const getUser = () => {
-        if (loading) return;
-        if (!user) return router.push("/login")
-    }
+  const getUser = () => {
+    if (loading) return;
+    if (!user) return router.push("/login");
+  };
 
-    // Editing document?
-    const editingDocument = () => {
-        setCompletedSteps(1)
-        getResumeData(routeID)
-    }
+  // Editing document?
+  const editingDocument = () => {
+    setCompletedSteps(1);
+    getResumeData(routeID);
+  };
 
-    // Go back to the previous page 
-    const toPreviousPage = (e) => {
-        e.preventDefault()
-        decrementStep()
-    }
+  // Go back to the previous page
+  const toPreviousPage = (e) => {
+    e.preventDefault();
+    decrementStep();
+  };
 
-    // Display page according to page count
-    const PageDisplay = () => {
-        if (step == 1) {
-            return (
-                <ResumeProfile />
-            )
-        }
-        else if (step == 2) {
-            return (
-                <ResumeExperience />
-            )
-        }
-        else if (step == 3) {
-            return (
-                <ResumeEducation />
-            )
-        }
-        else if (step == 4) {
-            return (
-                <ResumeSkills />
-            )
-        }
-        else if (step == 5) {
-            return (
-                <ResumeProfileSummary />
-            )
-        }
-        else if (step == 6) {
-            return (
-                <ResumeCertifications />
-            )
-        }
-        else if (step == 7) {
-            return (
-                <ResumePortfolios />
-            )
-        }
-        else {
-            return (
-                <>
-                    <div className="w-full flex flex-col gap-5">
-                        <button className="btn btn-sm sm:btn-md btn-outline btn-accent" onClick={toPreviousPage}>Back</button>
-                        <button type="submit" className="btn btn-sm sm:btn-md btn-accent" onClick={submitResume}>{routeID ? "View Resume" : "Save Resume"}</button>
-                    </div>
-                </>
-            )
-        }
-    }
-
-    // Get users data
-    useEffect(() => {
-        getUser()
-        if (routeID) {
-            editingDocument()
-        } else {
-            setCompletedSteps(1)
-        }
-
-    }, [user, loading])
-
-    return (
+  // Display page according to page count
+  const PageDisplay = () => {
+    if (step == 1) {
+      return <ResumeProfile />;
+    } else if (step == 2) {
+      return <ResumeExperience />;
+    } else if (step == 3) {
+      return <ResumeEducation />;
+    } else if (step == 4) {
+      return <ResumeSkills />;
+    } else if (step == 5) {
+      return <ResumeProfileSummary />;
+    } else if (step == 6) {
+      return <ResumeCertifications />;
+    } else if (step == 7) {
+      return <ResumePortfolios />;
+    } else {
+      return (
         <>
-            <div className="w-full flex flex-col xl:flex-row">
-                <InputTemplate>
-                    <InputContainer>
-                        {PageDisplay()}
-                    </InputContainer>
-                </InputTemplate>
-                <OutputTemplate>
-                    <OutputResume />
-                </OutputTemplate>
-            </div>
+          <div className="w-full flex flex-col gap-5">
+            <button
+              className="btn btn-sm sm:btn-md btn-outline btn-accent"
+              onClick={toPreviousPage}
+            >
+              Back
+            </button>
+            <button
+              type="submit"
+              className="btn btn-sm sm:btn-md btn-accent"
+              onClick={submitResume}
+            >
+              {routeID ? "View Resume" : "Save Resume"}
+            </button>
+          </div>
         </>
-    )
+      );
+    }
+  };
+
+  // Get users data
+  useEffect(() => {
+    getUser();
+    if (routeID) {
+      editingDocument();
+    } else {
+      setCompletedSteps(1);
+    }
+  }, [user, loading]);
+
+  return (
+    <>
+      <div className="w-full flex flex-col xl:flex-row">
+        <InputTemplate>
+          <InputContainer>{PageDisplay()}</InputContainer>
+          <p className="block xl:hidden text-white font-semibold text-center text-lg">
+            This feature is only available on desktop screen sizes or at least
+            1280px in width. <br />
+            Please resize your browser window to view this feature.
+          </p>
+        </InputTemplate>
+        <OutputTemplate>
+          <OutputResume />
+        </OutputTemplate>
+      </div>
+    </>
+  );
 }
 
-export default Resume
+export default Resume;
 
 Resume.getLayout = function PageLayout(page) {
-    return (
-        <>
-            <AppNavigation />
-            {page}
-        </>
-    )
-}
+  return (
+    <>
+      <AppNavigation />
+      {page}
+    </>
+  );
+};
