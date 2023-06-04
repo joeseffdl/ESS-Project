@@ -41,7 +41,7 @@ function AppNavigation() {
       <nav
         className={`flex items-center justify-between ${
           open && windowWidth <= 768
-            ? "bg-primary"
+            ? "bg-primary "
             : "bg-gradient-to-b from-secondary to-primary"
         } py-5 px-10 xl:px-24 font-bold`}
       >
@@ -69,7 +69,7 @@ function AppNavigation() {
                     md:flex md:items-end md:pb-0 md:z-auto md:pl-0 md:w-auto md:static
                     ${
                       open
-                        ? "top-16 z-50 h-1/4 border-b-2 border-accent bg-gradient-to-t from-secondary to-primary md:bg-none md:border-none"
+                        ? "top-16 z-50 h-1/3 border-b-2 border-accent bg-gradient-to-t from-secondary to-primary md:bg-none md:border-none"
                         : "hidden"
                     }`}
         >

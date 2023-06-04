@@ -70,23 +70,23 @@ export default function Home() {
             <p className="text-primary-focus lg:text-5xl text-4xl font-extrabold">
               Features
             </p>
-            <p className="lg:text-2xl text-xl my-5">
+            <p className="lg:text-2xl xl:text-3xl text-xl my-5">
               Oregen is a real-time resume builder with the following features:
             </p>
-            <ul className="space-y-5">
-              <li className="text-lg list-disc list-inside">
+            <ul className="space-y-5 text-sm lg:text-lg xl:text-2xl list-disc list-inside">
+              <li>
                 <span className="font-semibold">Real-time resume builder:</span>{" "}
                 Allows you to create and edit your resume which will reflect
                 right away.
               </li>
-              <li className="text-lg list-disc list-inside">
+              <li>
                 <span className="font-semibold">
                   A library of resume templates:
                 </span>{" "}
                 These templates can help you get started with your resume and
                 ensure that it is formatted professionally.
               </li>
-              <li className="text-lg list-disc list-inside">
+              <li>
                 <span className="font-semibold">
                   Ease of use and Customization:
                 </span>{" "}
@@ -107,7 +107,7 @@ export default function Home() {
                 A BRIEF HISTORY
               </span>
             </p>
-            <p className="text-2xl ">
+            <p className="text-lg xl:text-2xl ">
               Real-time resume builders have become increasingly popular in
               recent years. In 2022, over 50% of job seekers used a real-time
               resume builder to create their resumes. Real-time resume builders
@@ -115,11 +115,6 @@ export default function Home() {
               easier. That is why OREGEN aims to fulfill this gap in the market
               and serve it to the people for free.
             </p>
-
-            <div className="btn-group py-5">
-              <button className="btn btn-circle btn-outline ">&lt;</button>
-              <button className="btn btn-circle btn-outline ">&gt;</button>
-            </div>
           </div>
         </section>
 

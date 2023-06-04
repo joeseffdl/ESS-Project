@@ -341,11 +341,11 @@ function ResumeTable({ user, Links }) {
                                 .join(" ")}
                             </td>
                             <td className="flex justify-center gap-2 p-4 text-lg text-gray-700 whitespace-nowrap font-semibold tracking-wide">
-                              <Link href={{ pathname: `/${resume.id}` }}>
+                              {/* <Link href={{ pathname: `/${resume.id}` }}>
                                 <button className="hover:scale-110 hover:text-sky-600">
                                   <AiFillEye />
                                 </button>
-                              </Link>
+                              </Link> */}
                             </td>
                           </>
                         )}
