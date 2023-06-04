@@ -1,7 +1,9 @@
-import { resumeCertificationStore } from "../../../utils/store"
+import { resumeCertificationStore } from "../../../utils/store";
 
 function CreateCertifications() {
-  const userCertifications = resumeCertificationStore(state => state.certifications);
+  const userCertifications = resumeCertificationStore(
+    (state) => state.certifications
+  );
 
   return (
     <>
@@ -20,6 +22,5 @@ function CreateCertifications() {
     </>
   );
 }
-
 
 export default CreateCertifications;
